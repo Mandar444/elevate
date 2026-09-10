@@ -13,7 +13,7 @@ export function cameraPose(progress,width,height,zoom=1){
   return {x:mix(a.x,b.x,s),z:mix(a.z,b.z,s),height:h,offsetX:mobile?0:mix(a.offsetX,b.offsetX,s),offsetY:mobile?-.145:mix(a.offsetY,b.offsetY,s)};
 }
 
-export async function createWorld(canvas,pins,onReady,onError,onNavigate=()=>{}){
+export async function createWorld(canvas,pins,onReady,onError,onNavigate=()=>{},initial={}){
  let renderer;
  try{renderer=new T.WebGLRenderer({canvas,alpha:false,antialias:true,powerPreference:'low-power'});}catch(e){onError(e);return null;}
  renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.NoToneMapping;
@@ -88,13 +88,13 @@ export async function createWorld(canvas,pins,onReady,onError,onNavigate=()=>{})
  let selected='';
  function select(destination){if(selected===destination)return;selected=destination;const b=buildings.find(x=>x.destination===destination);selection.visible=!!b;if(!b)return;const r=b.size*.54;selection.geometry.dispose();selection.geometry=new T.BufferGeometry().setFromPoints([new T.Vector3(b.x-r,.09,b.z-r),new T.Vector3(b.x+r,.09,b.z-r),new T.Vector3(b.x+r,.09,b.z+r),new T.Vector3(b.x-r,.09,b.z+r)]);}
 
- let width=1,height=1,mobile=false,progress=0,progressGoal=0,night=0,nightGoal=0,zoom=1,zoomGoal=1,panX=0,panZ=0,panXGoal=0,panZGoal=0;
- let raf=0,dirty=true,disposed=false,visible=true,last=0,ready=false,animationTime=0,paused=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ let width=1,height=1,mobile=false,progress=clamp(initial.progress??0,0,cameraStops.length-1),progressGoal=progress,night=initial.night?1:0,nightGoal=night,zoom=1,zoomGoal=1,panX=0,panZ=0,panXGoal=0,panZGoal=0;
+ let raf=0,dirty=true,disposed=false,visible=true,enabled=true,last=0,ready=false,animationTime=0,paused=matchMedia('(prefers-reduced-motion: reduce)').matches;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)'),temp=new T.Vector3();
  function applyCamera(){const pose=cameraPose(progress,width,height,zoom),half=pose.height/2;camera.left=-half*width/height;camera.right=half*width/height;camera.top=half;camera.bottom=-half;camera.updateProjectionMatrix();const target=new T.Vector3(pose.x+panX,0,pose.z+panZ);camera.position.copy(target).addScaledVector(direction,95);camera.setViewOffset(width,height,pose.offsetX*width,pose.offsetY*height,width,height);camera.lookAt(target);camera.updateMatrixWorld();}
  function updatePins(){for(const [name,element] of Object.entries(pins)){const landmark=landmarks[name];temp.set(landmark.x,.1,landmark.z).addScaledVector(upAxis,landmark.height);temp.project(camera);const x=(temp.x*.5+.5)*width,y=(-temp.y*.5+.5)*height;const shown=!mobile&&progress<.35&&x>Math.max(340,width*.25)&&x<width-90&&y>110&&y<height-90;element.hidden=!shown;element.inert=!shown;element.style.transform=`translate3d(${x}px,${y}px,0) translate(-50%,-100%)`;}}
  function hitTest(event){const rect=canvas.getBoundingClientRect(),x=event.clientX-rect.left,y=event.clientY-rect.top;for(const item of [...interactive].sort((a,b)=>b.x+b.z-a.x-a.z)){const points=item.points.map(p=>p.clone().project(camera));const xs=points.map(p=>(p.x*.5+.5)*width),ys=points.map(p=>(-p.y*.5+.5)*height);if(x>Math.min(...xs)&&x<Math.max(...xs)&&y>Math.min(...ys)&&y<Math.max(...ys))return item.destination;}return null;}
- function frame(now){raf=0;if(disposed||!visible||document.hidden)return;
+ function frame(now){raf=0;if(disposed||!visible||!enabled||document.hidden)return;
   const animate=!paused&&!reduced.matches;
   if(!dirty&&last&&now-last<1000/(mobile?24:30)){wake();return;}
   const dt=last?Math.min((now-last)/1000,.1):.03;last=now;if(animate)animationTime+=dt;
@@ -103,7 +103,7 @@ export async function createWorld(canvas,pins,onReady,onError,onNavigate=()=>{})
   if(dirty||moving||animate||!ready){applyCamera();updatePins();life.update(animationTime,night,animate);scene.background.setRGB(mix(.337,.09,night),mix(.514,.17,night),mix(.18,.2,night));const p=Math.round(progress);if(!pointer.down)select(p===1?'hackathon':p===2?'pitch':progress<.35?pointer.hover:'');renderer.render(scene,camera);dirty=false;if(!ready){ready=true;onReady();}}
   if(moving||animate)wake();
  }
- function wake(){if(!raf&&!disposed)raf=requestAnimationFrame(frame);}
+ function wake(){if(!raf&&!disposed&&enabled)raf=requestAnimationFrame(frame);}
  function resize(){const rect=canvas.getBoundingClientRect();width=Math.max(1,rect.width);height=Math.max(1,rect.height);mobile=width<760;renderer.setPixelRatio(Math.min(devicePixelRatio||1,mobile?1.5:1.75));renderer.setSize(width,height,false);dirty=true;wake();}
  const pointer={down:false,dragged:false,x:0,y:0,startX:0,startY:0,hover:''};
  function down(event){if(event.pointerType==='mouse'&&event.button!==0)return;pointer.down=true;pointer.dragged=false;pointer.x=pointer.startX=event.clientX;pointer.y=pointer.startY=event.clientY;if(event.pointerType==='mouse')canvas.setPointerCapture(event.pointerId);canvas.classList.add('dragging');}
@@ -116,6 +116,6 @@ export async function createWorld(canvas,pins,onReady,onError,onNavigate=()=>{})
  function visibilityChange(){if(document.hidden){cancelAnimationFrame(raf);raf=0;}else{last=0;dirty=true;wake();}}
  document.addEventListener('visibilitychange',visibilityChange);
  canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();disposed=true;cancelAnimationFrame(raf);onError(new Error('Village graphics unavailable.'));});
- resize();applyCamera();life.update(0,0,false);try{await renderer.compileAsync(scene,camera);}catch(error){onError(error);return null;}wake();
- return {setProgress(p){progressGoal=clamp(p,0,cameraStops.length-1);dirty=true;wake();},setNight(value){nightGoal=value?1:0;dirty=true;wake();},setPaused(value){paused=value;dirty=true;wake();},reset(){panXGoal=panZGoal=0;zoomGoal=1;dirty=true;wake();},zoomBy(factor){zoomGoal=clamp(zoomGoal*factor,.8,1.7);dirty=true;wake();},dispose(){disposed=true;cancelAnimationFrame(raf);observer.disconnect();visibility.disconnect();document.removeEventListener('visibilitychange',visibilityChange);life.dispose();shadowMaterial.map.dispose();scene.traverse(o=>{o.geometry?.dispose();if(o.material)o.material.dispose();});Object.values(textures).forEach(t=>t.dispose());renderer.dispose();}};
+ resize();applyCamera();life.update(0,night,false);try{await renderer.compileAsync(scene,camera);}catch(error){onError(error);return null;}wake();
+ return {setActive(value){if(enabled===value)return;enabled=value;if(value){last=0;dirty=true;wake();}else{cancelAnimationFrame(raf);raf=0;}},setProgress(p){const next=clamp(p,0,cameraStops.length-1);if(progressGoal===next)return;progressGoal=next;dirty=true;wake();},setNight(value){nightGoal=value?1:0;dirty=true;wake();},setPaused(value){paused=value;dirty=true;wake();},reset(){panXGoal=panZGoal=0;zoomGoal=1;dirty=true;wake();},zoomBy(factor){zoomGoal=clamp(zoomGoal*factor,.8,1.7);dirty=true;wake();},dispose(){disposed=true;cancelAnimationFrame(raf);observer.disconnect();visibility.disconnect();document.removeEventListener('visibilitychange',visibilityChange);life.dispose();shadowMaterial.map.dispose();scene.traverse(o=>{o.geometry?.dispose();if(o.material)o.material.dispose();});Object.values(textures).forEach(t=>t.dispose());renderer.dispose();}};
 }
