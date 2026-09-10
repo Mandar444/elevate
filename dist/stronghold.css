@@ -212,3 +212,44 @@ dialog:not(#photo-dialog){color:var(--folio-ink)}dialog:not(#photo-dialog)>p:not
 @media(max-width:520px){.team-grid{grid-template-columns:minmax(0,1fr);max-width:330px}.team-member{min-height:335px;padding:31px 25px}.member-photo{width:125px;height:125px}}
 @media(max-width:359px){.battle-art{max-width:250px}.battle-art .prop-main{width:190px}.battle-art .prop-side{width:100px}.battle-art .prop-front{width:90px}.vault-arena{padding-inline:13px}.vault-arena-top>strong{font-size:1.65rem}.award-list dd{font-size:1.0625rem}.edition-cover>img{width:54px;height:60px}.edition-cover>span{font-size:.75rem}.edition-cover{padding-inline:7px}.notebook-route{gap:6px}}
 @media(min-width:761px) and (pointer:fine) and (max-height:850px){.competition-hero{min-height:900px}.competition-intro{transform:translateY(-43%)}.home-page .hero-action{gap:13px}}
+
+/* Keep decorative map ink behind the reading surface, never mixed into the text. */
+:root{--folio-ink:#1d2e24;--folio-copy:#384337;--folio-label:#50452b;--folio-gold:#705019;--reading-wash:linear-gradient(90deg,#f7edd9cc 0%,#f7edd9f2 18%,#f7edd9f2 82%,#f7edd9cc 100%)}
+.home-page .legacy-invitation,.home-page .meet-the-clan,.home-page .final-call.battle-selection,.competition-intel,.archive-hero{background-image:var(--reading-wash),var(--atlas)}
+.home-page .field-guide.council-section,.competition-mission,.preparation,.team-roster-section,.archive-page .edition-section,.archive-page .edition-section:nth-of-type(even){background-image:var(--reading-wash),var(--atlas)}
+.home-page .legacy-invitation h2,.home-page .meet-the-clan h2{color:var(--folio-ink);line-height:1.18;text-shadow:none}
+.home-page .legacy-invitation p,.home-page .meet-the-clan p,.competition-intel>div>p{color:var(--folio-copy);font-size:1rem;font-weight:650;line-height:1.75}
+.home-page .legacy-invitation .section-coordinate,.home-page .meet-the-clan .section-coordinate{color:var(--folio-label);font-size:.875rem;line-height:1.6;letter-spacing:.075em}
+.legacy-years,.legacy-years span{color:var(--folio-ink)}
+
+/* Illustrated rooms keep their scenery; the prose sits on an opaque paper slip. */
+.team-hero-copy,.vault-heading>div:first-child,.competition-page .vault-heading>div:first-child{background:#f7edd9;padding:clamp(18px,2.1vw,30px);border:1px solid #b8a887;border-radius:3px;box-shadow:0 5px 12px #43392214;min-width:0}
+.other-battle,.team-return,.archive-callout{background-image:linear-gradient(90deg,#f7edd9ed,#f7edd9ed),var(--hall)}
+.prize-vault .prize-footnote{background:#f7edd9;padding:14px 18px;border:1px solid #b8a887;border-radius:3px;color:var(--folio-copy);font-weight:600}
+.photo-placeholder{background-image:linear-gradient(#f7edd9ed,#f7edd9ed),var(--atlas)}
+dialog:not(#photo-dialog){background-image:linear-gradient(#f7edd9f5,#f7edd9f5),var(--atlas)}
+.site-footer{background-image:linear-gradient(#182d23e6,#182d23e6),var(--atlas)}
+
+/* Small useful text uses the reading face, sufficient weight, and clear dark ink. */
+.council-heading>p,.council-intro>p,.council-status>p,.mission-heading>p,.mission-emblem>p,.preparation .section-heading>p,.guidelines-note,.team-hero-copy>p,.team-roster-heading>p,.team-roster-note,.archive-hero p,.edition-intro,.archive-pending p,.archive-person-org,.archive-photo figcaption,.other-battle p,.team-return p,.archive-callout p{font-weight:600}
+.council-section .section-coordinate,.competition-page .section-coordinate,.team-page .section-coordinate,.archive-hero .section-coordinate,.archive-block-heading>span,.board-label,.council-status>span,.council-status strong,.note-kicker,.event-facts span,.venture-note dt,.slide-kicker,.organizer-seal>span,.member-number,.other-type,.edition-timeline span{font-size:.875rem;line-height:1.6;letter-spacing:.065em}
+.council-section .section-coordinate{color:var(--folio-label)!important}
+.council-status>span,.board-label,.competition-page .section-coordinate,.team-page .section-coordinate,.archive-hero .section-coordinate,.archive-block-heading>span,.event-facts span,.other-type{color:var(--folio-label)}
+.vault-heading .section-coordinate,.competition-page .vault-heading .section-coordinate{font-size:.875rem;color:var(--folio-label)}
+.competition-intel>div>p,.competition-faq details>p,.home-page .council-questions details>p,.archive-photo figcaption{color:var(--folio-copy);font-weight:600}
+.competition-faq summary>span{color:var(--folio-label)}
+.site-footer>p,.site-footer>a,.site-footer>span{font-size:.875rem;line-height:1.6;color:#f4e8ce}
+
+/* Solid dark lettering remains readable across every stop of the gold button. */
+.button,.button:hover,.button:active{color:#34240f;text-shadow:none}
+.button>span{color:inherit;text-shadow:none}
+
+
+@media(max-width:760px),(max-width:1024px) and (pointer:coarse){
+ .home-page .legacy-invitation,.home-page .meet-the-clan,.competition-intel,.archive-hero,.home-page .field-guide.council-section,.competition-mission,.preparation,.team-roster-section,.archive-page .edition-section{background-image:linear-gradient(#f7edd9e6,#f7edd9e6),var(--atlas)}
+ .team-hero-copy,.vault-heading>div:first-child,.competition-page .vault-heading>div:first-child{padding:19px 16px;margin:0}
+ .home-page .legacy-invitation>div,.home-page .meet-the-clan>div{min-width:0}
+ .home-page .legacy-invitation .section-coordinate,.home-page .meet-the-clan .section-coordinate{letter-spacing:.04em}
+ .home-page .meet-the-clan p{font-size:1rem}
+ .site-footer{flex-wrap:wrap}
+}

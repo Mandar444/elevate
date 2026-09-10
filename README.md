@@ -164,3 +164,7 @@ Supplied logos belong to the event organizers. Clash of Clans assets remain the 
 ## Illustrated chapter redesign
 
 The non-village sections use parchment map artwork, a treasure-vault illustration, and a clan-hall environment, with distinct layouts for the hackathon lab notebook, business pitch playbook, organizers and historical album. Display names follow the latest organizer correction: Neuralnix Hackathon and Startup Smackdown. Existing `/neural-nexus/` and `/startush-smackdown/` routes stay stable for incoming links. Prize amounts are unchanged. Real team members, sponsors, judges and event photos remain clearly pending until supplied.
+
+## Text readability
+
+Map-backed reading sections use an ivory wash over the illustration, and the treasury and team hero prose use opaque paper panels. Dark forest text, 14 px section labels, stronger body weights, and dark lettering on gold buttons keep content distinct from the artwork. The final rules in `dist/stronghold.css` also protect dialogs, archive captions, and competition briefings. No additional images or animation were added for this contrast pass.
