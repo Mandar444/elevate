@@ -1,0 +1,38 @@
+{
+  "tool": "built-in image_gen__imagegen",
+  "generationCalls": 2,
+  "retries": 0,
+  "manualImageEdits": false,
+  "assets": [
+    {
+      "file": "council-frame.png",
+      "width": 1536,
+      "height": 1024,
+      "usable": "Conditional: visual style suitable, can be a CSS border-image without fill; fails strict requested 70% width-and-height fully transparent rectangular opening.",
+      "alpha": {
+        "fullyTransparentPixels": 921952,
+        "fullyOpaquePixels": 0,
+        "partialAlphaPixels": 650912,
+        "center": 0,
+        "topLeft": 0,
+        "central70PercentRectangleNonzeroAlphaPixels": 77415,
+        "central70PercentRectangleMaxAlpha": 254
+      },
+      "notes": "Straight-on wood/gold/slate perimeter with no text or characters. Real transparency exists outside and at center. Opening is not a clean fully transparent rectangle covering the required 70% of both dimensions. No manual alpha removal or retry performed."
+    },
+    {
+      "file": "clan-banner.png",
+      "width": 1086,
+      "height": 1448,
+      "usable": true,
+      "alpha": {
+        "fullyTransparentPixels": 349084,
+        "fullyOpaquePixels": 293,
+        "partialAlphaPixels": 1223151,
+        "center": 253,
+        "topLeft": 0
+      },
+      "notes": "Portrait 3:4 ratio; genuine transparent exterior; blank broad burgundy inset face. Broad flat top and pointed bottom. Gold oak bevel frame and slate-metal fasteners. Body is almost opaque (common alpha=253), with a few fine fringes outside silhouette; visually usable for card overlays."
+    }
+  ]
+}

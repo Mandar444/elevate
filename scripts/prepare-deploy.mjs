@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-export const routes=['/','/neural-nexus/','/startush-smackdown/'];
+export const routes=['/','/neural-nexus/','/startush-smackdown/','/team/'];
 export function deploymentOrigin(env){
  const value=env.SITE_URL||(env.VERCEL_PROJECT_PRODUCTION_URL&&'https://'+env.VERCEL_PROJECT_PRODUCTION_URL)||(env.VERCEL_URL&&'https://'+env.VERCEL_URL);
  if(!value)return null;

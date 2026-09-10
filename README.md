@@ -7,6 +7,7 @@ The E-Cell hackathon and business pitch competition website, built around a clas
 - `/`: Elevate village, competition previews, field guide, sponsor and community partner roster, and closing invitation.
 - `/neural-nexus/`: Neural Nexus AI/ML Hackathon, with its own laboratory hero, mission, preparation guide, FAQ, and registration status.
 - `/startush-smackdown/`: Startush Smackdown Business Pitching Competition, with its own arena hero, mission, preparation guide, FAQ, and registration status.
+- `/team/`: Our Team, with E-Cell branding, clan roster cards, and clearly labeled placeholders until confirmed names, roles, and photos are supplied.
 - `404.html`: a useful fallback for missing pages.
 
 The competition names follow the supplied spelling, including **Startush Smackdown**. Navigation, village landmarks, and homepage competition buttons link to the dedicated pages. Existing homepage chapter anchors remain usable.
@@ -31,6 +32,21 @@ Edit `dist/content/partners.json`. Put approved logos in `dist/assets/partners/`
 
 Keep each array empty until partners are confirmed. Empty arrays show explicitly labeled announcement spaces; no brands or endorsements are fabricated. A partner without a URL becomes a non-clickable card, and one without a logo displays its name. Logo cards accommodate additional partners automatically on desktop and mobile.
 
+## Adding team members
+
+Edit `dist/content/team.json`. Keep `members` empty until the roster is confirmed. Put approved photos in `dist/assets/team/` and add entries with this shape:
+
+```json
+{
+  "name": "Confirmed member name",
+  "role": "Confirmed role",
+  "photo": "/assets/team/member-photo.webp",
+  "profileUrl": "https://profile.example"
+}
+```
+
+Only the name is required. Missing or unavailable photos display the member’s initials. Profile links are optional. The six initial announcement cards are placeholders, not a claimed team count. Confirmed entries replace the placeholders automatically; names and roles use text nodes and profile/photo URLs are limited to HTTP(S).
+
 ## Run
 
 Use Node.js 20 or newer. Run `npm start`, then open `http://127.0.0.1:5173`. No installation or build step is required for the static preview. Use the `PORT` environment variable to change the port. Run `npm run check` for source and village checks. To refresh the pinned Three.js dependency, run `npm ci` and `npm run vendor`.
@@ -41,7 +57,7 @@ Use Node.js 20 or newer. Run `npm start`, then open `http://127.0.0.1:5173`. No 
 - Actual classic game building artwork rather than reinterpreted low-poly models: Town Hall 8, laboratory, Clan Castle, cannons, mortars, archer towers, wizard towers, air defenses, storages, mines, collectors, barracks, camps, and huts.
 - 62 buildings, 196 individual wall posts, and a dense border of game trees, rocks, and shrubs. The wall texture uses the center post of the source corner sprite through texture coordinates.
 - A flat isometric grass field with a subtle grid and dirt perimeter, based on the Pinterest village references recorded in the asset credits.
-- The village stays behind the four opening homepage scenes. The lower homepage transitions to warm field notes, a dark alliance roster, and a compact closing invitation with independent game prop artwork. The FAQ surface is transparent against its own section; the repeating village backdrop ends at the field guide. The renderer pauses while hidden. The dedicated competition pages use their own camera destination and lighting, followed by distinct content sections.
+- The village stays behind the four opening homepage scenes. The lower homepage transitions into a carved wood-and-stone council board, a burgundy clan-banner sponsor hall with community plaques, and two equally prominent arena cards. The closing team invitation leads to a dedicated roster page. The repeated village backdrop ends at the field guide and the renderer pauses while hidden. The dedicated competition pages use their own camera destination and lighting, followed by distinct content sections.
 - 45 original in-game troop sprites: two archers on each archer tower, a wizard on every wizard tower, six troops beside each camp, and eight patrols on the outer grass lanes.
 - Twelve lighting sources: warm campfire and Town Hall light, purple elixir/laboratory light, and blue wizard-tower light. Shader-based illumination reaches the ground and nearby props; additive source glows and rising embers remain visible in moonlight.
 - Scroll between event destinations; drag to pan; use the zoom controls or +/- keys; arrow keys pan the focused canvas. Switch between day/night or pause village animation. Click the laboratory or Clan Castle to visit a competition.
@@ -52,7 +68,9 @@ This is a 2.5D isometric scene in Three.js: original pre-rendered building and t
 
 - `dist/index.html`: event copy, logos, metadata, navigation, FAQ, and dialogs.
 - `dist/style.css`, `dist/voyage.css`: base controls, village layout, bottom navigation, responsive event typography, dialogs, and reduced motion.
-- `dist/chapters.css`: lower homepage sections and sponsor/community partner layouts.
+- `dist/chapters.css`, `dist/clan.css`: homepage section foundations, carved council board, clan-banner partner roster, balanced arena buttons, and shared six-destination navigation.
+- `dist/team/index.html`, `dist/team.css`, `dist/team.js`, `dist/content/team.json`: team page and editable roster.
+- `dist/assets/ui/`: generated reusable council frame and clan banner artwork.
 - `dist/competition.css`, `dist/competition.js`: standalone competition page layout and focused village heroes.
 - `dist/event-ui.js`: shared registration dialogs, day/night, pause, and camera controls.
 - `dist/partners.js`, `dist/content/partners.json`: sponsor and community partner roster.
@@ -77,8 +95,10 @@ Edit the event copy in `dist/index.html` and the competition pages in `dist/neur
 
 Essential information is semantic HTML. Navigation links provide alternatives to map controls. The page includes a skip link, visible focus, native dialogs/disclosures, inactive chapter focus isolation, reduced-motion support, a dedicated animation pause control, an illustrated graphics fallback, and a conventional layout on short viewports. Buildings are batched and troops instanced. Ambient motion is capped at 30 fps on desktop and 24 fps on mobile, with capped pixel density; rendering stops when hidden and runs on demand when animation is paused.
 
-Checks validate all four static HTML routes, local assets, navigation and anchor references, metadata, deployment-domain replacement, partner data, CSS structure, JavaScript syntax, sprite anchors, building types, unique wall positions, camera destinations at desktop/tablet/mobile dimensions, camera continuity, tower and camp population, patrol clearance, animation transforms, and shader/uniform wiring. These are source and scene-data checks; browser interaction, visual layout, and GPU shader execution tests have not been run.
+Checks validate all five static HTML routes, local assets, navigation and anchor references, metadata, deployment-domain replacement, partner and team data, equal competition buttons, CSS structure, JavaScript syntax, sprite anchors, building types, unique wall positions, camera destinations at desktop/tablet/mobile dimensions, camera continuity, tower and camp population, patrol clearance, animation transforms, and shader/uniform wiring. These are source and scene-data checks; browser interaction, visual layout, and GPU shader execution tests have not been run.
 
 ## Credits
+
+The council frame and blank clan banner were generated for this design using the built-in image-generation tool, then compressed to WebP with alpha retained. Their prompts and source QA are recorded in `licenses/clan-ui-provenance.json` and `licenses/clan-ui-qa.json`. The council frame is used as an unfilled CSS border image; text, names, and logos remain real HTML content.
 
 Supplied logos belong to the event organizers. Clash of Clans assets remain the property of Supercell and their respective owners; the site identifies itself as an unofficial themed event. Pinterest references and exact asset sources are in `licenses/VILLAGE-ASSETS.md`. Lilita One and Nunito Sans are self-hosted Google Fonts with their license texts included. Three.js uses the included MIT license.

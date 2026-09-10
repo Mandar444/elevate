@@ -5,7 +5,7 @@ import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {deploymentOrigin,metadataForOrigin} from './prepare-deploy.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),dist=path.join(root,'dist');
-const pages=[['/','index.html'],['/neural-nexus/','neural-nexus/index.html'],['/startush-smackdown/','startush-smackdown/index.html'],['/404.html','404.html']];
+const pages=[['/','index.html'],['/neural-nexus/','neural-nexus/index.html'],['/startush-smackdown/','startush-smackdown/index.html'],['/team/','team/index.html'],['/404.html','404.html']];
 const entries=new Map(pages.map(([route,file])=>[route,fs.readFileSync(path.join(dist,file),'utf8')]));
 for(const [route,html] of entries){
  const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
@@ -42,6 +42,13 @@ assert.ok(entries.get('/neural-nexus/').includes('AI/ML Hackathon'));
 assert.ok(entries.get('/startush-smackdown/').includes('Startush Smackdown'));
 assert.ok(entries.get('/').indexOf('id="partners"')>entries.get('/').indexOf('id="intel"'));
 assert.ok(entries.get('/').indexOf('id="rally"')>entries.get('/').indexOf('id="partners"'));
+const home=entries.get('/');
+const selection=home.slice(home.indexOf('id="rally"'),home.indexOf('<section class="meet-the-clan"'));
+for(const route of ['/neural-nexus/','/startush-smackdown/'])assert.ok(new RegExp('<a href="'+route+'" class="button [^"]+battle-button"').test(selection),'Each arena needs an equally prominent button');
+const team=JSON.parse(fs.readFileSync(path.join(dist,'content/team.json'),'utf8'));assert.ok(Array.isArray(team.members));
+for(const member of team.members){assert.ok(typeof member.name==='string'&&member.name.trim());if(member.photo?.startsWith('/'))assert.ok(fs.existsSync(path.join(dist,member.photo)));}
+assert.match(entries.get('/team/'),/src="\/team.js"/);
+assert.ok(!entries.get('/team/').includes('id="world-canvas"'),'Team roster does not load the village renderer');
 const roster=JSON.parse(fs.readFileSync(path.join(dist,'content/partners.json'),'utf8'));
 for(const key of ['sponsors','communityPartners']){assert.ok(Array.isArray(roster[key]));for(const partner of roster[key]){assert.ok(partner.name);if(partner.logo?.startsWith('/'))assert.ok(fs.existsSync(path.join(dist,partner.logo)));}}
 assert.equal(deploymentOrigin({SITE_URL:'https://event.example/',VERCEL_URL:'preview.vercel.app'}),'https://event.example');
@@ -51,4 +58,4 @@ assert.equal(deploymentOrigin({}),null);
 assert.throws(()=>deploymentOrigin({SITE_URL:'https://user:secret@example.com'}));
 assert.throws(()=>deploymentOrigin({SITE_URL:'https://example.com/wrong-path'}));
 const vercel=JSON.parse(fs.readFileSync(path.join(root,'vercel.json'),'utf8'));assert.equal(vercel.outputDirectory,'dist');assert.equal(vercel.trailingSlash,true);
-console.log('PASS: four static routes, local assets, navigation/anchors, accessible references, unique page metadata, Vercel domain metadata, partner data, CSS, and JavaScript syntax.');
+console.log('PASS: five static routes, local assets, navigation/anchors, accessible references, unique page metadata, Vercel domain metadata, partner and team data, equal competition buttons, CSS, and JavaScript syntax.');
