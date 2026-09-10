@@ -31,12 +31,13 @@ const lightStyle={
 };
 export const lightSources=buildings.filter(b=>lightStyle[b.type]).map(building=>({building,x:building.x,z:building.z,...lightStyle[building.type]}));
 
-export function patrolPosition(unit,time){
- const points=patrolRoutes[unit.route],segments=points.slice(1).map((p,i)=>Math.hypot(p[0]-points[i][0],p[1]-points[i][1]));
- const length=segments.reduce((a,b)=>a+b,0),cycle=(time*unit.speed+unit.phase*length*2)%(length*2),reverse=cycle>length;
+const routeMetrics=patrolRoutes.map(points=>{const segments=points.slice(1).map((p,i)=>Math.hypot(p[0]-points[i][0],p[1]-points[i][1]));return {points,segments,length:segments.reduce((a,b)=>a+b,0)};});
+export function patrolPosition(unit,time,result={}){
+ const {points,segments,length}=routeMetrics[unit.route];
+ const cycle=(time*unit.speed+unit.phase*length*2)%(length*2),reverse=cycle>length;
  let distance=reverse?length*2-cycle:cycle;
  for(let i=0;i<segments.length;i++){
-  if(distance<=segments[i]||i===segments.length-1){const f=distance/segments[i],a=points[i],b=points[i+1];return {x:T.MathUtils.lerp(a[0],b[0],f),z:T.MathUtils.lerp(a[1],b[1],f),facing:Math.sign(((b[0]-a[0])-(b[1]-a[1]))*(reverse?-1:1))||1};}
+  if(distance<=segments[i]||i===segments.length-1){const f=distance/segments[i],a=points[i],b=points[i+1];result.x=T.MathUtils.lerp(a[0],b[0],f);result.z=T.MathUtils.lerp(a[1],b[1],f);result.facing=Math.sign(((b[0]-a[0])-(b[1]-a[1]))*(reverse?-1:1))||1;return result;}
   distance-=segments[i];
  }
 }
@@ -44,7 +45,7 @@ export function patrolPosition(unit,time){
 export function createVillageLife(scene,textures,right,upAxis,direction,facing){
  const uniforms={villageNight:{value:0},villageTime:{value:0},villageLights:{value:lightSources.map(l=>new T.Vector4(l.x,l.z,l.radius,l.power))},villageColors:{value:lightSources.map(l=>new T.Vector3(...l.color))}};
  const lightGLSL=`uniform float villageNight;uniform float villageTime;uniform vec4 villageLights[${lightSources.length}];uniform vec3 villageColors[${lightSources.length}];
- vec3 villageLightAt(vec2 point){vec3 sum=vec3(0.);for(int i=0;i<${lightSources.length};i++){vec4 light=villageLights[i];float d=max(0.,1.-distance(point,light.xy)/light.z);float flicker=.95+.035*sin(villageTime*5.7+float(i)*2.9)+.025*sin(villageTime*11.3+float(i));sum+=villageColors[i]*d*d*light.w*flicker;}return sum;}`;
+ vec3 villageLightAt(vec2 point){vec3 sum=vec3(0.);if(villageNight<.001)return sum;for(int i=0;i<${lightSources.length};i++){vec4 light=villageLights[i];float d=max(0.,1.-distance(point,light.xy)/light.z);sum+=villageColors[i]*d*d*light.w;}return sum;}`;
  function lightMaterial(material){
   material.onBeforeCompile=shader=>{
    Object.assign(shader.uniforms,uniforms);
@@ -57,9 +58,9 @@ export function createVillageLife(scene,textures,right,upAxis,direction,facing){
    villagePosition=(modelMatrix*villageWorld).xyz;`);
    shader.fragmentShader='varying vec3 villagePosition;\n'+lightGLSL+'\n'+shader.fragmentShader;
    shader.fragmentShader=shader.fragmentShader.replace('#include <color_fragment>',`#include <color_fragment>
-   diffuseColor.rgb*=mix(vec3(1.),vec3(.32,.43,.65)+villageLightAt(villagePosition.xz)*1.25,villageNight);`);
+   if(villageNight>.001)diffuseColor.rgb*=mix(vec3(1.),vec3(.32,.43,.65)+villageLightAt(villagePosition.xz)*1.25,villageNight);`);
   };
-  material.customProgramCacheKey=()=> 'elevate-village-lights-v1';
+  material.customProgramCacheKey=()=> 'elevate-village-lights-v2';
   return material;
  }
  function onBuilding(b,u,v){
@@ -71,7 +72,7 @@ export function createVillageLife(scene,textures,right,upAxis,direction,facing){
   const units=inhabitants.filter(u=>u.type===type),geometry=new T.PlaneGeometry(1,1);
   geometry.translate(.5-meta.anchor.x,.5-meta.anchor.y,0);
   const material=lightMaterial(new T.MeshBasicMaterial({map:textures[type],alphaTest:.10,side:T.DoubleSide}));
-  const mesh=new T.InstancedMesh(geometry,material,units.length);mesh.instanceMatrix.setUsage(T.DynamicDrawUsage);mesh.frustumCulled=false;scene.add(mesh);groups.push({mesh,units,meta});
+  const mesh=new T.InstancedMesh(geometry,material,units.length);mesh.instanceMatrix.setUsage(T.DynamicDrawUsage);mesh.frustumCulled=false;scene.add(mesh);const prepared=units.map(unit=>({unit,anchor:unit.role==='tower'?onBuilding(unit.building,unit.u,unit.v):new T.Vector3(unit.x||0,.09,unit.z||0),height:unit.height/(meta.bounds.height/meta.height),patrol:{},initialized:false}));groups.push({mesh,prepared,meta});
  }
  // A smooth radial texture is a lighting kernel, not replacement building artwork.
  const glowCanvas=document.createElement('canvas');glowCanvas.width=glowCanvas.height=64;
@@ -89,22 +90,24 @@ export function createVillageLife(scene,textures,right,upAxis,direction,facing){
  const emberPositions=new Float32Array(emberCount*3);emberGeometry.setAttribute('position',new T.BufferAttribute(emberPositions,3));
  const emberMaterial=new T.PointsMaterial({map:glowTexture,color:0xffc36d,size:2.2,transparent:true,depthWrite:false,blending:T.AdditiveBlending,sizeAttenuation:false});
  const embers=new T.Points(emberGeometry,emberMaterial);embers.frustumCulled=false;scene.add(embers);
- const dummy=new T.Object3D(),base=new T.Vector3();
+ const dummy=new T.Object3D(),base=new T.Vector3(),emberBase=new T.Vector3(),emberOrigins=camps.map(camp=>onBuilding(camp,.52,.58));
  function update(time,night,animate){
   uniforms.villageNight.value=night;uniforms.villageTime.value=time;
-  for(const {mesh,units,meta} of groups){
-   units.forEach((unit,index)=>{
+  if(night>.001)for(let i=0;i<lightSources.length;i++)uniforms.villageLights.value[i].w=lightSources[i].power*(.95+.035*Math.sin(time*5.7+i*2.9)+.025*Math.sin(time*11.3+i));
+  for(const {mesh,prepared,meta} of groups){
+   prepared.forEach((entry,index)=>{
+    const {unit}=entry;if(unit.role==='tower'&&entry.initialized)return;entry.initialized=true;
     let flip=1,bob=0;
-    if(unit.role==='tower')base.copy(onBuilding(unit.building,unit.u,unit.v));
-    else if(unit.role==='patrol'){const p=patrolPosition(unit,time);base.set(p.x,.09,p.z);flip=p.facing;bob=animate?Math.abs(Math.sin(time*6.6+index))*.07:0;}
+    if(unit.role==='tower')base.copy(entry.anchor);
+    else if(unit.role==='patrol'){const p=patrolPosition(unit,time,entry.patrol);base.set(p.x,.09,p.z);flip=p.facing;bob=animate?Math.abs(Math.sin(time*6.6+index))*.07:0;}
     else{base.set(unit.x,.09,unit.z);flip=index%2?-1:1;bob=animate?Math.sin(time*1.8+index*2.7)*.018:0;}
-    const h=unit.height/(meta.bounds.height/meta.height),w=h*meta.width/meta.height;
+    const h=entry.height,w=h*meta.width/meta.height;
     dummy.position.copy(base).addScaledVector(upAxis,bob);dummy.quaternion.copy(facing);dummy.scale.set(w*flip,h,1);dummy.updateMatrix();mesh.setMatrixAt(index,dummy.matrix);
    });mesh.instanceMatrix.needsUpdate=true;
   }
   for(const {glow,light,core} of halos){const pulse=1+Math.sin(time*(light.building.type==='army-camp'?7.1:1.6)+light.x)*.07;glow.material.opacity=core?night*.92:(.09+night*.62)*pulse;}
   for(let i=0;i<emberCount;i++){
-   const camp=camps[Math.floor(i/8)],t=(time*.24+(i%8)/8)%1,p=onBuilding(camp,.52,.58);
+   const t=(time*.24+(i%8)/8)%1,p=emberBase.copy(emberOrigins[Math.floor(i/8)]);
    p.addScaledVector(upAxis,t*2.3).addScaledVector(right,Math.sin(t*5+i)*.28).addScaledVector(direction,.12);
    emberPositions[i*3]=p.x;emberPositions[i*3+1]=p.y;emberPositions[i*3+2]=p.z;
   }

@@ -5,7 +5,7 @@ export function renderBudget(width,height,dpr=1,coarse=false,saveData=false){
  const mobile=width<=760||coarse&&width<=1024;
  const cap=saveData?1:mobile?1.25:1.75;
  const pixelLimit=mobile?850000:Infinity;
- return {mobile,pixelRatio:Math.min(Math.max(1,dpr),cap,Math.sqrt(pixelLimit/Math.max(1,width*height))),fps:saveData?20:mobile?24:30};
+ return {mobile,pixelRatio:Math.min(Math.max(1,dpr),cap,Math.sqrt(pixelLimit/Math.max(1,width*height))),fps:saveData?30:60};
 }
 
 // A vertical touch gesture always belongs to document scrolling, including after it turns sideways.

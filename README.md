@@ -100,7 +100,15 @@ This is a 2.5D isometric scene in Three.js: original pre-rendered building and t
 
 Phones use flowing homepage chapters at every screen height. Competition introductions flow above a separately framed village view. Safe-area insets keep the header and bottom dock away from notches and home indicators; measured header/dock heights also reserve room when text is enlarged. Touch controls are at least 44 pixels high. The phone dock keeps four primary pages visible and groups Field Guide, Our Allies, and Past Editions under More. Sponsor banners use two columns, and team cards use one column on narrow phones. Content heights remain flexible and registration dialogs scroll within the visible viewport.
 
-Vertical swipes stay assigned to page scrolling, horizontal swipes pan the village, and multi-touch gestures cannot trigger landmark navigation. Native pinch zoom stays available. Phone rendering is capped at 1.25 pixel ratio and 850,000 backing pixels, with 24 fps ambient animation; data-saving mode uses 20 fps and at most 1 pixel ratio. Small responsive logo and fallback image variants reduce download size. Reduced-motion and offscreen rendering behavior remain supported.
+Vertical swipes stay assigned to page scrolling, horizontal swipes pan the village, and multi-touch gestures cannot trigger landmark navigation. Native pinch zoom stays available. Phone rendering is capped at 1.25 pixel ratio and 850,000 backing pixels, with a 60 fps animation target; data-saving mode uses 30 fps and at most 1 pixel ratio. Small responsive logo and fallback image variants reduce download size. Reduced-motion and offscreen rendering behavior remain supported.
+
+## Motion and rendering performance
+
+The renderer targets 60 fps on desktop and phones, or 30 fps when data-saving mode is enabled. It follows stable frame deadlines with timestamp tolerance, rather than restarting the interval after every drawn frame. Sustained missed frame budgets gradually lower render resolution to 70% of its initial pixel ratio; sustained headroom restores quality slowly. This is an adaptive target, not a guarantee of measured device FPS.
+
+Camera projections, landmark hitboxes, and label positioning update only when the camera changes. Homepage scroll positions are measured after viewport or content resizing and cached during scrolling; navigation and accessibility state change only at section boundaries. Static object matrices, patrol route lengths, tower anchors, and ember origins are reused. Night-light flicker is computed once per light on the CPU and daylight skips night-light fragment calculations. Texture uploads are spread across small batches before the first scene frame. Continuously blurred HUD surfaces are replaced with the same translucent palette. Paused, hidden, and offscreen scenes still stop rendering.
+
+Checks simulate display clocks at 60, 90, 120, and 144 Hz with timestamp jitter, data-saving cadence, reset behavior, and adaptive-resolution reduction/recovery. Device/browser frame-rate measurements have not been performed.
 
 ## Files
 
@@ -110,6 +118,7 @@ Vertical swipes stay assigned to page scrolling, horizontal swipes pan the villa
 - `dist/team/index.html`, `dist/team.css`, `dist/team.js`, `dist/content/team.json`: team page and editable roster.
 - `dist/assets/ui/`: generated reusable council frame and clan banner artwork.
 - `dist/archive.css`, `dist/archive.js`, `dist/past-editions/index.html`, `dist/content/past-editions.json`: previous-edition rosters, galleries, image viewer, and homepage invitation.
+- `dist/frame-pacing.js`, `dist/performance.css`: frame deadlines, adaptive resolution, and lightweight HUD compositing.
 - `dist/mobile.css`, `dist/responsive.js`: phone layout, touch gesture direction, safe areas, and render budgets.
 - `dist/competition.css`, `dist/competition.js`: standalone competition page layout and focused village heroes.
 - `dist/event-ui.js`: shared registration dialogs, day/night, pause, and camera controls.
@@ -133,7 +142,7 @@ Edit the event copy in `dist/index.html` and the competition pages in `dist/neur
 
 ## Accessibility, performance, and checks
 
-Essential information is semantic HTML. Navigation links provide alternatives to map controls. The page includes a skip link, visible focus, native dialogs/disclosures, inactive chapter focus isolation, reduced-motion support, a dedicated animation pause control, an illustrated graphics fallback, and a conventional layout on short viewports. Buildings are batched and troops instanced. Ambient motion is capped at 30 fps on desktop and 24 fps on mobile, with capped pixel density; rendering stops when hidden and runs on demand when animation is paused.
+Essential information is semantic HTML. Navigation links provide alternatives to map controls. The page includes a skip link, visible focus, native dialogs/disclosures, inactive chapter focus isolation, reduced-motion support, a dedicated animation pause control, an illustrated graphics fallback, and a conventional layout on short viewports. Buildings are batched and troops instanced. Animation targets 60 fps with stable deadline-based scheduling and capped pixel density; rendering stops when hidden and runs on demand when animation is paused.
 
 Checks validate all six static HTML routes, local assets, navigation and anchor references, metadata, deployment-domain replacement, partner, team, and previous-edition data, equal competition buttons, CSS structure, JavaScript syntax, sprite anchors, building types, unique wall positions, camera destinations at desktop/tablet/mobile dimensions, camera continuity, tower and camp population, patrol clearance, animation transforms, and shader/uniform wiring. Mobile checks additionally cover responsive image files, eight phone/tablet portrait and landscape sizes, rendering budgets, centered arena cameras, data-saving preferences, and gesture direction locking. These are source and scene-data checks; browser interaction, visual layout, and GPU shader execution tests have not been run.
 

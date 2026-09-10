@@ -1,0 +1,4 @@
+/* The HUD keeps its translucent game palette without re-blurring an animated scene. */
+.desktop-nav,.night .desktop-nav,.world-controls .control-button,.world-pin,.quest-strip,.site-footer,.home-page.off-village .site-header,.competition-page.off-village .site-header,.team-page .site-header{backdrop-filter:none;-webkit-backdrop-filter:none}
+.world-pin{background:#142a22f5}.world-layer{contain:layout paint style}.world-layer #world-canvas{outline-offset:-4px}
+@media(prefers-reduced-motion:reduce){.world-layer,#world-canvas{transition:none}}

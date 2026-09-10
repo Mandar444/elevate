@@ -1,3 +1,4 @@
+import {createFrameClock,createQualityGovernor} from './frame-pacing.js';
 import {PHONE_LAYOUT_QUERY,renderBudget,gestureIntent} from './responsive.js';
 import * as T from './vendor/three.module.js';
 import {assets} from './prop-assets.js';
@@ -41,7 +42,7 @@ export async function createWorld(canvas,pins,onReady,onError,onNavigate=()=>{},
  vec3 color=mix(field,forest,smoothstep(21.7,26.5,edge));
  float trail=smoothstep(23.8,24.4,edge)*(1.0-smoothstep(25.0,25.7,edge))*.58;
  color=mix(color,vec3(.62,.46,.235)+(noise(ground*5.0)-.5)*.055,trail);
- color*=mix(vec3(1.),vec3(.30,.40,.62)+villageLightAt(ground)*1.12,villageNight);gl_FragColor=vec4(color,1.0);
+ if(villageNight>.001)color*=mix(vec3(1.),vec3(.30,.40,.62)+villageLightAt(ground)*1.12,villageNight);gl_FragColor=vec4(color,1.0);
  }`});
  const ground=new T.Mesh(new T.PlaneGeometry(180,180),grassMaterial);ground.rotation.x=-Math.PI/2;ground.position.y=-.03;ground.renderOrder=-100;scene.add(ground);
 
@@ -90,23 +91,64 @@ export async function createWorld(canvas,pins,onReady,onError,onNavigate=()=>{},
  let selected='';
  function select(destination){if(selected===destination)return;selected=destination;const b=buildings.find(x=>x.destination===destination);selection.visible=!!b;if(!b)return;const r=b.size*.54;selection.geometry.dispose();selection.geometry=new T.BufferGeometry().setFromPoints([new T.Vector3(b.x-r,.09,b.z-r),new T.Vector3(b.x+r,.09,b.z-r),new T.Vector3(b.x+r,.09,b.z+r),new T.Vector3(b.x-r,.09,b.z+r)]);}
 
- let width=1,height=1,mobile=false,frameRate=30,progress=clamp(initial.progress??0,0,cameraStops.length-1),progressGoal=progress,night=initial.night?1:0,nightGoal=night,zoom=1,zoomGoal=1,panX=0,panZ=0,panXGoal=0,panZGoal=0;
- let raf=0,dirty=true,disposed=false,visible=true,enabled=true,last=0,ready=false,animationTime=0,paused=matchMedia('(prefers-reduced-motion: reduce)').matches;
- const reduced=matchMedia('(prefers-reduced-motion: reduce)'),temp=new T.Vector3();
- function applyCamera(){const pose=cameraPose(progress,width,height,zoom,mobile,initial.panel===true),half=pose.height/2;camera.left=-half*width/height;camera.right=half*width/height;camera.top=half;camera.bottom=-half;camera.updateProjectionMatrix();const target=new T.Vector3(pose.x+panX,0,pose.z+panZ);camera.position.copy(target).addScaledVector(direction,95);camera.setViewOffset(width,height,pose.offsetX*width,pose.offsetY*height,width,height);camera.lookAt(target);camera.updateMatrixWorld();}
- function updatePins(){for(const [name,element] of Object.entries(pins)){const landmark=landmarks[name];temp.set(landmark.x,.1,landmark.z).addScaledVector(upAxis,landmark.height);temp.project(camera);const x=(temp.x*.5+.5)*width,y=(-temp.y*.5+.5)*height;const shown=!mobile&&progress<.35&&x>Math.max(340,width*.25)&&x<width-90&&y>110&&y<height-90;element.hidden=!shown;element.inert=!shown;element.style.transform=`translate3d(${x}px,${y}px,0) translate(-50%,-100%)`;}}
- function hitTest(event){const rect=canvas.getBoundingClientRect(),x=event.clientX-rect.left,y=event.clientY-rect.top;for(const item of [...interactive].sort((a,b)=>b.x+b.z-a.x-a.z)){const points=item.points.map(p=>p.clone().project(camera));const xs=points.map(p=>(p.x*.5+.5)*width),ys=points.map(p=>(-p.y*.5+.5)*height);if(x>Math.min(...xs)&&x<Math.max(...xs)&&y>Math.min(...ys)&&y<Math.max(...ys))return item.destination;}return null;}
- function frame(now){raf=0;if(disposed||!visible||!enabled||document.hidden)return;
-  const animate=!paused&&!reduced.matches;
-  if(!dirty&&last&&now-last<1000/frameRate){wake();return;}
-  const dt=last?Math.min((now-last)/1000,.1):.03;last=now;if(animate)animationTime+=dt;
-  const smooth=reduced.matches?1:1-Math.exp(-dt*7);const moving=Math.abs(progress-progressGoal)>.0001||Math.abs(night-nightGoal)>.001||Math.abs(zoom-zoomGoal)>.001||Math.abs(panX-panXGoal)>.001||Math.abs(panZ-panZGoal)>.001;
-  progress=mix(progress,progressGoal,smooth);night=mix(night,nightGoal,smooth);zoom=mix(zoom,zoomGoal,smooth);panX=mix(panX,panXGoal,smooth);panZ=mix(panZ,panZGoal,smooth);
-  if(dirty||moving||animate||!ready){applyCamera();updatePins();life.update(animationTime,night,animate);scene.background.setRGB(mix(.337,.09,night),mix(.514,.17,night),mix(.18,.2,night));const p=Math.round(progress);if(!pointer.down)select(p===1?'hackathon':p===2?'pitch':progress<.35?pointer.hover:'');renderer.render(scene,camera);dirty=false;if(!ready){ready=true;onReady();}}
-  if(moving||animate)wake();
+ // Object transforms remain fixed; animation updates only instance and particle buffers.
+ scene.traverse(object=>{if(object.isMesh||object.isSprite||object.isPoints||object.isLine){object.updateMatrix();object.matrixAutoUpdate=false;}});
+ let width=1,height=1,mobile=false,frameRate=60,basePixelRatio=1,compiled=false;
+ let progress=clamp(initial.progress??0,0,cameraStops.length-1),progressGoal=progress,night=initial.night?1:0,nightGoal=night,zoom=1,zoomGoal=1,panX=0,panZ=0,panXGoal=0,panZGoal=0;
+ let raf=0,dirty=true,cameraDirty=true,rectDirty=true,disposed=false,visible=true,enabled=true,last=0,ready=false,animationTime=0,paused=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)'),temp=new T.Vector3(),cameraTarget=new T.Vector3(),clock=createFrameClock(),quality=createQualityGovernor();
+ const pinEntries=Object.entries(pins).map(([name,element])=>({element,landmark:landmarks[name],shown:null,transform:''}));
+ const hitboxes=interactive.sort((a,b)=>b.x+b.z-a.x-a.z).map(item=>({item,minX:0,maxX:0,minY:0,maxY:0}));
+ let canvasRect={left:0,top:0},projectionKey='';
+ function applyCamera(){
+  const pose=cameraPose(progress,width,height,zoom,mobile,initial.panel===true),half=pose.height/2,key=[width,height,half,pose.offsetX,pose.offsetY].join(',');
+  if(key!==projectionKey){projectionKey=key;camera.left=-half*width/height;camera.right=half*width/height;camera.top=half;camera.bottom=-half;camera.setViewOffset(width,height,pose.offsetX*width,pose.offsetY*height,width,height);}
+  cameraTarget.set(pose.x+panX,0,pose.z+panZ);camera.position.copy(cameraTarget).addScaledVector(direction,95);camera.updateMatrixWorld();
+  for(const box of hitboxes){box.minX=box.minY=Infinity;box.maxX=box.maxY=-Infinity;for(const point of box.item.points){temp.copy(point).project(camera);const x=(temp.x*.5+.5)*width,y=(-temp.y*.5+.5)*height;box.minX=Math.min(box.minX,x);box.maxX=Math.max(box.maxX,x);box.minY=Math.min(box.minY,y);box.maxY=Math.max(box.maxY,y);}}
+  cameraDirty=false;
  }
- function wake(){if(!raf&&!disposed&&enabled)raf=requestAnimationFrame(frame);}
- function resize(){const rect=canvas.getBoundingClientRect();width=Math.max(1,rect.width);height=Math.max(1,rect.height);const budget=renderBudget(width,height,devicePixelRatio||1,coarse.matches,saveData);mobile=budget.mobile;frameRate=budget.fps;renderer.setPixelRatio(budget.pixelRatio);renderer.setSize(width,height,false);dirty=true;wake();}
+ function updatePins(){
+  for(const pin of pinEntries){
+   let shown=false,x=0,y=0;
+   if(!mobile&&progress<.35){temp.set(pin.landmark.x,.1,pin.landmark.z).addScaledVector(upAxis,pin.landmark.height).project(camera);x=(temp.x*.5+.5)*width;y=(-temp.y*.5+.5)*height;shown=x>Math.max(340,width*.25)&&x<width-90&&y>110&&y<height-90;}
+   if(pin.shown!==shown){pin.element.hidden=!shown;pin.element.inert=!shown;pin.shown=shown;}
+   if(shown){const transform='translate3d('+x.toFixed(2)+'px,'+y.toFixed(2)+'px,0) translate(-50%,-100%)';if(transform!==pin.transform){pin.element.style.transform=transform;pin.transform=transform;}}
+  }
+ }
+ function hitTest(event){
+  if(rectDirty){canvasRect=canvas.getBoundingClientRect();rectDirty=false;}
+  const x=event.clientX-canvasRect.left,y=event.clientY-canvasRect.top;
+  for(const box of hitboxes)if(x>box.minX&&x<box.maxX&&y>box.minY&&y<box.maxY)return box.item.destination;
+  return null;
+ }
+ function frame(now){
+  raf=0;if(disposed||!visible||!enabled||document.hidden)return;
+  if(!clock.due(now)){wake();return;}
+  const animate=!paused&&!reduced.matches,dt=last?Math.min((now-last)/1000,.1):1/frameRate;last=now;if(animate)animationTime+=dt;
+  const smooth=reduced.matches?1:1-Math.exp(-dt*11);
+  const cameraMoving=Math.abs(progress-progressGoal)>.0001||Math.abs(zoom-zoomGoal)>.001||Math.abs(panX-panXGoal)>.001||Math.abs(panZ-panZGoal)>.001,lightMoving=Math.abs(night-nightGoal)>.001,moving=cameraMoving||lightMoving;
+  progress=cameraMoving?mix(progress,progressGoal,smooth):progressGoal;zoom=cameraMoving?mix(zoom,zoomGoal,smooth):zoomGoal;panX=cameraMoving?mix(panX,panXGoal,smooth):panXGoal;panZ=cameraMoving?mix(panZ,panZGoal,smooth):panZGoal;night=lightMoving?mix(night,nightGoal,smooth):nightGoal;
+  if(cameraDirty||cameraMoving||!ready){applyCamera();updatePins();}
+  if(dirty||moving||animate||!ready){
+   life.update(animationTime,night,animate);
+   if(lightMoving||!ready)scene.background.setRGB(mix(.337,.09,night),mix(.514,.17,night),mix(.18,.2,night));
+   const p=Math.round(progress);if(!pointer.down)select(p===1?'hackathon':p===2?'pitch':progress<.35?pointer.hover:'');
+   renderer.render(scene,camera);dirty=false;if(!ready){ready=true;onReady();}
+   if(animate||moving){const scale=quality.sample(now,frameRate);if(scale!==null){renderer.setPixelRatio(basePixelRatio*scale);dirty=true;}}
+  }
+  if(moving||animate||dirty)wake();
+ }
+ function wake(){if(!raf&&!disposed&&enabled&&compiled&&visible&&!document.hidden)raf=requestAnimationFrame(frame);}
+ function resetTiming(){last=0;clock.reset();quality.reset();}
+ function resize(){
+  const rect=canvas.getBoundingClientRect(),nextWidth=Math.max(1,rect.width),nextHeight=Math.max(1,rect.height),budget=renderBudget(nextWidth,nextHeight,devicePixelRatio||1,coarse.matches,saveData);
+  canvasRect=rect;rectDirty=false;
+  if(width===nextWidth&&height===nextHeight&&basePixelRatio===budget.pixelRatio&&mobile===budget.mobile)return;
+  width=nextWidth;height=nextHeight;mobile=budget.mobile;frameRate=budget.fps;basePixelRatio=budget.pixelRatio;clock.setRate(frameRate);quality.reset();
+  renderer.setPixelRatio(basePixelRatio*quality.scale);renderer.setSize(width,height,false);cameraDirty=dirty=true;wake();
+ }
+ function markRectDirty(){rectDirty=true;}
+ addEventListener('scroll',markRectDirty,{passive:true});
  const pointer={down:false,id:null,dragged:false,intent:'pending',x:0,y:0,startX:0,startY:0,hover:''};
  function down(event){
   if(event.pointerType==='mouse'&&event.button!==0)return;
@@ -115,7 +157,7 @@ export async function createWorld(canvas,pins,onReady,onError,onNavigate=()=>{},
   if(event.pointerType==='mouse')canvas.setPointerCapture(event.pointerId);
  }
  function move(event){
-  if(!pointer.down){if(event.pointerType==='touch')return;const hit=hitTest(event);pointer.hover=hit||'';canvas.classList.toggle('over-landmark',!!hit);if(progress<.35){dirty=true;wake();}return;}
+  if(!pointer.down){if(event.pointerType==='touch')return;const hit=hitTest(event);pointer.hover=hit||'';canvas.classList.toggle('over-landmark',!!hit);if(progress<.35&&selected!==pointer.hover){dirty=true;wake();}return;}
   if(event.pointerId!==pointer.id)return;
   const dx=event.clientX-pointer.x,dy=event.clientY-pointer.y;
   pointer.intent=gestureIntent(event.clientX-pointer.startX,event.clientY-pointer.startY,event.pointerType,pointer.intent);
@@ -138,10 +180,14 @@ export async function createWorld(canvas,pins,onReady,onError,onNavigate=()=>{},
  function key(event){const step=1.5;switch(event.key){case'ArrowLeft':panXGoal-=step;panZGoal+=step;break;case'ArrowRight':panXGoal+=step;panZGoal-=step;break;case'ArrowUp':panXGoal-=step;panZGoal-=step;break;case'ArrowDown':panXGoal+=step;panZGoal+=step;break;case'+':case'=':zoomGoal=clamp(zoomGoal*1.15,.8,1.7);break;case'-':zoomGoal=clamp(zoomGoal/1.15,.8,1.7);break;default:return;}event.preventDefault();panXGoal=clamp(panXGoal,-15,15);panZGoal=clamp(panZGoal,-15,15);dirty=true;wake();}
  canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',release);canvas.addEventListener('lostpointercapture',release);canvas.addEventListener('keydown',key);
  const observer=new ResizeObserver(resize);observer.observe(canvas);coarse.addEventListener('change',resize);
- const visibility=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;if(visible){last=0;dirty=true;wake();}else{cancelAnimationFrame(raf);raf=0;}});visibility.observe(canvas);
- function visibilityChange(){if(document.hidden){cancelAnimationFrame(raf);raf=0;}else{last=0;dirty=true;wake();}}
+ const visibility=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;if(visible){resetTiming();dirty=true;wake();}else{cancelAnimationFrame(raf);raf=0;}});visibility.observe(canvas);
+ function visibilityChange(){if(document.hidden){cancelAnimationFrame(raf);raf=0;}else{resetTiming();dirty=true;wake();}}
  document.addEventListener('visibilitychange',visibilityChange);
  canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();disposed=true;cancelAnimationFrame(raf);onError(new Error('Village graphics unavailable.'));});
- resize();applyCamera();life.update(0,night,false);try{await renderer.compileAsync(scene,camera);}catch(error){onError(error);return null;}wake();
- return {setActive(value){if(enabled===value)return;enabled=value;if(value){last=0;dirty=true;wake();}else{cancelAnimationFrame(raf);raf=0;}},setProgress(p){const next=clamp(p,0,cameraStops.length-1);if(progressGoal===next)return;progressGoal=next;dirty=true;wake();},setNight(value){nightGoal=value?1:0;dirty=true;wake();},setPaused(value){paused=value;dirty=true;wake();},reset(){panXGoal=panZGoal=0;zoomGoal=1;dirty=true;wake();},zoomBy(factor){zoomGoal=clamp(zoomGoal*factor,.8,1.7);dirty=true;wake();},dispose(){disposed=true;cancelAnimationFrame(raf);observer.disconnect();coarse.removeEventListener('change',resize);visibility.disconnect();document.removeEventListener('visibilitychange',visibilityChange);life.dispose();shadowMaterial.map.dispose();scene.traverse(o=>{o.geometry?.dispose();if(o.material)o.material.dispose();});Object.values(textures).forEach(t=>t.dispose());renderer.dispose();}};
+ resize();applyCamera();life.update(0,night,false);
+ // Upload in small batches before the first visible frame, yielding between batches.
+ const maps=Object.values(textures);for(let i=0;i<maps.length;i++){renderer.initTexture(maps[i]);if(i%4===3)await new Promise(resolve=>setTimeout(resolve,0));}
+ try{await renderer.compileAsync(scene,camera);}catch(error){renderer.dispose();onError(error);return null;}
+ compiled=true;wake();
+ return {setActive(value){if(enabled===value)return;enabled=value;if(value){resetTiming();dirty=true;wake();}else{cancelAnimationFrame(raf);raf=0;}},setProgress(p){const next=clamp(p,0,cameraStops.length-1);if(progressGoal===next)return;progressGoal=next;dirty=true;wake();},setNight(value){nightGoal=value?1:0;dirty=true;wake();},setPaused(value){paused=value;resetTiming();dirty=true;wake();},reset(){panXGoal=panZGoal=0;zoomGoal=1;dirty=true;wake();},zoomBy(factor){zoomGoal=clamp(zoomGoal*factor,.8,1.7);dirty=true;wake();},dispose(){disposed=true;cancelAnimationFrame(raf);observer.disconnect();coarse.removeEventListener('change',resize);visibility.disconnect();document.removeEventListener('visibilitychange',visibilityChange);removeEventListener('scroll',markRectDirty);life.dispose();shadowMaterial.map.dispose();scene.traverse(o=>{o.geometry?.dispose();if(o.material)o.material.dispose();});Object.values(textures).forEach(t=>t.dispose());renderer.dispose();}};
 }
