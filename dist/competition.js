@@ -7,5 +7,5 @@ function failed(){document.body.classList.remove('world-ready');document.body.cl
 import('./world.js').then(async({createWorld})=>{
  world=await createWorld(document.querySelector('#world-canvas'),{},()=>{document.body.classList.add('world-ready');document.querySelector('#scene-status').textContent='Arena ready.';},failed,destination=>{
   if(destination==='intel')location.assign('/#intel');else if((neural&&destination==='hackathon')||(!neural&&destination==='pitch'))document.querySelector('#mission').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});else location.assign(neural?'/startush-smackdown/':'/neural-nexus/');
- },{progress:neural?1:2,night:neural});if(world)ui.apply();
+ },{progress:neural?1:2,night:neural,panel:true});if(world)ui.apply();
 }).catch(failed);

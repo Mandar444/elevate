@@ -1,4 +1,8 @@
 export function setupEventUI(getWorld,{night=false}={}){
+ const chromeObserver=new ResizeObserver(entries=>{for(const entry of entries){const name=entry.target.classList.contains('desktop-nav')?'--dock-height':'--header-height';document.documentElement.style.setProperty(name,Math.ceil(entry.target.getBoundingClientRect().height)+'px');}});
+ for(const selector of ['.site-header','.desktop-nav']){const element=document.querySelector(selector);if(element)chromeObserver.observe(element);}
+ const more=document.querySelector('.nav-more');
+ if(more){more.addEventListener('click',event=>{if(event.target.closest('a'))more.open=false;});document.addEventListener('pointerdown',event=>{if(!more.contains(event.target))more.open=false;},{passive:true});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&more.open){more.open=false;more.querySelector('summary').focus();}});}
  const reduced=matchMedia('(prefers-reduced-motion: reduce)'),registration=document.querySelector('#registration-dialog');
  let isNight=night,paused=reduced.matches;
  document.querySelectorAll('.registration-trigger').forEach(button=>button.addEventListener('click',()=>registration?.showModal()));

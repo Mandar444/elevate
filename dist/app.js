@@ -1,12 +1,13 @@
+import {PHONE_LAYOUT_QUERY} from './responsive.js';
 import {setupEventUI} from './event-ui.js';
 import {loadPartners} from './partners.js';
 const body=document.body,experience=document.querySelector('.experience'),stage=document.querySelector('.world-stage');
 const chapters=[...document.querySelectorAll('[data-scene]')],guide=document.querySelector('#intel'),partners=document.querySelector('#partners');
 const copy=document.querySelector('.hero-copy'),action=document.querySelector('.hero-action');
-const reduced=matchMedia('(prefers-reduced-motion: reduce)'),compact=matchMedia('(max-height: 670px), (max-width: 760px) and (max-height: 770px)');
+const reduced=matchMedia('(prefers-reduced-motion: reduce)'),compact=matchMedia(PHONE_LAYOUT_QUERY+', (max-height: 670px)');
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),topOf=element=>element.getBoundingClientRect().top+scrollY;
 const routes={hackathon:'/neural-nexus/',pitch:'/startush-smackdown/'};
-let world=null,current=-1,scheduled=false,progress=0,outside=false;
+let world=null,current=-1,currentLayout=null,scheduled=false,progress=0,outside=false;
 const ui=setupEventUI(()=>world);
 const worldLayer=document.createElement('div');worldLayer.className='world-layer';
 for(const selector of ['.map-backdrop','.world-fallback','.fallback-shade','#world-canvas','.map-vignette','.world-pins','.world-controls','.scene-status'])worldLayer.append(stage.querySelector(selector));
@@ -27,7 +28,7 @@ function update(){
   const selected=link.hasAttribute('data-partners-link')?partnersActive:link.hasAttribute('data-guide-link')?guideActive&&!partnersActive:link.dataset.chapter==='0'&&!guideActive;
   link.classList.toggle('active',selected);if(selected)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');
  });
- const active=Math.round(progress);if(active===current&&!condensed&&chapters.every(c=>c.dataset.condensed!=='true'))return;current=active;stage.dataset.activeScene=String(active);
+ const active=Math.round(progress);if(active===current&&condensed===currentLayout)return;current=active;currentLayout=condensed;stage.dataset.activeScene=String(active);
  chapters.forEach((chapter,i)=>{const visible=condensed||i===active;chapter.classList.toggle('active',visible);chapter.inert=!visible;chapter.setAttribute('aria-hidden',String(!visible));chapter.dataset.condensed=String(condensed);});
  const intro=active===0||condensed;stage.classList.toggle('intro-active',intro);stage.classList.toggle('story-active',!condensed&&(active===1||active===2));
  copy.inert=action.inert=!intro;copy.setAttribute('aria-hidden',String(!intro));action.setAttribute('aria-hidden',String(!intro));
@@ -42,7 +43,7 @@ function jump(index,hash){
 }
 document.querySelectorAll('.journey-link').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();jump(Number(link.dataset.chapter),link.getAttribute('href'));}));
 document.querySelectorAll('a[href="#intel"],a[href="#partners"]').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();const hash=link.getAttribute('href');document.querySelector(hash).scrollIntoView({behavior:reduced.matches?'instant':'smooth'});history.replaceState(null,'',hash);}));
-update();loadPartners();
+update();loadPartners();document.fonts?.ready.then(schedule);
 import('./world.js').then(async({createWorld})=>{
  world=await createWorld(document.querySelector('#world-canvas'),{hackathon:document.querySelector('#pin-hackathon'),pitch:document.querySelector('#pin-pitch'),intel:document.querySelector('#pin-intel')},()=>{
   body.classList.add('world-ready');document.querySelector('#scene-status').textContent='Village ready.';
