@@ -1,0 +1,48 @@
+{
+  "tool": "Built-in image_gen",
+  "purpose": "Illustrated chapter backgrounds for Elevate; fictional environments, not event photographs",
+  "prompts": {
+    "parchment-atlas": "Use case: stylized-concept\nAsset type: standalone wide raster website section backdrop, 2048x1152 landscape, edge-to-edge image.\nPrimary request: warm ivory parchment atlas with visible fine sepia hand-drawn isometric outlines of an original medieval strategy village around the edges: walls, town hall, archer tower, trees, paths, mountains, and a compass.\nStyle/medium: fine technical sketch, charming chunky timber-and-stone mobile-strategy village architecture represented as delicate pen linework; old exploration map viewed straight from above, not a photograph of paper on a desk.\nComposition/framing: detailed map elements around the perimeter; centre 55% much quieter with very faint paths and texture. Hand-drawn lines distinct enough to remain visible at web background scale. Fill the entire frame.\nColor palette and texture: warm ivory, not orange; sepia ink; fine paper fibres, subtle folds, lightly browned edges.\nConstraints: no characters, no people, no text, no lettering, no numbers, no UI, no logo, no watermark. This is a background asset, not a website screenshot.",
+    "treasury-scene": "Use case: stylized-concept\nAsset type: standalone wide raster website section backdrop, 2048x1152 landscape, edge-to-edge image.\nPrimary request: polished original stylized 3D mobile strategy-game treasury illustration. Golden trophy with a ruby shield at right, an open chunky wooden treasure chest brimming with coins, stacked stone plinth, blue and red banner accents, warm sunbeams, scattered coins along the foreground.\nComposition/framing: objects clustered in rightmost 38% and along bottom edge. Left 60% is a softly lit warm ivory sandstone wall with faint engraved geometric masonry for later dark text overlay. Fill the composition to all edges.\nStyle/medium: polished premium 3D game illustration with chunky timber-and-stone materials, tactile wood grain and softly bevelled sandstone, lustrous gold.\nLighting/mood: warm sunbeams, soft ivory illumination on the left, rich warm depth around the treasury.\nConstraints: no characters, no people, no text, no lettering, no UI, no actual logos, no watermark. This is a section background asset, not a website screenshot.",
+    "clan-hall": "Use case: stylized-concept\nAsset type: standalone wide raster website section backdrop, 2048x1152 landscape, edge-to-edge image.\nPrimary request: detailed original stylized 3D medieval guildhall courtyard with weathered stone arches, burgundy and royal blue cloth pennants at the upper edge, a wooden planning table at lower-right bearing a rolled parchment, tiny lanterns, warm cream stone centre floor, leafy vines at the side edges.\nStyle/medium: polished premium mobile-strategy game illustration, chunky timber-and-stone materials, tactile wood, bevelled stone, lush vines.\nComposition/framing: view from a slight elevated/isometric angle. Main architecture at edges and right. Central 55% is softly lit stone texture with clear space for overlays. Fill the composition to all edges.\nLighting/mood: warm sunlight and rich shadow, inviting guildhall atmosphere.\nConstraints: no people, no characters, no text, no lettering, no UI, no actual logos, no watermark. This is a section background asset, not a website screenshot."
+  },
+  "assets": [
+    {
+      "filename": "parchment-atlas.webp",
+      "width": 1600,
+      "height": 900,
+      "bytes": 404542
+    },
+    {
+      "filename": "parchment-atlas-960.webp",
+      "width": 960,
+      "height": 540,
+      "bytes": 141832
+    },
+    {
+      "filename": "treasury-scene.webp",
+      "width": 1600,
+      "height": 900,
+      "bytes": 135918
+    },
+    {
+      "filename": "treasury-scene-960.webp",
+      "width": 960,
+      "height": 540,
+      "bytes": 61348
+    },
+    {
+      "filename": "clan-hall.webp",
+      "width": 1600,
+      "height": 900,
+      "bytes": 265092
+    },
+    {
+      "filename": "clan-hall-960.webp",
+      "width": 960,
+      "height": 540,
+      "bytes": 113982
+    }
+  ],
+  "inspection": "Owner visually inspected all three originals. No people, lettering, UI or watermarks. Village linework, treasury, and clan hall are suitable for the requested parchment/game aesthetic. Compressed without content editing; mobile assets provided."
+}

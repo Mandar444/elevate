@@ -1,0 +1,150 @@
+{
+  "purpose": "User-supplied branding with neutral backgrounds removed using built-in image generation",
+  "provenance": {
+    "mode": "built-in image_gen only",
+    "status": "success_both_logos_have_genuine_transparency",
+    "selectedFiles": [
+      "elevate26-transparent.png",
+      "ecell-transparent-v3.png"
+    ],
+    "failedFiles": [
+      "ecell-transparent.png",
+      "ecell-transparent-v2.png"
+    ],
+    "attempts": [
+      {
+        "name": "ecell-transparent",
+        "input": "C:/Users/smand/AppData/Local/Temp/codex-clipboard-28a2c2c2-9161-4683-8131-660cec68faa6.png",
+        "prompt": "Use case: background-extraction.\nAsset type: transparent PNG logo cutout for a website.\nInput image: the supplied E-CELL image is the edit target.\nEdit only the flat neutral light grey backdrop. Remove it fully, including backdrop visible in all negative-space holes within and between the wooden logo elements, arrow shafts, balloon ropes and lettering contours. Return genuine transparent RGBA alpha, never a painted checkerboard, white/grey rectangle, or white/grey circle.\nPreserve the exact full existing E-CELL logo composition, exact text \"E-CELL\", original letterforms and white/cream lettering fill with dark burgundy outline. Preserve all carved timber shapes and wood grain, red arrow feathers and shafts, goblin portrait with glasses and its frame, balloon and suspended basket and ropes, gold coins, skull rocket, orange flame, black curved flourish, their colours, relative size, placement, contours and soft object shading. Preserve white and grey details belonging to actual logo objects; only the empty neutral backdrop becomes transparent. Do not erase interior object surfaces or the letter fills.\nKeep the complete logo visible with modest transparent padding at a useful large resolution. No redesign, no altered letters, no added objects, no new text, no added background, no branding additions. Preserve image content faithfully; change only the background to transparency.",
+        "tool": "image_gen.imagegen",
+        "mode": "built-in background-extraction edit",
+        "output": "C:/Users/smand/Documents/Codex/2026-09-10/c-users-smand-onedrive-desktop-elevate/work/logo-cutouts/ecell-transparent.png",
+        "provenance": "Generated images are saved to C:\\Users\\smand\\.codex\\generated_images\\01a08d2e-e63b-71f1-a8e1-4180ecb3b80b as C:\\Users\\smand\\.codex\\generated_images\\01a08d2e-e63b-71f1-a8e1-4180ecb3b80b\\exec-2055f61b-9474-41d1-a71a-00adf2013271.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+        "selected": false,
+        "status": "failed_opaque_checkerboard_do_not_integrate",
+        "alpha": {
+          "width": 1254,
+          "height": 1254,
+          "channels": 3,
+          "hasAlpha": false,
+          "fullyTransparentPixels": 0,
+          "transparentPercent": 0
+        },
+        "inspection": "Returned PNG has an opaque baked checkerboard backdrop. Failed requested genuine transparency. No manual background processing performed."
+      },
+      {
+        "name": "elevate26-transparent",
+        "input": "C:/Users/smand/AppData/Local/Temp/codex-clipboard-54787bbf-7254-4d91-8b5f-4f9f910fa082.png",
+        "prompt": "Use case: background-extraction.\nAsset type: transparent PNG logo cutout for a website.\nInput image: the supplied ELEVATE’26 image is the edit target.\nEdit only the flat neutral white backdrop outside the logo. Remove it fully, including any true empty backdrop visible in negative-space holes. Return genuine transparent RGBA alpha, never a painted checkerboard, white/grey rectangle, or white/grey circle.\nPreserve the exact full existing logo composition and exact text \"ELEVATE’26\", all original letterforms and apostrophe, creamy carved stone letters, dark stone plaque and ring, wood grain disk, golden trim and ascending bar chart, light stone rising arrow, blue curved lower bands, gold diamonds, all chips and texture, object contours, proportions, colours, placement and soft object shading. The wooden disk, stone plaque, and dark regions between letters are part of the logo and must remain opaque; do not remove them. Preserve all light/white stone details that belong to the logo.\nKeep the complete logo visible with modest transparent padding at a useful large resolution. No redesign, no altered letters, no added objects, no new text, no added background, no branding additions. Preserve image content faithfully; change only the background to transparency.",
+        "tool": "image_gen.imagegen",
+        "mode": "built-in background-extraction edit",
+        "output": "C:/Users/smand/Documents/Codex/2026-09-10/c-users-smand-onedrive-desktop-elevate/work/logo-cutouts/elevate26-transparent.png",
+        "provenance": "Generated images are saved to C:\\Users\\smand\\.codex\\generated_images\\01a08d2e-e63b-71f1-a8e1-4180ecb3b80b as C:\\Users\\smand\\.codex\\generated_images\\01a08d2e-e63b-71f1-a8e1-4180ecb3b80b\\exec-9d8b42d9-5c21-4ff3-a65f-d28c3bb3428f.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+        "selected": true,
+        "status": "selected_valid_transparency",
+        "alpha": {
+          "width": 1246,
+          "height": 1262,
+          "channels": 4,
+          "hasAlpha": true,
+          "fullyTransparentPixels": 561837,
+          "transparentPercent": 35.72999366594338,
+          "dominantNonzeroAlpha": 253
+        },
+        "inspection": "Exterior clean and transparent; full logo visible, lettering intact; most artwork alpha 253/255."
+      },
+      {
+        "name": "ecell-transparent-v2",
+        "input": "C:/Users/smand/AppData/Local/Temp/codex-clipboard-28a2c2c2-9161-4683-8131-660cec68faa6.png",
+        "prompt": "BACKGROUND EXTRACTION EDIT — TRANSPARENT BACKGROUND OUTPUT.\nUse the supplied original E-CELL logo as the edit target. The required deliverable is an RGBA PNG cutout with a real alpha channel: every empty background pixel outside the logo and in all internal negative-space gaps must have alpha 0. Transparency must be encoded in the PNG pixels, never illustrated as a visible pattern or rendered backdrop.\nChange only the flat light grey background to actual transparency. Carefully remove grey background in the wooden emblem's interior gaps, between arrow shafts and balloon ropes, and everywhere the backdrop is visible. Preserve all solid artwork surfaces. Preserve the exact original logo content and composition: wooden geometric emblem, light and red timber textures, dark red outlines, red-feathered arrows, green goblin portrait in its wooden ring, gold coins, black curved flourish, balloon and basket with skull and ropes, skull rocket with orange flame, and the exact \"E-CELL\" lettering and letterforms with light fill and burgundy outline. Retain all contour detail and soft shading that belongs to the objects. White/grey colouring on real objects is not background and must be retained.\nUse the original supplied logo, without redesign or retouching its shapes, colours, placement, texture, text, size relationships, or details. Keep the full logo within the frame with modest transparent padding. This is solely a background-removal operation.\nOUTPUT REQUIREMENT: actual transparent RGBA PNG, alpha 0 for empty space. No visible backdrop of any kind. No painted transparency grid. No white or grey rectangle or circle. No new text or new objects.",
+        "tool": "image_gen.imagegen",
+        "mode": "built-in background-extraction edit",
+        "output": "C:/Users/smand/Documents/Codex/2026-09-10/c-users-smand-onedrive-desktop-elevate/work/logo-cutouts/ecell-transparent-v2.png",
+        "provenance": "Generated images are saved to C:\\Users\\smand\\.codex\\generated_images\\01a08d2e-e63b-71f1-a8e1-4180ecb3b80b as C:\\Users\\smand\\.codex\\generated_images\\01a08d2e-e63b-71f1-a8e1-4180ecb3b80b\\exec-433883dd-3261-4b79-a7bf-32db5aa2bae3.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+        "selected": false,
+        "status": "failed_opaque_checkerboard_do_not_integrate",
+        "alpha": {
+          "width": 1254,
+          "height": 1254,
+          "channels": 3,
+          "hasAlpha": false,
+          "fullyTransparentPixels": 0,
+          "transparentPercent": 0
+        },
+        "inspection": "Returned PNG has an opaque baked checkerboard backdrop. Failed requested genuine transparency. No manual background processing performed."
+      },
+      {
+        "name": "ecell-transparent-v3",
+        "input": "C:/Users/smand/AppData/Local/Temp/codex-clipboard-28a2c2c2-9161-4683-8131-660cec68faa6.png",
+        "prompt": "Remove the light grey background from this supplied E-CELL logo. Output a PNG with actual transparent alpha wherever the grey background was, including inside the open wooden emblem. Keep the existing logo, all objects and lettering unchanged. Transparent background.",
+        "tool": "image_gen.imagegen",
+        "mode": "built-in background-extraction edit",
+        "output": "C:/Users/smand/Documents/Codex/2026-09-10/c-users-smand-onedrive-desktop-elevate/work/logo-cutouts/ecell-transparent-v3.png",
+        "provenance": "Generated images are saved to C:\\Users\\smand\\.codex\\generated_images\\01a08d2e-e63b-71f1-a8e1-4180ecb3b80b as C:\\Users\\smand\\.codex\\generated_images\\01a08d2e-e63b-71f1-a8e1-4180ecb3b80b\\exec-8a231278-c7c8-4f52-b3d2-229837bfa475.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+        "selected": true,
+        "status": "selected_valid_transparency",
+        "alpha": {
+          "width": 1254,
+          "height": 1254,
+          "channels": 4,
+          "hasAlpha": true,
+          "fullyTransparentPixels": 956438,
+          "transparentPercent": 60.82214743760954,
+          "dominantNonzeroAlpha": 253
+        },
+        "inspection": "Genuine transparent exterior and open emblem interior. Full objects and E-CELL text remain visible. Fine warm-colour edge fringe visible in enlarged returned preview; no manual processing performed."
+      }
+    ]
+  },
+  "selectedAssets": [
+    {
+      "name": "ecell",
+      "source": "C:\\Users\\smand\\Documents\\Codex\\2026-09-10\\c-users-smand-onedrive-desktop-elevate\\work\\logo-cutouts\\ecell-transparent-v3.png",
+      "width": 1254,
+      "height": 1254,
+      "fullyTransparentPixels": 956438,
+      "files": [
+        {
+          "path": "dist/assets/ecell-mark-160.webp",
+          "width": 160,
+          "bytes": 15504
+        },
+        {
+          "path": "dist/assets/ecell-mark-320.webp",
+          "width": 320,
+          "bytes": 40172
+        },
+        {
+          "path": "dist/assets/ecell-mark.webp",
+          "width": 500,
+          "bytes": 75354
+        }
+      ]
+    },
+    {
+      "name": "elevate26",
+      "source": "C:\\Users\\smand\\Documents\\Codex\\2026-09-10\\c-users-smand-onedrive-desktop-elevate\\work\\logo-cutouts\\elevate26-transparent.png",
+      "width": 1246,
+      "height": 1262,
+      "fullyTransparentPixels": 561837,
+      "files": [
+        {
+          "path": "dist/assets/elevate26-mark-160.webp",
+          "width": 160,
+          "bytes": 11480
+        },
+        {
+          "path": "dist/assets/elevate26-mark-320.webp",
+          "width": 320,
+          "bytes": 30390
+        },
+        {
+          "path": "dist/assets/elevate26-mark.webp",
+          "width": 650,
+          "bytes": 84832
+        }
+      ]
+    }
+  ],
+  "notes": "True alpha preserved in WebP resizing; originals retained. CSS backing and circular clipping removed."
+}

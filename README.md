@@ -5,13 +5,13 @@ The E-Cell hackathon and business pitch competition website, built around a clas
 ## Pages and hosting
 
 - `/`: Elevate village, competition previews, field guide, sponsor and community partner roster, and closing invitation.
-- `/neural-nexus/`: Neural Nexus AI/ML Hackathon, with its own laboratory hero, mission, preparation guide, FAQ, and registration status.
-- `/startush-smackdown/`: Startush Smackdown Business Pitching Competition, with its own arena hero, mission, preparation guide, FAQ, and registration status.
+- `/neural-nexus/`: Neuralnix Hackathon, with its own laboratory hero, mission, preparation guide, FAQ, and registration status.
+- `/startush-smackdown/`: Startup Smackdown Business Pitching Competition, with its own arena hero, mission, preparation guide, FAQ, and registration status.
 - `/team/`: Our Team, with E-Cell branding, clan roster cards, and clearly labeled placeholders until confirmed names, roles, and photos are supplied.
 - `/past-editions/`: Elevate 2024 and 2025, each with judges, special guests/mentors, and a photo album with an enlarged viewer.
 - `404.html`: a useful fallback for missing pages.
 
-The competition names follow the supplied spelling, including **Startush Smackdown**. Navigation, village landmarks, and homepage competition buttons link to the dedicated pages. Existing homepage chapter anchors remain usable.
+The competition names follow the supplied spelling, including **Startup Smackdown**. Navigation, village landmarks, and homepage competition buttons link to the dedicated pages. Existing homepage chapter anchors remain usable.
 
 The repository is ready to import into Vercel. `vercel.json` selects the static `dist` output, runs `npm run build`, and enables trailing slashes for directory pages. The local server supports the same directory routes and missing-page behavior. No server runtime or application secrets are required.
 
@@ -98,9 +98,9 @@ This is a 2.5D isometric scene in Three.js: original pre-rendered building and t
 
 ## Prize pools and section palette
 
-Elevate 3.0 has a ₹1,00,000 prize pool. Neural Nexus totals ₹60,000 (₹30,000 / ₹20,000 / ₹10,000 for first / second / third); Startush Smackdown totals ₹40,000 (₹20,000 / ₹12,000 / ₹8,000). The organizer's latest 60/40 split is used, interpreting the final hackathon award as third place. Amounts are static, accessible HTML in the homepage and each competition page. Keep hero labels, reward sections, arena cards, and FAQs in sync when changing them.
+Elevate 3.0 has a ₹1,00,000 prize pool. Neuralnix Hackathon totals ₹60,000 (₹30,000 / ₹20,000 / ₹10,000 for first / second / third); Startup Smackdown totals ₹40,000 (₹20,000 / ₹12,000 / ₹8,000). The organizer's latest 60/40 split is used, interpreting the final hackathon award as third place. Amounts are static, accessible HTML in the homepage and each competition page. Keep hero labels, reward sections, arena cards, and FAQs in sync when changing them.
 
-`dist/stronghold.css` supplies the reward layouts and the final section palette: dark timber for the council, cobalt for the alliance hall, violet for Neural Nexus, burgundy and gold for Startush Smackdown, navy and wine for the team, and distinct blue/wine archive chapters. Pale preparation and expanded FAQ panels are replaced. The renderer stops at the new treasury section; the village and hidden mobile toolbar are preserved.
+`dist/stronghold.css` supplies the illustrated parchment layouts, treasure-room rewards, clan-hall sponsors, field-guide frames, lab notebook, pitch playbook, organizer desk, and archive albums. The renderer stops at the treasury section. The village and hidden mobile toolbar are preserved.
 
 ## Mobile behavior
 
@@ -136,13 +136,15 @@ Checks simulate display clocks at 60, 90, 120, and 144 Hz with timestamp jitter,
 - `dist/troop-assets.js`, `dist/assets/troops/`: four original game troop textures and their foot anchors.
 - `dist/prop-assets.js`: local texture URLs, dimensions, and footprint anchors.
 - `dist/assets/props/`: 28 game artwork textures, compressed losslessly.
-- `dist/assets/ecell-logo.webp`, `dist/assets/elevate26-logo.webp`: supplied event branding.
+- `dist/assets/ecell-logo.webp`, `dist/assets/elevate26-logo.webp`: original supplied event branding.
+- `dist/assets/ecell-mark.webp`, `dist/assets/elevate26-mark.webp`: transparent background cutouts used across the website, with 160 px and 320 px responsive versions. Provenance is in `licenses/transparent-branding.json`.
+- Shared forest-green heading ink and neutral body text connect the paper sections to the village; the alliance hall and competition-selection cards retain their approved colours.
 - `dist/vendor/`: self-hosted Three.js 0.180.0 and MIT license.
 - `licenses/VILLAGE-ASSETS.md`, `licenses/village-asset-manifest.json`: source attribution, rights notes, and placement metadata.
 
 ## Event details
 
-The date, venue, organizer's full name, participation rules, team sizes, event duration, entry fees, challenges, judging, prizes, sponsors, contact information, schedule, and registration URL are still awaiting confirmation. Current copy identifies pending details. The registration dialog collects no data and makes no false submission claim.
+The date, venue, organizer's full name, participation rules, team sizes, event duration, entry fees, challenges, judging, sponsors, contact information, schedule, and registration URL are still awaiting confirmation. Current copy identifies pending details. The registration dialog collects no data and makes no false submission claim.
 
 Edit the event copy in `dist/index.html` and the competition pages in `dist/neural-nexus/index.html` and `dist/startush-smackdown/index.html`. Replace each coming-soon registration dialog when an authorized registration destination is supplied. Add Event structured data after the date and location are known. The existing owner-private Sites publication is for review; Vercel is the requested production hosting destination.
 
@@ -157,3 +159,8 @@ Checks validate all six static HTML routes, local assets, navigation and anchor 
 The council frame and blank clan banner were generated for this design using the built-in image-generation tool, then compressed to WebP with alpha retained. Their prompts and source QA are recorded in `licenses/clan-ui-provenance.json` and `licenses/clan-ui-qa.json`. The council frame is used as an unfilled CSS border image; text, names, and logos remain real HTML content.
 
 Supplied logos belong to the event organizers. Clash of Clans assets remain the property of Supercell and their respective owners; the site identifies itself as an unofficial themed event. Pinterest references and exact asset sources are in `licenses/VILLAGE-ASSETS.md`. Lilita One and Nunito Sans are self-hosted Google Fonts with their license texts included. Three.js uses the included MIT license.
+
+
+## Illustrated chapter redesign
+
+The non-village sections use parchment map artwork, a treasure-vault illustration, and a clan-hall environment, with distinct layouts for the hackathon lab notebook, business pitch playbook, organizers and historical album. Display names follow the latest organizer correction: Neuralnix Hackathon and Startup Smackdown. Existing `/neural-nexus/` and `/startush-smackdown/` routes stay stable for incoming links. Prize amounts are unchanged. Real team members, sponsors, judges and event photos remain clearly pending until supplied.

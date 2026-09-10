@@ -42,7 +42,7 @@ for(const name of fs.readdirSync(dist).filter(n=>n.endsWith('.css'))){
 for(const name of fs.readdirSync(dist).filter(n=>n.endsWith('.js')))execFileSync(process.execPath,['--check',path.join(dist,name)],{stdio:'pipe'});
 execFileSync(process.execPath,['--check',path.join(root,'server.mjs')],{stdio:'pipe'});
 assert.ok(entries.get('/neural-nexus/').includes('AI/ML Hackathon'));
-assert.ok(entries.get('/startush-smackdown/').includes('Startush Smackdown'));
+assert.ok(entries.get('/startush-smackdown/').includes('Startup Smackdown'));
 assert.ok(entries.get('/').indexOf('id="partners"')>entries.get('/').indexOf('id="intel"'));
 assert.ok(entries.get('/').indexOf('id="rally"')>entries.get('/').indexOf('id="partners"'));
 const home=entries.get('/');
