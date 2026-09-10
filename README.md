@@ -96,6 +96,12 @@ Use Node.js 20 or newer. Run `npm start`, then open `http://127.0.0.1:5173`. No 
 
 This is a 2.5D isometric scene in Three.js: original pre-rendered building and troop textures are positioned on planes in a depth-aware scene. The fixed viewing angle preserves the artwork's intended perspective. Troops use single standing poses with route movement, direction changes, and subtle bobbing; they are not multi-frame walking animations. Oversized foreground character cutouts remain removed.
 
+## Prize pools and section palette
+
+Elevate 3.0 has a ₹1,00,000 prize pool. Neural Nexus totals ₹60,000 (₹30,000 / ₹20,000 / ₹10,000 for first / second / third); Startush Smackdown totals ₹40,000 (₹20,000 / ₹12,000 / ₹8,000). The organizer's latest 60/40 split is used, interpreting the final hackathon award as third place. Amounts are static, accessible HTML in the homepage and each competition page. Keep hero labels, reward sections, arena cards, and FAQs in sync when changing them.
+
+`dist/stronghold.css` supplies the reward layouts and the final section palette: dark timber for the council, cobalt for the alliance hall, violet for Neural Nexus, burgundy and gold for Startush Smackdown, navy and wine for the team, and distinct blue/wine archive chapters. Pale preparation and expanded FAQ panels are replaced. The renderer stops at the new treasury section; the village and hidden mobile toolbar are preserved.
+
 ## Mobile behavior
 
 Phones use flowing homepage chapters at every screen height. Competition introductions flow above a separately framed village view. Safe-area insets keep the header and bottom dock away from notches and home indicators; measured header/dock heights also reserve room when text is enlarged. The day/night, pause, reset, and zoom toolbar is hidden throughout the mobile site, including landscape and competition pages; desktop controls remain available. Visible touch controls are at least 44 pixels high. The phone dock keeps four primary pages visible and groups Field Guide, Our Allies, and Past Editions under More. Sponsor banners use two columns, and team cards use one column on narrow phones. Content heights remain flexible and registration dialogs scroll within the visible viewport.

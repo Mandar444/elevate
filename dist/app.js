@@ -2,7 +2,7 @@ import {PHONE_LAYOUT_QUERY} from './responsive.js';
 import {setupEventUI} from './event-ui.js';
 import {loadPartners} from './partners.js';
 const body=document.body,experience=document.querySelector('.experience'),stage=document.querySelector('.world-stage');
-const chapters=[...document.querySelectorAll('[data-scene]')],guide=document.querySelector('#intel'),partners=document.querySelector('#partners');
+const chapters=[...document.querySelectorAll('[data-scene]')],guide=document.querySelector('#intel'),partners=document.querySelector('#partners'),worldEnd=document.querySelector('#prizes');
 const copy=document.querySelector('.hero-copy'),action=document.querySelector('.hero-action');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)'),compact=matchMedia(PHONE_LAYOUT_QUERY+', (max-height: 670px)');
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),topOf=element=>element.getBoundingClientRect().top+scrollY;
@@ -18,7 +18,7 @@ function measure(){
  const condensed=compact.matches;
  if(layout.condensed!==condensed)body.classList.toggle('compact-view',condensed);
  // All geometry reads are grouped here, after a real resize/content change, never on every scroll.
- layout={condensed,viewport:innerHeight,origin:topOf(experience),range:Math.max(1,experience.offsetHeight-stage.offsetHeight),guideTop:topOf(guide),partnersTop:topOf(partners),stops:condensed?chapters.map(element=>Math.max(0,topOf(element)-innerHeight*.16)):[]};
+ layout={condensed,viewport:innerHeight,origin:topOf(experience),range:Math.max(1,experience.offsetHeight-stage.offsetHeight),worldEndTop:topOf(worldEnd),guideTop:topOf(guide),partnersTop:topOf(partners),stops:condensed?chapters.map(element=>Math.max(0,topOf(element)-innerHeight*.16)):[]};
  layoutDirty=false;
 }
 function update(){
@@ -26,7 +26,7 @@ function update(){
  const {condensed,stops}=layout,y=scrollY;
  if(condensed){progress=0;for(let i=0;i<stops.length-1;i++)if(y>=stops[i])progress=i+clamp((y-stops[i])/Math.max(1,stops[i+1]-stops[i]),0,1);}
  else progress=clamp((y-layout.origin)/layout.range*3,0,3);
- const nextOutside=y>=layout.guideTop,guideActive=y>layout.guideTop-layout.viewport*.45,partnersActive=y>layout.partnersTop-layout.viewport*.45;
+ const nextOutside=y>=layout.worldEndTop,guideActive=y>layout.guideTop-layout.viewport*.45,partnersActive=y>layout.partnersTop-layout.viewport*.45;
  if(outside!==nextOutside){outside=nextOutside;body.classList.toggle('off-village',outside);worldLayer.inert=outside;worldLayer.setAttribute('aria-hidden',String(outside));world?.setActive(!outside);}
  if(!outside)world?.setProgress(progress);
  const region=partnersActive?2:guideActive?1:0;
@@ -39,7 +39,7 @@ function update(){
 function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(update);}}
 function invalidate(){layoutDirty=true;schedule();}
 addEventListener('scroll',schedule,{passive:true});addEventListener('resize',invalidate,{passive:true});compact.addEventListener('change',()=>{current=-1;invalidate();});
-const contentObserver=new ResizeObserver(invalidate);for(const element of [experience,guide,partners])contentObserver.observe(element);
+const contentObserver=new ResizeObserver(invalidate);for(const element of [experience,worldEnd,guide,partners])contentObserver.observe(element);
 function jump(index,hash){
  document.querySelectorAll('dialog[open]').forEach(d=>d.close());world?.reset();if(layoutDirty)measure();
  if(compact.matches)document.querySelector(hash)?.scrollIntoView({behavior:reduced.matches?'instant':'smooth'});
