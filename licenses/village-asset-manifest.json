@@ -1,0 +1,1351 @@
+{
+  "researchedAt": "2026-09-10",
+  "description": "Classic TH8 game sprites and village environment assets; no generated art, no standalone character cutouts.",
+  "assetRightsUrl": "https://supercell.com/en/fan-content-policy/",
+  "rightsNote": "These are copyrighted game assets, not public-domain or independently cleared commercial assets. Supercell Fan Content Policy covers permitted fan use, requires an unofficiality notice, and sets limits on commercial uses and modifications. Pinterest provides visual references, not a rights grant.",
+  "references": [
+    {
+      "file": "references/pinterest-th8-village.jpg",
+      "page": "https://www.pinterest.com/pin/841680617859552396/",
+      "image": "https://i.pinimg.com/originals/44/56/f2/4456f2ccdef0491a2f825ae693433f24.jpg",
+      "notes": "Wall-only Batman layout; classic grass/forest colors; 480x360."
+    },
+    {
+      "file": "references/pinterest-th8-village2.jpg",
+      "page": "https://www.pinterest.com/pin/785737466209481095/",
+      "image": "https://i.pinimg.com/originals/b3/69/29/b369295fb641fa7a687588eefe7b290a.jpg",
+      "notes": "Wall compartments on classic grass; 1920x1080. Main source for isometric spacing, grass checker, forest border colors."
+    },
+    {
+      "page": "https://www.pinterest.com/pin/443745369525188319/",
+      "image": "https://i.pinimg.com/736x/0a/b5/8d/0ab58dbb752eb6276c4eafa15484a3dc.jpg",
+      "notes": "Pinterest TH8 building render reference; matches classic TH8 visual style."
+    }
+  ],
+  "visualChecks": [
+    "props-contact-sheet.png",
+    "obstacles-contact-sheet.png"
+  ],
+  "assets": [
+    {
+      "file": "air_bomb_level3_ingame_icon.png",
+      "relativePath": "assets/props/air_bomb_level3_ingame_icon.png",
+      "width": 150,
+      "height": 200,
+      "bytes": 13601,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 21,
+        "y": 9,
+        "width": 109,
+        "height": 168
+      },
+      "bottomCenterAnchor": {
+        "x": 75.5,
+        "y": 177,
+        "u": 0.5033,
+        "v": 0.885
+      },
+      "suggestedFootprintCenter": {
+        "x": 75.5,
+        "y": 156.29
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/traps/air_bomb/air_bomb_level3_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "air_defense_level6_ingame_icon.png",
+      "relativePath": "assets/props/air_defense_level6_ingame_icon.png",
+      "width": 175,
+      "height": 265,
+      "bytes": 10866,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 29,
+        "y": 47,
+        "width": 116,
+        "height": 170
+      },
+      "bottomCenterAnchor": {
+        "x": 87.0,
+        "y": 217,
+        "u": 0.4971,
+        "v": 0.8189
+      },
+      "suggestedFootprintCenter": {
+        "x": 87.0,
+        "y": 194.96
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/defenses/air_defense/air_defense_level6_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "air_sweeper_level4_ingame_icon.png",
+      "relativePath": "assets/props/air_sweeper_level4_ingame_icon.png",
+      "width": 200,
+      "height": 200,
+      "bytes": 12414,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 20,
+        "y": 6,
+        "width": 160,
+        "height": 188
+      },
+      "bottomCenterAnchor": {
+        "x": 100.0,
+        "y": 194,
+        "u": 0.5,
+        "v": 0.97
+      },
+      "suggestedFootprintCenter": {
+        "x": 100.0,
+        "y": 163.6
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/defenses/air_sweeper/air_sweeper_level4_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "archer_tower_level10_ingame_icon.png",
+      "relativePath": "assets/props/archer_tower_level10_ingame_icon.png",
+      "width": 218,
+      "height": 288,
+      "bytes": 22306,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 10,
+        "y": 14,
+        "width": 198,
+        "height": 259
+      },
+      "bottomCenterAnchor": {
+        "x": 109.0,
+        "y": 273,
+        "u": 0.5,
+        "v": 0.9479
+      },
+      "suggestedFootprintCenter": {
+        "x": 109.0,
+        "y": 235.38
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/defenses/archer_tower/archer_tower_level10_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "army_camp_level6_ingame_icon.png",
+      "relativePath": "assets/props/army_camp_level6_ingame_icon.png",
+      "width": 220,
+      "height": 210,
+      "bytes": 13002,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 25,
+        "y": 33,
+        "width": 163,
+        "height": 145
+      },
+      "bottomCenterAnchor": {
+        "x": 106.5,
+        "y": 178,
+        "u": 0.4841,
+        "v": 0.8476
+      },
+      "suggestedFootprintCenter": {
+        "x": 106.5,
+        "y": 147.03
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/army_b/army_camp/army_camp_level6_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "barracks_level10_ingame_icon.png",
+      "relativePath": "assets/props/barracks_level10_ingame_icon.png",
+      "width": 270,
+      "height": 270,
+      "bytes": 27328,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 23,
+        "y": 3,
+        "width": 229,
+        "height": 250
+      },
+      "bottomCenterAnchor": {
+        "x": 137.5,
+        "y": 253,
+        "u": 0.5093,
+        "v": 0.937
+      },
+      "suggestedFootprintCenter": {
+        "x": 137.5,
+        "y": 209.49
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/army_b/barracks/barracks_level10_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "bk_altar_ingame_icon.png",
+      "relativePath": "assets/props/bk_altar_ingame_icon.png",
+      "width": 200,
+      "height": 152,
+      "bytes": 12505,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 4,
+        "y": 5,
+        "width": 193,
+        "height": 143
+      },
+      "bottomCenterAnchor": {
+        "x": 100.5,
+        "y": 148,
+        "u": 0.5025,
+        "v": 0.9737
+      },
+      "suggestedFootprintCenter": {
+        "x": 100.5,
+        "y": 111.33
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/army_b/bk_altar/bk_altar_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "bomb_level5_ingame_icon.png",
+      "relativePath": "assets/props/bomb_level5_ingame_icon.png",
+      "width": 200,
+      "height": 200,
+      "bytes": 16644,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 36,
+        "y": 14,
+        "width": 131,
+        "height": 167
+      },
+      "bottomCenterAnchor": {
+        "x": 101.5,
+        "y": 181,
+        "u": 0.5075,
+        "v": 0.905
+      },
+      "suggestedFootprintCenter": {
+        "x": 101.5,
+        "y": 156.11
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/traps/bomb/bomb_level5_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "builders_hut.png",
+      "relativePath": "assets/props/builders_hut.png",
+      "width": 179,
+      "height": 160,
+      "bytes": 30575,
+      "hasTransparency": true,
+      "hasPartialAlpha": true,
+      "alphaBounds": {
+        "x": 20,
+        "y": 1,
+        "width": 127,
+        "height": 159
+      },
+      "bottomCenterAnchor": {
+        "x": 83.5,
+        "y": 160,
+        "u": 0.4665,
+        "v": 1.0
+      },
+      "suggestedFootprintCenter": {
+        "x": 83.5,
+        "y": 135.87
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/army/builder/builders_hut.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "cannon_level10_ingame_icon.png",
+      "relativePath": "assets/props/cannon_level10_ingame_icon.png",
+      "width": 200,
+      "height": 200,
+      "bytes": 13001,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 3,
+        "y": 18,
+        "width": 194,
+        "height": 165
+      },
+      "bottomCenterAnchor": {
+        "x": 100.0,
+        "y": 183,
+        "u": 0.5,
+        "v": 0.915
+      },
+      "suggestedFootprintCenter": {
+        "x": 100.0,
+        "y": 146.14
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/defenses/cannon/cannon_level10_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "clan_castle_level4_ingame_icon.png",
+      "relativePath": "assets/props/clan_castle_level4_ingame_icon.png",
+      "width": 200,
+      "height": 220,
+      "bytes": 20172,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 14,
+        "y": 4,
+        "width": 170,
+        "height": 200
+      },
+      "bottomCenterAnchor": {
+        "x": 99.0,
+        "y": 204,
+        "u": 0.495,
+        "v": 0.9273
+      },
+      "suggestedFootprintCenter": {
+        "x": 99.0,
+        "y": 171.7
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/clan_castle/clan_castle_level4_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "dark_barracks_level4_ingame_icon.png",
+      "relativePath": "assets/props/dark_barracks_level4_ingame_icon.png",
+      "width": 280,
+      "height": 300,
+      "bytes": 26332,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 23,
+        "y": 2,
+        "width": 240,
+        "height": 294
+      },
+      "bottomCenterAnchor": {
+        "x": 143.0,
+        "y": 296,
+        "u": 0.5107,
+        "v": 0.9867
+      },
+      "suggestedFootprintCenter": {
+        "x": 143.0,
+        "y": 250.4
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/army_b/dark_barracks/dark_barracks_level4_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "dark_elixir_drill_level3_ingame_icon.png",
+      "relativePath": "assets/props/dark_elixir_drill_level3_ingame_icon.png",
+      "width": 230,
+      "height": 250,
+      "bytes": 17331,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 26,
+        "y": 9,
+        "width": 158,
+        "height": 213
+      },
+      "bottomCenterAnchor": {
+        "x": 105.0,
+        "y": 222,
+        "u": 0.4565,
+        "v": 0.888
+      },
+      "suggestedFootprintCenter": {
+        "x": 105.0,
+        "y": 191.98
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/resource_b/dark_elixir_drill/dark_elixir_drill_level3_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "dark_elixir_storage_level4_ingame_icon.png",
+      "relativePath": "assets/props/dark_elixir_storage_level4_ingame_icon.png",
+      "width": 280,
+      "height": 280,
+      "bytes": 23963,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 25,
+        "y": 9,
+        "width": 227,
+        "height": 260
+      },
+      "bottomCenterAnchor": {
+        "x": 138.5,
+        "y": 269,
+        "u": 0.4946,
+        "v": 0.9607
+      },
+      "suggestedFootprintCenter": {
+        "x": 138.5,
+        "y": 225.87
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/resource_b/dark_elixir_storage/dark_elixir_storage_level4_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "dark_spell_factory_level2_ingame_icon.png",
+      "relativePath": "assets/props/dark_spell_factory_level2_ingame_icon.png",
+      "width": 200,
+      "height": 180,
+      "bytes": 12343,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 17,
+        "y": 6,
+        "width": 166,
+        "height": 167
+      },
+      "bottomCenterAnchor": {
+        "x": 100.0,
+        "y": 173,
+        "u": 0.5,
+        "v": 0.9611
+      },
+      "suggestedFootprintCenter": {
+        "x": 100.0,
+        "y": 141.46
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/army_b/dark_spell_factory/dark_spell_factory_level2_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "elixir_collector_level12_ingame_icon.png",
+      "relativePath": "assets/props/elixir_collector_level12_ingame_icon.png",
+      "width": 230,
+      "height": 250,
+      "bytes": 24588,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 6,
+        "y": 2,
+        "width": 217,
+        "height": 246
+      },
+      "bottomCenterAnchor": {
+        "x": 114.5,
+        "y": 248,
+        "u": 0.4978,
+        "v": 0.992
+      },
+      "suggestedFootprintCenter": {
+        "x": 114.5,
+        "y": 206.77
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/resource_b/elixir_collector/elixir_collector_level12_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "elixir_storage_level11_ingame_icon.png",
+      "relativePath": "assets/props/elixir_storage_level11_ingame_icon.png",
+      "width": 280,
+      "height": 280,
+      "bytes": 28239,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 4,
+        "y": 7,
+        "width": 271,
+        "height": 268
+      },
+      "bottomCenterAnchor": {
+        "x": 139.5,
+        "y": 275,
+        "u": 0.4982,
+        "v": 0.9821
+      },
+      "suggestedFootprintCenter": {
+        "x": 139.5,
+        "y": 223.51
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/resource_b/elixir_storage/elixir_storage_level11_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "giant_bomb_level3_ingame_icon.png",
+      "relativePath": "assets/props/giant_bomb_level3_ingame_icon.png",
+      "width": 180,
+      "height": 180,
+      "bytes": 18616,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 8,
+        "y": 19,
+        "width": 159,
+        "height": 149
+      },
+      "bottomCenterAnchor": {
+        "x": 87.5,
+        "y": 168,
+        "u": 0.4861,
+        "v": 0.9333
+      },
+      "suggestedFootprintCenter": {
+        "x": 87.5,
+        "y": 137.79
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/traps/giant_bomb/giant_bomb_level3_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "gold_mine_level12_ingame_icon.png",
+      "relativePath": "assets/props/gold_mine_level12_ingame_icon.png",
+      "width": 230,
+      "height": 230,
+      "bytes": 21444,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 6,
+        "y": 15,
+        "width": 218,
+        "height": 200
+      },
+      "bottomCenterAnchor": {
+        "x": 115.0,
+        "y": 215,
+        "u": 0.5,
+        "v": 0.9348
+      },
+      "suggestedFootprintCenter": {
+        "x": 115.0,
+        "y": 173.58
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/resource_b/gold_mine/gold_mine_level12_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "gold_storage_level11_ingame_icon.png",
+      "relativePath": "assets/props/gold_storage_level11_ingame_icon.png",
+      "width": 280,
+      "height": 300,
+      "bytes": 35697,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 15,
+        "y": 10,
+        "width": 248,
+        "height": 283
+      },
+      "bottomCenterAnchor": {
+        "x": 139.0,
+        "y": 293,
+        "u": 0.4964,
+        "v": 0.9767
+      },
+      "suggestedFootprintCenter": {
+        "x": 139.0,
+        "y": 245.88
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/resource_b/gold_storage/gold_storage_level11_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "hidden_tesla_level6_ingame_icon.png",
+      "relativePath": "assets/props/hidden_tesla_level6_ingame_icon.png",
+      "width": 200,
+      "height": 230,
+      "bytes": 13457,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 37,
+        "y": 23,
+        "width": 122,
+        "height": 202
+      },
+      "bottomCenterAnchor": {
+        "x": 98.0,
+        "y": 225,
+        "u": 0.49,
+        "v": 0.9783
+      },
+      "suggestedFootprintCenter": {
+        "x": 98.0,
+        "y": 201.82
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/defenses/hidden_tesla/hidden_tesla_level6_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "laboratory_level6_ingame_icon.png",
+      "relativePath": "assets/props/laboratory_level6_ingame_icon.png",
+      "width": 270,
+      "height": 270,
+      "bytes": 27469,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 30,
+        "y": 7,
+        "width": 226,
+        "height": 254
+      },
+      "bottomCenterAnchor": {
+        "x": 143.0,
+        "y": 261,
+        "u": 0.5296,
+        "v": 0.9667
+      },
+      "suggestedFootprintCenter": {
+        "x": 143.0,
+        "y": 218.06
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/army_b/laboratory/laboratory_level6_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "mortar_level6_ingame_icon.png",
+      "relativePath": "assets/props/mortar_level6_ingame_icon.png",
+      "width": 200,
+      "height": 200,
+      "bytes": 11599,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 29,
+        "y": 28,
+        "width": 142,
+        "height": 145
+      },
+      "bottomCenterAnchor": {
+        "x": 100.0,
+        "y": 173,
+        "u": 0.5,
+        "v": 0.865
+      },
+      "suggestedFootprintCenter": {
+        "x": 100.0,
+        "y": 146.02
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/defenses/mortar/mortar_level6_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "obstacle-fallen-tree.png",
+      "relativePath": "assets/props/obstacle-fallen-tree.png",
+      "width": 69,
+      "height": 51,
+      "bytes": 5555,
+      "hasTransparency": true,
+      "hasPartialAlpha": true,
+      "alphaBounds": {
+        "x": 4,
+        "y": 0,
+        "width": 62,
+        "height": 48
+      },
+      "bottomCenterAnchor": {
+        "x": 35.0,
+        "y": 48,
+        "u": 0.5072,
+        "v": 0.9412
+      },
+      "suggestedFootprintCenter": {
+        "x": 35.0,
+        "y": 36.22
+      },
+      "sourcePage": "https://coc.guide/obstacle",
+      "downloadUrl": "https://coc.guide/static/imgs/obstacle/fallen-tree.png",
+      "provenance": "In-game obstacle render from independent Clash of Clans Guide. Supercell retains game asset rights.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "obstacle-large-stone.png",
+      "relativePath": "assets/props/obstacle-large-stone.png",
+      "width": 102,
+      "height": 87,
+      "bytes": 11783,
+      "hasTransparency": true,
+      "hasPartialAlpha": true,
+      "alphaBounds": {
+        "x": 3,
+        "y": 0,
+        "width": 96,
+        "height": 84
+      },
+      "bottomCenterAnchor": {
+        "x": 51.0,
+        "y": 84,
+        "u": 0.5,
+        "v": 0.9655
+      },
+      "suggestedFootprintCenter": {
+        "x": 51.0,
+        "y": 65.76
+      },
+      "sourcePage": "https://coc.guide/obstacle",
+      "downloadUrl": "https://coc.guide/static/imgs/obstacle/large-stone.png",
+      "provenance": "In-game obstacle render from independent Clash of Clans Guide. Supercell retains game asset rights.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "obstacle-large-stone2.png",
+      "relativePath": "assets/props/obstacle-large-stone2.png",
+      "width": 106,
+      "height": 103,
+      "bytes": 16401,
+      "hasTransparency": true,
+      "hasPartialAlpha": true,
+      "alphaBounds": {
+        "x": 3,
+        "y": 0,
+        "width": 99,
+        "height": 100
+      },
+      "bottomCenterAnchor": {
+        "x": 52.5,
+        "y": 100,
+        "u": 0.4953,
+        "v": 0.9709
+      },
+      "suggestedFootprintCenter": {
+        "x": 52.5,
+        "y": 81.19
+      },
+      "sourcePage": "https://coc.guide/obstacle",
+      "downloadUrl": "https://coc.guide/static/imgs/obstacle/large-stone2.png",
+      "provenance": "In-game obstacle render from independent Clash of Clans Guide. Supercell retains game asset rights.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "obstacle-pine-tree.png",
+      "relativePath": "assets/props/obstacle-pine-tree.png",
+      "width": 72,
+      "height": 97,
+      "bytes": 9798,
+      "hasTransparency": true,
+      "hasPartialAlpha": true,
+      "alphaBounds": {
+        "x": 3,
+        "y": 0,
+        "width": 67,
+        "height": 90
+      },
+      "bottomCenterAnchor": {
+        "x": 36.5,
+        "y": 90,
+        "u": 0.5069,
+        "v": 0.9278
+      },
+      "suggestedFootprintCenter": {
+        "x": 36.5,
+        "y": 77.27
+      },
+      "sourcePage": "https://coc.guide/obstacle",
+      "downloadUrl": "https://coc.guide/static/imgs/obstacle/pine-tree.png",
+      "provenance": "In-game obstacle render from independent Clash of Clans Guide. Supercell retains game asset rights.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "obstacle-small-stone-1.png",
+      "relativePath": "assets/props/obstacle-small-stone-1.png",
+      "width": 47,
+      "height": 38,
+      "bytes": 3199,
+      "hasTransparency": true,
+      "hasPartialAlpha": true,
+      "alphaBounds": {
+        "x": 5,
+        "y": 0,
+        "width": 38,
+        "height": 34
+      },
+      "bottomCenterAnchor": {
+        "x": 24.0,
+        "y": 34,
+        "u": 0.5106,
+        "v": 0.8947
+      },
+      "suggestedFootprintCenter": {
+        "x": 24.0,
+        "y": 26.78
+      },
+      "sourcePage": "https://coc.guide/obstacle",
+      "downloadUrl": "https://coc.guide/static/imgs/obstacle/small-stone-1.png",
+      "provenance": "In-game obstacle render from independent Clash of Clans Guide. Supercell retains game asset rights.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "obstacle-square-bush.png",
+      "relativePath": "assets/props/obstacle-square-bush.png",
+      "width": 75,
+      "height": 66,
+      "bytes": 7353,
+      "hasTransparency": true,
+      "hasPartialAlpha": true,
+      "alphaBounds": {
+        "x": 4,
+        "y": 0,
+        "width": 67,
+        "height": 63
+      },
+      "bottomCenterAnchor": {
+        "x": 37.5,
+        "y": 63,
+        "u": 0.5,
+        "v": 0.9545
+      },
+      "suggestedFootprintCenter": {
+        "x": 37.5,
+        "y": 50.27
+      },
+      "sourcePage": "https://coc.guide/obstacle",
+      "downloadUrl": "https://coc.guide/static/imgs/obstacle/square-bush.png",
+      "provenance": "In-game obstacle render from independent Clash of Clans Guide. Supercell retains game asset rights.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "obstacle-square-tree-2.png",
+      "relativePath": "assets/props/obstacle-square-tree-2.png",
+      "width": 97,
+      "height": 119,
+      "bytes": 18219,
+      "hasTransparency": true,
+      "hasPartialAlpha": true,
+      "alphaBounds": {
+        "x": 1,
+        "y": 0,
+        "width": 96,
+        "height": 117
+      },
+      "bottomCenterAnchor": {
+        "x": 49.0,
+        "y": 117,
+        "u": 0.5052,
+        "v": 0.9832
+      },
+      "suggestedFootprintCenter": {
+        "x": 49.0,
+        "y": 98.76
+      },
+      "sourcePage": "https://coc.guide/obstacle",
+      "downloadUrl": "https://coc.guide/static/imgs/obstacle/square-tree-2.png",
+      "provenance": "In-game obstacle render from independent Clash of Clans Guide. Supercell retains game asset rights.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "obstacle-square-tree.png",
+      "relativePath": "assets/props/obstacle-square-tree.png",
+      "width": 91,
+      "height": 107,
+      "bytes": 15488,
+      "hasTransparency": true,
+      "hasPartialAlpha": true,
+      "alphaBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 91,
+        "height": 107
+      },
+      "bottomCenterAnchor": {
+        "x": 45.5,
+        "y": 107,
+        "u": 0.5,
+        "v": 1.0
+      },
+      "suggestedFootprintCenter": {
+        "x": 45.5,
+        "y": 89.71
+      },
+      "sourcePage": "https://coc.guide/obstacle",
+      "downloadUrl": "https://coc.guide/static/imgs/obstacle/square-tree.png",
+      "provenance": "In-game obstacle render from independent Clash of Clans Guide. Supercell retains game asset rights.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "obstacle-tree-trunk-1.png",
+      "relativePath": "assets/props/obstacle-tree-trunk-1.png",
+      "width": 48,
+      "height": 72,
+      "bytes": 5735,
+      "hasTransparency": true,
+      "hasPartialAlpha": true,
+      "alphaBounds": {
+        "x": 1,
+        "y": 0,
+        "width": 43,
+        "height": 70
+      },
+      "bottomCenterAnchor": {
+        "x": 22.5,
+        "y": 70,
+        "u": 0.4688,
+        "v": 0.9722
+      },
+      "suggestedFootprintCenter": {
+        "x": 22.5,
+        "y": 61.83
+      },
+      "sourcePage": "https://coc.guide/obstacle",
+      "downloadUrl": "https://coc.guide/static/imgs/obstacle/tree-trunk-1.png",
+      "provenance": "In-game obstacle render from independent Clash of Clans Guide. Supercell retains game asset rights.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "obstacle-tree-trunk-2.png",
+      "relativePath": "assets/props/obstacle-tree-trunk-2.png",
+      "width": 41,
+      "height": 68,
+      "bytes": 5389,
+      "hasTransparency": true,
+      "hasPartialAlpha": true,
+      "alphaBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 41,
+        "height": 68
+      },
+      "bottomCenterAnchor": {
+        "x": 20.5,
+        "y": 68,
+        "u": 0.5,
+        "v": 1.0
+      },
+      "suggestedFootprintCenter": {
+        "x": 20.5,
+        "y": 60.21
+      },
+      "sourcePage": "https://coc.guide/obstacle",
+      "downloadUrl": "https://coc.guide/static/imgs/obstacle/tree-trunk-2.png",
+      "provenance": "In-game obstacle render from independent Clash of Clans Guide. Supercell retains game asset rights.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "seeking_air_mine_level1_ingame_icon.png",
+      "relativePath": "assets/props/seeking_air_mine_level1_ingame_icon.png",
+      "width": 150,
+      "height": 220,
+      "bytes": 13336,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 20,
+        "y": 1,
+        "width": 119,
+        "height": 178
+      },
+      "bottomCenterAnchor": {
+        "x": 79.5,
+        "y": 179,
+        "u": 0.53,
+        "v": 0.8136
+      },
+      "suggestedFootprintCenter": {
+        "x": 79.5,
+        "y": 156.39
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/traps/seeking_air_mine/seeking_air_mine_level1_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "skeleton_trap_level1_ingame_icon_air.png",
+      "relativePath": "assets/props/skeleton_trap_level1_ingame_icon_air.png",
+      "width": 145,
+      "height": 135,
+      "bytes": 11464,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 3,
+        "y": 1,
+        "width": 107,
+        "height": 131
+      },
+      "bottomCenterAnchor": {
+        "x": 56.5,
+        "y": 132,
+        "u": 0.3897,
+        "v": 0.9778
+      },
+      "suggestedFootprintCenter": {
+        "x": 56.5,
+        "y": 111.67
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/traps/skeleton_trap/skeleton_trap_level1_ingame_icon_air.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "skeleton_trap_level1_ingame_icon_ground.png",
+      "relativePath": "assets/props/skeleton_trap_level1_ingame_icon_ground.png",
+      "width": 145,
+      "height": 135,
+      "bytes": 11481,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 3,
+        "y": 2,
+        "width": 107,
+        "height": 130
+      },
+      "bottomCenterAnchor": {
+        "x": 56.5,
+        "y": 132,
+        "u": 0.3897,
+        "v": 0.9778
+      },
+      "suggestedFootprintCenter": {
+        "x": 56.5,
+        "y": 111.67
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/traps/skeleton_trap/skeleton_trap_level1_ingame_icon_ground.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "spell_factory_level3_ingame_icon.png",
+      "relativePath": "assets/props/spell_factory_level3_ingame_icon.png",
+      "width": 200,
+      "height": 187,
+      "bytes": 11464,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 39,
+        "y": 23,
+        "width": 123,
+        "height": 142
+      },
+      "bottomCenterAnchor": {
+        "x": 100.5,
+        "y": 165,
+        "u": 0.5025,
+        "v": 0.8824
+      },
+      "suggestedFootprintCenter": {
+        "x": 100.5,
+        "y": 141.63
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/army_b/spell_factory/spell_factory_level3_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "spring_trap_ingame_icon.png",
+      "relativePath": "assets/props/spring_trap_ingame_icon.png",
+      "width": 200,
+      "height": 200,
+      "bytes": 15097,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 4,
+        "y": 12,
+        "width": 194,
+        "height": 180
+      },
+      "bottomCenterAnchor": {
+        "x": 101.0,
+        "y": 192,
+        "u": 0.505,
+        "v": 0.96
+      },
+      "suggestedFootprintCenter": {
+        "x": 101.0,
+        "y": 155.14
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/traps/spring_trap/spring_trap_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "town_hall_level8_ingame.png",
+      "relativePath": "assets/props/town_hall_level8_ingame.png",
+      "width": 350,
+      "height": 350,
+      "bytes": 114523,
+      "hasTransparency": true,
+      "hasPartialAlpha": true,
+      "alphaBounds": {
+        "x": 58,
+        "y": 30,
+        "width": 270,
+        "height": 276
+      },
+      "bottomCenterAnchor": {
+        "x": 193.0,
+        "y": 306,
+        "u": 0.5514,
+        "v": 0.8743
+      },
+      "suggestedFootprintCenter": {
+        "x": 193.0,
+        "y": 254.7
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/town_hall/town_hall_level8_ingame.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "tree-pine.png",
+      "relativePath": "assets/props/tree-pine.png",
+      "width": 404,
+      "height": 431,
+      "bytes": 229160,
+      "hasTransparency": true,
+      "hasPartialAlpha": true,
+      "alphaBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 404,
+        "height": 431
+      },
+      "bottomCenterAnchor": {
+        "x": 202.0,
+        "y": 431,
+        "u": 0.5,
+        "v": 1.0
+      },
+      "suggestedFootprintCenter": {
+        "x": 202.0,
+        "y": 354.24
+      },
+      "sourcePage": "https://www.pngkey.com/maxpic/u2q8u2w7y3t4t4e6/",
+      "downloadUrl": "https://www.pngkey.com/png/full/115-1155003_pine-tree-png-image-arbol-del-clash-of.png",
+      "provenance": "Third-party PNG repost; page labels noncommercial use. Game tree includes grassy square footprint. Prefer obstacle-pine-tree.png from game guide.",
+      "preferred": false,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    },
+    {
+      "file": "wall_level8_ingame_icon.png",
+      "relativePath": "assets/props/wall_level8_ingame_icon.png",
+      "width": 200,
+      "height": 178,
+      "bytes": 10745,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 20,
+        "y": 35,
+        "width": 160,
+        "height": 127
+      },
+      "bottomCenterAnchor": {
+        "x": 100.0,
+        "y": 162,
+        "u": 0.5,
+        "v": 0.9101
+      },
+      "suggestedFootprintCenter": {
+        "x": 100.0,
+        "y": 131.6
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/defenses/walls/wall_level8_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Three-post corner render. Use as a decorative corner unit; an isolated single segment was not found."
+    },
+    {
+      "file": "wall-level7-coc-guide.png",
+      "relativePath": "assets/props/wall-level7-coc-guide.png",
+      "width": 67,
+      "height": 52,
+      "bytes": 5873,
+      "hasTransparency": true,
+      "hasPartialAlpha": true,
+      "alphaBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 65,
+        "height": 52
+      },
+      "bottomCenterAnchor": {
+        "x": 32.5,
+        "y": 52,
+        "u": 0.4851,
+        "v": 1.0
+      },
+      "suggestedFootprintCenter": {
+        "x": 32.5,
+        "y": 39.65
+      },
+      "sourcePage": "https://coc.guide/defense/wall",
+      "downloadUrl": "https://coc.guide/static/imgs/defense/wall-7.png",
+      "provenance": "In-game wall render from independent Clash of Clans Guide. Supercell retains game asset rights.",
+      "preferred": false,
+      "notes": "Three-post corner render, not a single wall post. Lower resolution alternative to wall_level8_ingame_icon.png."
+    },
+    {
+      "file": "wall-level8-coc-guide.png",
+      "relativePath": "assets/props/wall-level8-coc-guide.png",
+      "width": 69,
+      "height": 56,
+      "bytes": 6671,
+      "hasTransparency": true,
+      "hasPartialAlpha": true,
+      "alphaBounds": {
+        "x": 1,
+        "y": 0,
+        "width": 66,
+        "height": 56
+      },
+      "bottomCenterAnchor": {
+        "x": 34.0,
+        "y": 56,
+        "u": 0.4928,
+        "v": 1.0
+      },
+      "suggestedFootprintCenter": {
+        "x": 34.0,
+        "y": 43.46
+      },
+      "sourcePage": "https://coc.guide/defense/wall",
+      "downloadUrl": "https://coc.guide/static/imgs/defense/wall-8.png",
+      "provenance": "In-game wall render from independent Clash of Clans Guide. Supercell retains game asset rights.",
+      "preferred": false,
+      "notes": "Three-post corner render, not a single wall post. Lower resolution alternative to wall_level8_ingame_icon.png."
+    },
+    {
+      "file": "wizard_tower_level6_ingame_icon.png",
+      "relativePath": "assets/props/wizard_tower_level6_ingame_icon.png",
+      "width": 210,
+      "height": 240,
+      "bytes": 21946,
+      "hasTransparency": true,
+      "hasPartialAlpha": false,
+      "alphaBounds": {
+        "x": 7,
+        "y": 15,
+        "width": 196,
+        "height": 224
+      },
+      "bottomCenterAnchor": {
+        "x": 105.0,
+        "y": 239,
+        "u": 0.5,
+        "v": 0.9958
+      },
+      "suggestedFootprintCenter": {
+        "x": 105.0,
+        "y": 201.76
+      },
+      "sourcePage": "https://clash-wiki.com/buildings/town-hall/town-hall-level-8/",
+      "downloadUrl": "https://clash-wiki.com/images/buildings/defenses/wizard_tower/wizard_tower_level6_ingame_icon.png",
+      "provenance": "Original-looking Supercell in-game render hosted by Clash Wiki. Site footer states CC BY-NC-SA 3.0 for site content while game assets remain copyright/trademarks of their publisher.",
+      "preferred": true,
+      "notes": "Use unmodified sprite; bottom-center alpha anchor compensates whitespace. Suggested footprint center is an approximate visual estimate."
+    }
+  ]
+}

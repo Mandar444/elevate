@@ -9,8 +9,8 @@ const registration=document.querySelector('#registration-dialog');
 const trackDialog=document.querySelector('#track-dialog');
 let world=null,current=-1,scheduled=false,progress=0,isNight=false;
 
-// Keep foreground controls above the canvas, while the enormous title sits behind the village.
-stage.append(copy,action);
+// Foreground event controls remain accessible above the interactive village.
+// The logo, event copy and action stay together in the parchment event panel.
 body.classList.add('immersive');
 function update(){
   scheduled=false;
@@ -44,13 +44,6 @@ function update(){
 }
 function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(update);}}
 addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule,{passive:true});compact.addEventListener('change',()=>{current=-1;schedule();});
-let castFrame=0,castX=0,castY=0;
-stage.addEventListener('pointermove',event=>{
-  if(reduced.matches||event.pointerType!=='mouse'||compact.matches)return;
-  castX=(event.clientX/innerWidth-.5)*13;castY=(event.clientY/innerHeight-.5)*7;
-  if(!castFrame)castFrame=requestAnimationFrame(()=>{stage.style.setProperty('--cast-x',castX+'px');stage.style.setProperty('--cast-y',castY+'px');castFrame=0;});
-},{passive:true});
-stage.addEventListener('pointerleave',()=>{stage.style.setProperty('--cast-x','0px');stage.style.setProperty('--cast-y','0px');});
 function jump(index,hash){
   document.querySelectorAll('dialog[open]').forEach(d=>d.close());
   world?.reset();
@@ -65,8 +58,8 @@ document.querySelectorAll('dialog').forEach(dialog=>{
   dialog.addEventListener('click',event=>{if(event.target!==dialog)return;const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();});
 });
 const tracks={
-  hackathon:{label:'BATTLE 01 · BUILDER’S CAMP',title:'THE HACKATHON',image:'/assets/builders.webp',alt:'A builder and wizard creating a glowing prototype.',description:'Start with a real problem. Explore possibilities, build a working solution, and show what your idea can do.',prompts:['Find a problem you care about.','Make your idea tangible with a prototype.','Prepare a clear demonstration of your solution.']},
-  pitch:{label:'BATTLE 02 · THE PITCH ARENA',title:'THE BUSINESS PITCH',image:'/assets/founders.webp',alt:'A barbarian presenting an idea over a parchment plan.',description:'Turn an insight into a business worth believing in. Show the opportunity, explain your approach, and bring your vision to life.',prompts:['Understand your audience and the problem.','Shape a business model around your solution.','Tell a focused, convincing story.']}
+  hackathon:{label:'BATTLE 01 · BUILDER’S CAMP',title:'THE HACKATHON',image:'/assets/props/laboratory.webp',alt:'Clash of Clans laboratory building.',description:'Start with a real problem. Explore possibilities, build a working solution, and show what your idea can do.',prompts:['Find a problem you care about.','Make your idea tangible with a prototype.','Prepare a clear demonstration of your solution.']},
+  pitch:{label:'BATTLE 02 · THE PITCH ARENA',title:'THE BUSINESS PITCH',image:'/assets/props/clan-castle.webp',alt:'Clash of Clans Clan Castle building.',description:'Turn an insight into a business worth believing in. Show the opportunity, explain your approach, and bring your vision to life.',prompts:['Understand your audience and the problem.','Shape a business model around your solution.','Tell a focused, convincing story.']}
 };
 document.querySelectorAll('.track-trigger').forEach(button=>button.addEventListener('click',()=>{
   const track=tracks[button.dataset.track];
@@ -83,6 +76,8 @@ const lightButton=document.querySelector('#light-toggle');
 function setNight(value){isNight=value;body.classList.toggle('night',value);lightButton.setAttribute('aria-pressed',String(value));document.querySelector('#light-icon').textContent=value?'☾':'☀';document.querySelector('#light-label').textContent=value?'Moonlight':'Daylight';world?.setNight(value);}
 lightButton.addEventListener('click',()=>setNight(!isNight));
 document.querySelector('#reset-view').addEventListener('click',()=>world?.reset());
+document.querySelector('#zoom-in').addEventListener('click',()=>world?.zoomBy(1.15));
+document.querySelector('#zoom-out').addEventListener('click',()=>world?.zoomBy(1/1.15));
 update();
 // Rendering is a progressive enhancement. Navigation, briefs and registration remain usable if it fails.
 import('./world.js').then(async({createWorld})=>{

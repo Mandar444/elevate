@@ -1,43 +1,34 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 import * as T from '../dist/vendor/three.module.js';
-import { buildVillage } from '../dist/village-model.js';
-import { poses } from '../dist/world.js';
-
-const village=buildVillage();
-village.root.updateMatrixWorld(true);
-let triangles=0,meshes=0;
-village.root.traverse(object=>{
-  if(!object.isMesh)return;
-  meshes++;
-  const geometry=object.geometry;
-  for(const [name,attribute] of Object.entries(geometry.attributes)){
-    assert.ok(attribute.array.every(Number.isFinite),`Non-finite ${name} in village geometry`);
-  }
-  assert.ok(object.matrixWorld.elements.every(Number.isFinite),'Invalid object transform');
-  geometry.computeBoundingSphere();
-  assert.ok(Number.isFinite(geometry.boundingSphere.radius),'Invalid bounding sphere');
-  triangles+=(geometry.index?.count??geometry.attributes.position.count)/3;
-});
-assert.ok(meshes<300,'Scene exceeds its draw-call budget');
-assert.ok(triangles<100000,'Scene exceeds its triangle budget');
-assert.equal(village.animated.villagers.length,4);
-assert.ok(village.animated.flags.length>0);
-assert.ok(village.animated.waterfalls.length>0);
-
-// Verify actual camera keyframes can see their destinations at common viewport sizes.
-for(const [width,height] of [[1440,900],[1024,768],[390,844]]){
-  for(let index=0;index<poses.length;index++){
-    const pose=poses[index],mobile=width<760;
-    const camera=new T.PerspectiveCamera(38,width/height,.15,170);
-    const radius=pose.radius*(mobile?Math.max(1,1.08/(width/height)):1);
-    const target=new T.Vector3(...pose.target);
-    camera.position.set(target.x+Math.sin(pose.azimuth)*Math.cos(pose.elevation)*radius,target.y+Math.sin(pose.elevation)*radius,target.z+Math.cos(pose.azimuth)*Math.cos(pose.elevation)*radius);
-    camera.setViewOffset(width,height,(mobile?0:pose.offsetX)*width,(mobile?-.09:pose.offsetY)*height,width,height);
-    camera.lookAt(target);camera.updateMatrixWorld();
-    const subject=index===1?village.landmarks.hackathon:index===2?village.landmarks.pitch:target;
-    const projected=subject.clone().project(camera);
-    assert.ok(projected.toArray().every(Number.isFinite),'Invalid projected landmark');
-    assert.ok(Math.abs(projected.x)<.95&&Math.abs(projected.y)<.85&&projected.z<1,`Destination clipped at ${width}×${height}, chapter ${index}`);
-  }
+import {assets} from '../dist/prop-assets.js';
+import {buildings,walls,landmarks} from '../dist/village-layout.js';
+import {cameraPose} from '../dist/world.js';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+assert.ok(buildings.length>=50,'The village should contain its dense building layout');
+assert.ok(walls.length>=150,'The village should contain complete wall compartments');
+assert.equal(Object.keys(assets).length,28);
+for(const [name,item] of Object.entries(assets)){
+ assert.ok(fs.existsSync(path.join(root,'dist',item.url)),`Missing ${name}`);
+ assert.ok(item.width>0&&item.height>0&&item.bounds.width>0);
+ assert.ok(item.anchor.x>0&&item.anchor.x<1&&item.anchor.y>=0&&item.anchor.y<1,`Invalid ${name} anchor`);
 }
-console.log(`PASS: ${meshes} meshes, ${Math.round(triangles).toLocaleString()} triangles, finite geometry and camera destinations at desktop, tablet, and mobile dimensions.`);
+for(const b of buildings){assert.ok(assets[b.type],`Missing building type ${b.type}`);assert.ok([b.x,b.z,b.size].every(Number.isFinite));}
+assert.equal(new Set(walls.map(w=>w.x+','+w.z)).size,walls.length,'Duplicate wall positions');
+for(const [width,height] of [[1440,900],[1024,768],[390,844]]){
+ for(let i=0;i<4;i++){
+  const pose=cameraPose(i,width,height),half=pose.height/2;
+  const c=new T.OrthographicCamera(-half*width/height,half*width/height,half,-half,.1,220);
+  const target=new T.Vector3(pose.x,0,pose.z),angle=Math.atan(1/Math.sqrt(2));
+  const direction=new T.Vector3(Math.cos(angle)/Math.sqrt(2),Math.sin(angle),Math.cos(angle)/Math.sqrt(2));
+  c.position.copy(target).addScaledVector(direction,95);c.setViewOffset(width,height,pose.offsetX*width,pose.offsetY*height,width,height);c.lookAt(target);c.updateMatrixWorld();
+  const point=target.clone().project(c);
+  assert.ok(point.toArray().every(Number.isFinite));
+  assert.ok(Math.abs(point.x)<.9&&Math.abs(point.y)<.7&&point.z<1,`Camera clips destination ${width}×${height}, chapter ${i}`);
+ }
+}
+for(const name of Object.keys(landmarks))assert.equal(buildings.filter(b=>b.destination===name).length,1,'Each destination needs one interactive building');
+for(const file of ['index.html','app.js','style.css'])assert.doesNotMatch(fs.readFileSync(path.join(root,'dist',file),'utf8'),/barbarian-hero|queen-hero|wizard-hero|cast-layer|clan-character|castFrame/,'Removed character overlays must not be referenced');
+console.log(`PASS: ${buildings.length} buildings, ${walls.length} unique wall posts, 28 local game assets, character removal, and isometric camera destinations at desktop, tablet, and mobile sizes.`);

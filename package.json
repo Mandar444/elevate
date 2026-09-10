@@ -2,7 +2,7 @@
   "name": "elevate-3",
   "version": "1.0.0",
   "private": true,
-  "description": "Elevate 3.0: an interactive clan village for the hackathon and business pitch competition",
+  "description": "E-Cell presents Elevate 26 / Elevate 3.0: a classic Clash of Clans village for the hackathon and business pitch competition",
   "type": "module",
   "scripts": {
     "dev": "node server.mjs",
