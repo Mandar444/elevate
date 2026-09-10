@@ -253,3 +253,22 @@ dialog:not(#photo-dialog){background-image:linear-gradient(#f7edd9f5,#f7edd9f5),
  .home-page .meet-the-clan p{font-size:1rem}
  .site-footer{flex-wrap:wrap}
 }
+
+
+/* Dark display ink and a compact floating masthead. */
+.home-page #intel-title,.home-page #intel-title em,
+.competition-page .mission-heading h2 em,.competition-page .preparation .section-heading h2 em,.competition-page .competition-intel h2 em,
+.team-page .team-hero h1 em,.archive-page .archive-hero h1 em{color:#17251c;text-shadow:none}
+.home-page .council-heading>div:first-child{background:#f8efd9;padding:22px 26px;border-left:4px solid #6c7759;border-radius:2px;min-width:0}
+.home-page .council-heading .section-coordinate{color:#323c2d!important}
+
+.home-page .site-header,.home-page.off-village .site-header,.competition-page .site-header,.competition-page.off-village .site-header,.team-page .site-header{background:none;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;padding:0;pointer-events:none}
+.site-header .brand{pointer-events:auto;padding:8px 12px;min-height:58px;background:#183026;border:1px solid #ae9d6c;border-radius:10px;box-shadow:0 4px 10px #0c1d1930;color:#fff2ce;flex-shrink:0}
+.home-page .site-header .brand>span,.competition-page .site-header .brand>span,.team-page .site-header .brand>span{color:#fff2ce;text-shadow:none}
+.home-page .site-header .brand b,.competition-page .site-header .brand b,.team-page .site-header .brand b{color:#e6d5a9}
+.site-header>.button{pointer-events:auto;flex-shrink:0;align-self:center}
+@media(max-width:760px),(max-width:1024px) and (pointer:coarse){
+ .site-header .brand{min-height:54px;padding:6px 8px;gap:7px;border-radius:9px}
+ .site-header .ecell-brand{width:36px;height:36px}
+ .home-page .council-heading>div:first-child{padding:18px 16px;border-left-width:3px}
+}
