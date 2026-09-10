@@ -8,21 +8,26 @@ Use Node.js 20 or newer. Run `npm start`, then open `http://127.0.0.1:5173`. No 
 
 ## Current visual implementation
 
-- Supplied E-Cell and Elevate ’26 logos, resized and compressed from the original files. Rejected generated background-removal variants are not included. Light brand panels preserve the supplied artwork.
+- Supplied E-Cell and Elevate ’26 logos, resized and compressed from the original files, displayed in light circular brand seals.
 - Actual classic game building artwork rather than reinterpreted low-poly models: Town Hall 8, laboratory, Clan Castle, cannons, mortars, archer towers, wizard towers, air defenses, storages, mines, collectors, barracks, camps, and huts.
 - 62 buildings, 196 individual wall posts, and a dense border of game trees, rocks, and shrubs. The wall texture uses the center post of the source corner sprite through texture coordinates.
 - A flat isometric grass field with a subtle grid and dirt perimeter, based on the Pinterest village references recorded in the asset credits.
-- Scroll between event destinations; drag to pan; use the zoom controls or +/- keys; arrow keys pan the focused canvas. Day/night adjusts the scenery. Click the laboratory or Clan Castle to visit a competition.
+- A continuous village behind all six destinations, including the field guide and closing invitation. Compact bottom navigation and open event typography replace the wide brown bar and framed opening panel.
+- 45 original in-game troop sprites: two archers on each archer tower, a wizard on every wizard tower, six troops beside each camp, and eight patrols on the outer grass lanes.
+- Twelve lighting sources: warm campfire and Town Hall light, purple elixir/laboratory light, and blue wizard-tower light. Shader-based illumination reaches the ground and nearby props; additive source glows and rising embers remain visible in moonlight.
+- Scroll between event destinations; drag to pan; use the zoom controls or +/- keys; arrow keys pan the focused canvas. Switch between day/night or pause village animation. Click the laboratory or Clan Castle to visit a competition.
 
-This is a 2.5D isometric scene in Three.js: original pre-rendered building textures are positioned on planes in a depth-aware scene. It does not claim to reproduce fully rotatable 3D game models. The fixed viewing angle preserves the game artwork's intended perspective. Foreground character cutouts and the earlier animated inhabitants have been removed.
+This is a 2.5D isometric scene in Three.js: original pre-rendered building and troop textures are positioned on planes in a depth-aware scene. The fixed viewing angle preserves the artwork's intended perspective. Troops use single standing poses with route movement, direction changes, and subtle bobbing; they are not multi-frame walking animations. Oversized foreground character cutouts remain removed.
 
 ## Files
 
 - `dist/index.html`: event copy, logos, metadata, navigation, FAQ, and dialogs.
-- `dist/style.css`: game interface, parchment panels, mobile layout, and reduced motion.
+- `dist/style.css`, `dist/voyage.css`: base controls, continuous village layout, bottom navigation, responsive event typography, dialogs, and reduced motion.
 - `dist/app.js`: chapter state, navigation, informational registration, and competition briefs.
 - `dist/world.js`: orthographic renderer, texture batching, terrain, camera, pan/zoom, selection, and lighting.
 - `dist/village-layout.js`: building coordinates, wall compartments, landmarks, and camera destinations.
+- `dist/village-life.js`: tower crew, camps, patrol paths, shader lighting, source glows, and embers.
+- `dist/troop-assets.js`, `dist/assets/troops/`: four original game troop textures and their foot anchors.
 - `dist/prop-assets.js`: local texture URLs, dimensions, and footprint anchors.
 - `dist/assets/props/`: 28 game artwork textures, compressed losslessly.
 - `dist/assets/ecell-logo.webp`, `dist/assets/elevate26-logo.webp`: supplied event branding.
@@ -37,9 +42,9 @@ Edit the event copy in `dist/index.html` and briefs in `dist/app.js`. Replace th
 
 ## Accessibility, performance, and checks
 
-Essential information is semantic HTML. Navigation links provide alternatives to map controls. The page includes a skip link, visible focus, native dialogs/disclosures, inactive chapter focus isolation, reduced-motion support, an illustrated graphics fallback, and a conventional layout on short viewports. The renderer batches textures, caps pixel density, renders on demand, and pauses when hidden or offscreen.
+Essential information is semantic HTML. Navigation links provide alternatives to map controls. The page includes a skip link, visible focus, native dialogs/disclosures, inactive chapter focus isolation, reduced-motion support, a dedicated animation pause control, an illustrated graphics fallback, and a conventional layout on short viewports. Buildings are batched and troops instanced. Ambient motion is capped at 30 fps on desktop and 24 fps on mobile, with capped pixel density; rendering stops when hidden and runs on demand when animation is paused.
 
-Checks validate local assets, anchor and accessible references, metadata, CSS structure, JavaScript syntax, sprite anchors, building types, unique wall positions, camera destinations at desktop/tablet/mobile dimensions, and removal of character overlay references. Browser interaction and screenshot tests have not been run.
+Checks validate local assets, anchor and accessible references, metadata, CSS structure, JavaScript syntax, sprite anchors, building types, unique wall positions, all six camera destinations at desktop/tablet/mobile dimensions, camera continuity, tower and camp population, patrol clearance, animation transforms, and shader/uniform wiring. These are source and scene-data checks; browser interaction, visual layout, and GPU shader execution tests have not been run.
 
 ## Credits
 

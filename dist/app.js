@@ -9,18 +9,38 @@ const registration=document.querySelector('#registration-dialog');
 const trackDialog=document.querySelector('#track-dialog');
 let world=null,current=-1,scheduled=false,progress=0,isNight=false;
 
-// Foreground event controls remain accessible above the interactive village.
-// The logo, event copy and action stay together in the parchment event panel.
+// The village persists through the entire journey; only the event copy uses the sticky stage.
+const worldLayer=document.createElement('div');worldLayer.className='world-layer';
+for(const selector of ['.map-backdrop','.world-fallback','.fallback-shade','#world-canvas','.map-vignette','.world-pins','.world-controls','.scene-status'])worldLayer.append(stage.querySelector(selector));
+document.querySelector('main').before(worldLayer);
+const guide=document.querySelector('#intel'),rally=document.querySelector('#rally');
+const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+const topOf=element=>element.getBoundingClientRect().top+scrollY;
 body.classList.add('immersive');
 function update(){
   scheduled=false;
   const condensed=compact.matches;
   body.classList.toggle('compact-view',condensed);
   const range=Math.max(1,experience.offsetHeight-stage.offsetHeight);
-  progress=condensed?0:Math.max(0,Math.min(3,(scrollY-experience.offsetTop)/range*3));
-  const active=Math.round(progress);
+  if(condensed){
+    const stops=[chapters[0],chapters[1],chapters[2],chapters[3],guide,rally].map(element=>Math.max(0,topOf(element)-innerHeight*.16));
+    progress=0;
+    for(let i=0;i<stops.length-1;i++)if(scrollY>=stops[i])progress=i+clamp((scrollY-stops[i])/Math.max(1,stops[i+1]-stops[i]),0,1);
+  }else{
+    const start=topOf(experience),end=start+range;
+    progress=clamp((scrollY-start)/range*3,0,3);
+    if(scrollY>end)progress=3+clamp((scrollY-end)/innerHeight,0,1)+clamp((scrollY-(topOf(rally)-innerHeight*.65))/(innerHeight*.65),0,1);
+  }
+  const active=Math.min(3,Math.round(progress));
   world?.setProgress(progress);
-  body.classList.toggle('outside-world',scrollY>experience.offsetTop+range+stage.offsetHeight*.68);
+  worldLayer.classList.toggle('guide-view',progress>=3.6&&progress<4.65);
+  worldLayer.classList.toggle('rally-view',progress>=4.65);
+  document.querySelector('#chapter-count').textContent=String(Math.round(progress)+1).padStart(2,'0');
+  document.querySelectorAll('.desktop-nav a').forEach(link=>{
+    const selected=link.hasAttribute('data-guide-link')?progress>=2.6:Number(link.dataset.chapter)===Math.round(progress)&&progress<2.6;
+    link.classList.toggle('active',selected);
+    if(selected)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');
+  });
   if(active===current&&!condensed&&chapters.every(c=>c.dataset.condensed!=='true'))return;
   current=active;
   stage.dataset.activeScene=String(active);
@@ -36,11 +56,6 @@ function update(){
   stage.classList.toggle('story-active',!condensed&&(active===1||active===2));
   copy.inert=action.inert=!intro;
   copy.setAttribute('aria-hidden',String(!intro));action.setAttribute('aria-hidden',String(!intro));
-  document.querySelector('#chapter-count').textContent=String(active+1).padStart(2,'0');
-  document.querySelectorAll('.scene-rail [data-chapter]').forEach(a=>{
-    const selected=Number(a.dataset.chapter)===active;a.classList.toggle('active',selected);
-    if(selected)a.setAttribute('aria-current','step');else a.removeAttribute('aria-current');
-  });
 }
 function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(update);}}
 addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule,{passive:true});compact.addEventListener('change',()=>{current=-1;schedule();});
@@ -52,6 +67,7 @@ function jump(index,hash){
   if(hash)history.replaceState(null,'',hash);
 }
 document.querySelectorAll('.journey-link').forEach(link=>link.addEventListener('click',e=>{e.preventDefault();jump(Number(link.dataset.chapter),link.getAttribute('href'));}));
+document.querySelectorAll('a[href="#intel"]').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();world?.reset();guide.scrollIntoView({behavior:reduced.matches?'instant':'smooth'});history.replaceState(null,'','#intel');}));
 document.querySelectorAll('.registration-trigger').forEach(button=>button.addEventListener('click',()=>registration.showModal()));
 document.querySelectorAll('dialog').forEach(dialog=>{
   dialog.querySelector('.dialog-close').addEventListener('click',()=>dialog.close());
@@ -73,8 +89,11 @@ document.querySelectorAll('.track-trigger').forEach(button=>button.addEventListe
 document.querySelector('#track-register').addEventListener('click',()=>{trackDialog.close();registration.showModal();});
 document.querySelector('#year').textContent=String(new Date().getFullYear());
 const lightButton=document.querySelector('#light-toggle');
-function setNight(value){isNight=value;body.classList.toggle('night',value);lightButton.setAttribute('aria-pressed',String(value));document.querySelector('#light-icon').textContent=value?'☾':'☀';document.querySelector('#light-label').textContent=value?'Moonlight':'Daylight';world?.setNight(value);}
+function setNight(value){isNight=value;body.classList.toggle('night',value);lightButton.setAttribute('aria-pressed',String(value));lightButton.setAttribute('aria-label',value?'Switch to daylight':'Switch to moonlight');document.querySelector('#light-icon').textContent=value?'☾':'☀';document.querySelector('#light-label').textContent=value?'Moonlight':'Daylight';world?.setNight(value);}
 lightButton.addEventListener('click',()=>setNight(!isNight));
+const motionButton=document.querySelector('#motion-toggle');let motionPaused=reduced.matches;
+function setMotion(paused){motionPaused=paused;motionButton.setAttribute('aria-pressed',String(paused));motionButton.setAttribute('aria-label',paused?'Resume village animation':'Pause village animation');motionButton.querySelector('span').textContent=paused?'▶':'Ⅱ';world?.setPaused(paused);}
+motionButton.addEventListener('click',()=>setMotion(!motionPaused));reduced.addEventListener('change',()=>setMotion(reduced.matches));setMotion(motionPaused);
 document.querySelector('#reset-view').addEventListener('click',()=>world?.reset());
 document.querySelector('#zoom-in').addEventListener('click',()=>world?.zoomBy(1.15));
 document.querySelector('#zoom-out').addEventListener('click',()=>world?.zoomBy(1/1.15));
@@ -87,7 +106,7 @@ import('./world.js').then(async({createWorld})=>{
     if(destination==='intel')document.querySelector('#intel').scrollIntoView({behavior:reduced.matches?'instant':'smooth'});
     else jump(destination==='hackathon'?1:2,'#'+destination);
   });
-  if(world){world.setProgress(progress);world.setNight(isNight);}
+  if(world){world.setProgress(progress);world.setNight(isNight);world.setPaused(motionPaused);}
 }).catch(()=>{body.classList.add('world-failed');document.querySelector('#scene-status').textContent='Using the illustrated view. All event details are available.';});
 const hashIndex={'#village':0,'#hackathon':1,'#pitch':2,'#quest':3};
 if(location.hash in hashIndex){requestAnimationFrame(()=>{const range=experience.offsetHeight-stage.offsetHeight;if(!compact.matches)scrollTo({top:experience.offsetTop+range/3*hashIndex[location.hash],behavior:'instant'});});}

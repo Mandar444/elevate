@@ -1,0 +1,118 @@
+[
+  {
+    "name": "archer",
+    "file": "archer.png",
+    "source": "https://clash-wiki.com/images/army/archer/archer_level1_ingame_icon.png",
+    "sourcePage": "https://clash-wiki.com/army/regular-troops/archer/",
+    "width": 143,
+    "height": 143,
+    "hasAlpha": true,
+    "alphaBounds": [
+      17,
+      15,
+      121,
+      143
+    ],
+    "transparentPixels": 13276,
+    "partialAlphaPixels": 1525,
+    "footprintAnchorPixels": [
+      77,
+      137
+    ],
+    "footprintAnchorNormalized": [
+      0.5384615384615384,
+      0.958041958041958
+    ],
+    "anchorMethod": "Estimated visual center between feet; alpha bounds use exclusive right and bottom",
+    "suggestedCssHeight": 30,
+    "pose": "idle",
+    "animationFrames": 1
+  },
+  {
+    "name": "wizard",
+    "file": "wizard.png",
+    "source": "https://clash-wiki.com/images/army/wizard/wizard_level1_ingame_icon.png",
+    "sourcePage": "https://clash-wiki.com/army/regular-troops/wizard/",
+    "width": 200,
+    "height": 200,
+    "hasAlpha": true,
+    "alphaBounds": [
+      42,
+      1,
+      155,
+      200
+    ],
+    "transparentPixels": 24780,
+    "partialAlphaPixels": 953,
+    "footprintAnchorPixels": [
+      100,
+      193
+    ],
+    "footprintAnchorNormalized": [
+      0.5,
+      0.965
+    ],
+    "anchorMethod": "Estimated visual center between feet; alpha bounds use exclusive right and bottom",
+    "suggestedCssHeight": 30,
+    "pose": "arms-forward idle/cast",
+    "animationFrames": 1
+  },
+  {
+    "name": "barbarian",
+    "file": "barbarian.png",
+    "source": "https://clash-wiki.com/images/army/barbarian/barbarian_level1_ingame_icon.png",
+    "sourcePage": "https://clash-wiki.com/army/regular-troops/barbarian/",
+    "width": 200,
+    "height": 200,
+    "hasAlpha": true,
+    "alphaBounds": [
+      30,
+      18,
+      170,
+      182
+    ],
+    "transparentPixels": 29197,
+    "partialAlphaPixels": 2490,
+    "footprintAnchorPixels": [
+      115,
+      175
+    ],
+    "footprintAnchorNormalized": [
+      0.575,
+      0.875
+    ],
+    "anchorMethod": "Estimated visual center between feet; alpha bounds use exclusive right and bottom",
+    "suggestedCssHeight": 30,
+    "pose": "raised sword, standing",
+    "animationFrames": 1
+  },
+  {
+    "name": "giant",
+    "file": "giant.png",
+    "source": "https://clash-wiki.com/images/army/giant/giant_level1_ingame_icon.png",
+    "sourcePage": "https://clash-wiki.com/army/regular-troops/giant/",
+    "width": 200,
+    "height": 200,
+    "hasAlpha": true,
+    "alphaBounds": [
+      1,
+      4,
+      200,
+      195
+    ],
+    "transparentPixels": 13697,
+    "partialAlphaPixels": 1038,
+    "footprintAnchorPixels": [
+      113,
+      184
+    ],
+    "footprintAnchorNormalized": [
+      0.565,
+      0.92
+    ],
+    "anchorMethod": "Estimated visual center between feet; alpha bounds use exclusive right and bottom",
+    "suggestedCssHeight": 40,
+    "pose": "hunched standing",
+    "animationFrames": 1
+  }
+]

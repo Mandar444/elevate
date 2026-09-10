@@ -1,12 +1,14 @@
 import * as T from './vendor/three.module.js';
 import {assets} from './prop-assets.js';
 import {buildings,walls,landmarks,cameraStops} from './village-layout.js';
+import {troopAssets} from './troop-assets.js';
+import {createVillageLife} from './village-life.js';
 
 const mix=T.MathUtils.lerp,clamp=T.MathUtils.clamp;
 const ISO_ANGLE=Math.atan(1/Math.sqrt(2));
 const direction=new T.Vector3(Math.cos(ISO_ANGLE)/Math.sqrt(2),Math.sin(ISO_ANGLE),Math.cos(ISO_ANGLE)/Math.sqrt(2));
 export function cameraPose(progress,width,height,zoom=1){
-  const p=clamp(progress,0,3),i=Math.min(2,Math.floor(p)),t=p-i,s=t*t*(3-2*t),a=cameraStops[i],b=cameraStops[i+1],mobile=width<760;
+  const p=clamp(progress,0,cameraStops.length-1),i=Math.min(cameraStops.length-2,Math.floor(p)),t=p-i,s=t*t*(3-2*t),a=cameraStops[i],b=cameraStops[i+1],mobile=width<760;
   const h=mix(a.height,b.height,s)*(mobile?1.67:1)/zoom;
   return {x:mix(a.x,b.x,s),z:mix(a.z,b.z,s),height:h,offsetX:mobile?0:mix(a.offsetX,b.offsetX,s),offsetY:mobile?-.145:mix(a.offsetY,b.offsetY,s)};
 }
@@ -19,13 +21,14 @@ export async function createWorld(canvas,pins,onReady,onError,onNavigate=()=>{})
  const camera=new T.OrthographicCamera(-30,30,20,-20,.1,220);
  camera.position.copy(direction).multiplyScalar(95);camera.lookAt(0,0,0);camera.updateMatrixWorld();
  const facing=camera.quaternion.clone(),right=new T.Vector3(1,0,0).applyQuaternion(facing),upAxis=new T.Vector3(0,1,0).applyQuaternion(facing);
- const loader=new T.TextureLoader(),textures={},materials=[];
- try{await Promise.all(Object.entries(assets).map(async([name,meta])=>{const map=await loader.loadAsync(meta.url);map.colorSpace=T.SRGBColorSpace;map.anisotropy=Math.min(4,renderer.capabilities.getMaxAnisotropy());textures[name]=map;}));}
+ const loader=new T.TextureLoader(),textures={};
+ try{await Promise.all(Object.entries({...assets,...troopAssets}).map(async([name,meta])=>{const map=await loader.loadAsync(meta.url);map.colorSpace=T.SRGBColorSpace;map.anisotropy=Math.min(4,renderer.capabilities.getMaxAnisotropy());textures[name]=map;}));}
  catch(e){renderer.dispose();onError(e);return null;}
+ const life=createVillageLife(scene,textures,right,upAxis,direction,facing);
 
  // A flat checker of fine green grass, with a dirt perimeter, replaces the floating island.
- const grassMaterial=new T.ShaderMaterial({depthWrite:false,uniforms:{night:{value:0}},vertexShader:`varying vec2 ground;void main(){ground=position.xy;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`,fragmentShader:`
- varying vec2 ground;uniform float night;
+ const grassMaterial=new T.ShaderMaterial({depthWrite:false,uniforms:life.uniforms,vertexShader:`varying vec2 ground;void main(){ground=vec2(position.x,-position.y);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`,fragmentShader:`
+ varying vec2 ground;${life.lightGLSL}
  float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
  float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
  void main(){
@@ -36,7 +39,7 @@ export async function createWorld(canvas,pins,onReady,onError,onNavigate=()=>{})
  vec3 color=mix(field,forest,smoothstep(21.7,26.5,edge));
  float trail=smoothstep(23.8,24.4,edge)*(1.0-smoothstep(25.0,25.7,edge))*.58;
  color=mix(color,vec3(.62,.46,.235)+(noise(ground*5.0)-.5)*.055,trail);
- color*=mix(vec3(1.),vec3(.38,.49,.66),night);gl_FragColor=vec4(color,1.0);
+ color*=mix(vec3(1.),vec3(.30,.40,.62)+villageLightAt(ground)*1.12,villageNight);gl_FragColor=vec4(color,1.0);
  }`});
  const ground=new T.Mesh(new T.PlaneGeometry(180,180),grassMaterial);ground.rotation.x=-Math.PI/2;ground.position.y=-.03;ground.renderOrder=-100;scene.add(ground);
 
@@ -59,18 +62,18 @@ export async function createWorld(canvas,pins,onReady,onError,onNavigate=()=>{})
  }
  for(const b of buildings)batchProp(b.type,b.x,b.z,b.size,b);
  // The source atlas shows a three-post corner; UVs select its visible central wall post.
- for(const wall of walls)batchProp('wall',wall.x,wall.z,.94,{frame:{x:71,y:77,w:58,h:85}});
+ for(const wall of walls)batchProp('wall',wall.x,wall.z,.84,{frame:{x:71,y:77,w:58,h:85}});
  let seed=306;const random=()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646;};
  for(let x=-43;x<=43;x+=2.7)for(let z=-43;z<=43;z+=2.7){
-   const edge=Math.max(Math.abs(x),Math.abs(z));if(edge<26||random()<.13)continue;
+   const edge=Math.max(Math.abs(x),Math.abs(z));if(edge<26||random()<.20)continue;
    const kind=random()<.15?'pine':random()<.46?'tree':'tree2';
-   batchProp(kind,x+(random()-.5)*1.8,z+(random()-.5)*1.8,2.3+random()*1.7);
+   batchProp(kind,x+(random()-.5)*1.8,z+(random()-.5)*1.8,2.1+random()*1.3);
    if(random()<.17)batchProp('bush',x-1.2,z+1.2,1.5);
  }
  for(const [x,z,kind,size] of [[-22,17,'tree',3],[19,-22,'tree2',3],[-21,-18,'pine',2.5],[21,17,'rock',2.7],[-22,5,'rock2',2.6],[20,-17,'bush',1.7],[-19,21,'stump',1.3],[8,22,'rock',1.8],[-21,-2,'bush',1.2]])batchProp(kind,x,z,size);
  for(const [type,data] of buckets){
    const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(data.positions,3));geo.setAttribute('uv',new T.Float32BufferAttribute(data.uvs,2));geo.setIndex(data.indices);geo.computeBoundingSphere();
-   const material=new T.MeshBasicMaterial({map:textures[type],alphaTest:.12,side:T.DoubleSide});materials.push(material);
+   const material=life.lightMaterial(new T.MeshBasicMaterial({map:textures[type],alphaTest:.12,side:T.DoubleSide}));
    const mesh=new T.Mesh(geo,material);scene.add(mesh);
  }
 
@@ -86,15 +89,19 @@ export async function createWorld(canvas,pins,onReady,onError,onNavigate=()=>{})
  function select(destination){if(selected===destination)return;selected=destination;const b=buildings.find(x=>x.destination===destination);selection.visible=!!b;if(!b)return;const r=b.size*.54;selection.geometry.dispose();selection.geometry=new T.BufferGeometry().setFromPoints([new T.Vector3(b.x-r,.09,b.z-r),new T.Vector3(b.x+r,.09,b.z-r),new T.Vector3(b.x+r,.09,b.z+r),new T.Vector3(b.x-r,.09,b.z+r)]);}
 
  let width=1,height=1,mobile=false,progress=0,progressGoal=0,night=0,nightGoal=0,zoom=1,zoomGoal=1,panX=0,panZ=0,panXGoal=0,panZGoal=0;
- let raf=0,dirty=true,disposed=false,visible=true,last=0,ready=false;
- const reduced=matchMedia('(prefers-reduced-motion: reduce)'),temp=new T.Vector3(),nightTint=new T.Color(.45,.54,.76),white=new T.Color(1,1,1);
+ let raf=0,dirty=true,disposed=false,visible=true,last=0,ready=false,animationTime=0,paused=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)'),temp=new T.Vector3();
  function applyCamera(){const pose=cameraPose(progress,width,height,zoom),half=pose.height/2;camera.left=-half*width/height;camera.right=half*width/height;camera.top=half;camera.bottom=-half;camera.updateProjectionMatrix();const target=new T.Vector3(pose.x+panX,0,pose.z+panZ);camera.position.copy(target).addScaledVector(direction,95);camera.setViewOffset(width,height,pose.offsetX*width,pose.offsetY*height,width,height);camera.lookAt(target);camera.updateMatrixWorld();}
  function updatePins(){for(const [name,element] of Object.entries(pins)){const landmark=landmarks[name];temp.set(landmark.x,.1,landmark.z).addScaledVector(upAxis,landmark.height);temp.project(camera);const x=(temp.x*.5+.5)*width,y=(-temp.y*.5+.5)*height;const shown=!mobile&&progress<.35&&x>Math.max(340,width*.25)&&x<width-90&&y>110&&y<height-90;element.hidden=!shown;element.inert=!shown;element.style.transform=`translate3d(${x}px,${y}px,0) translate(-50%,-100%)`;}}
  function hitTest(event){const rect=canvas.getBoundingClientRect(),x=event.clientX-rect.left,y=event.clientY-rect.top;for(const item of [...interactive].sort((a,b)=>b.x+b.z-a.x-a.z)){const points=item.points.map(p=>p.clone().project(camera));const xs=points.map(p=>(p.x*.5+.5)*width),ys=points.map(p=>(-p.y*.5+.5)*height);if(x>Math.min(...xs)&&x<Math.max(...xs)&&y>Math.min(...ys)&&y<Math.max(...ys))return item.destination;}return null;}
- function frame(now){raf=0;if(disposed||!visible||document.hidden)return;const dt=last?Math.min((now-last)/1000,.07):.03;last=now;const smooth=reduced.matches?1:1-Math.exp(-dt*7);const moving=Math.abs(progress-progressGoal)>.0001||Math.abs(night-nightGoal)>.001||Math.abs(zoom-zoomGoal)>.001||Math.abs(panX-panXGoal)>.001||Math.abs(panZ-panZGoal)>.001;
+ function frame(now){raf=0;if(disposed||!visible||document.hidden)return;
+  const animate=!paused&&!reduced.matches;
+  if(!dirty&&last&&now-last<1000/(mobile?24:30)){wake();return;}
+  const dt=last?Math.min((now-last)/1000,.1):.03;last=now;if(animate)animationTime+=dt;
+  const smooth=reduced.matches?1:1-Math.exp(-dt*7);const moving=Math.abs(progress-progressGoal)>.0001||Math.abs(night-nightGoal)>.001||Math.abs(zoom-zoomGoal)>.001||Math.abs(panX-panXGoal)>.001||Math.abs(panZ-panZGoal)>.001;
   progress=mix(progress,progressGoal,smooth);night=mix(night,nightGoal,smooth);zoom=mix(zoom,zoomGoal,smooth);panX=mix(panX,panXGoal,smooth);panZ=mix(panZ,panZGoal,smooth);
-  if(dirty||moving||!ready){applyCamera();updatePins();grassMaterial.uniforms.night.value=night;materials.forEach(m=>m.color.copy(white).lerp(nightTint,night));scene.background.setRGB(mix(.337,.12,night),mix(.514,.2,night),mix(.18,.2,night));const p=Math.round(progress);if(!pointer.down)select(p===1?'hackathon':p===2?'pitch':pointer.hover);renderer.render(scene,camera);dirty=false;if(!ready){ready=true;onReady();}}
-  if(moving)wake();
+  if(dirty||moving||animate||!ready){applyCamera();updatePins();life.update(animationTime,night,animate);scene.background.setRGB(mix(.337,.09,night),mix(.514,.17,night),mix(.18,.2,night));const p=Math.round(progress);if(!pointer.down)select(p===1?'hackathon':p===2?'pitch':progress<.35?pointer.hover:'');renderer.render(scene,camera);dirty=false;if(!ready){ready=true;onReady();}}
+  if(moving||animate)wake();
  }
  function wake(){if(!raf&&!disposed)raf=requestAnimationFrame(frame);}
  function resize(){const rect=canvas.getBoundingClientRect();width=Math.max(1,rect.width);height=Math.max(1,rect.height);mobile=width<760;renderer.setPixelRatio(Math.min(devicePixelRatio||1,mobile?1.5:1.75));renderer.setSize(width,height,false);dirty=true;wake();}
@@ -109,6 +116,6 @@ export async function createWorld(canvas,pins,onReady,onError,onNavigate=()=>{})
  function visibilityChange(){if(document.hidden){cancelAnimationFrame(raf);raf=0;}else{last=0;dirty=true;wake();}}
  document.addEventListener('visibilitychange',visibilityChange);
  canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();disposed=true;cancelAnimationFrame(raf);onError(new Error('Village graphics unavailable.'));});
- resize();applyCamera();try{await renderer.compileAsync(scene,camera);}catch(error){onError(error);return null;}wake();
- return {setProgress(p){progressGoal=clamp(p,0,3);dirty=true;wake();},setNight(value){nightGoal=value?1:0;dirty=true;wake();},reset(){panXGoal=panZGoal=0;zoomGoal=1;dirty=true;wake();},zoomBy(factor){zoomGoal=clamp(zoomGoal*factor,.8,1.7);dirty=true;wake();},dispose(){disposed=true;cancelAnimationFrame(raf);observer.disconnect();visibility.disconnect();document.removeEventListener('visibilitychange',visibilityChange);scene.traverse(o=>{o.geometry?.dispose();if(o.material)o.material.dispose();});Object.values(textures).forEach(t=>t.dispose());renderer.dispose();}};
+ resize();applyCamera();life.update(0,0,false);try{await renderer.compileAsync(scene,camera);}catch(error){onError(error);return null;}wake();
+ return {setProgress(p){progressGoal=clamp(p,0,cameraStops.length-1);dirty=true;wake();},setNight(value){nightGoal=value?1:0;dirty=true;wake();},setPaused(value){paused=value;dirty=true;wake();},reset(){panXGoal=panZGoal=0;zoomGoal=1;dirty=true;wake();},zoomBy(factor){zoomGoal=clamp(zoomGoal*factor,.8,1.7);dirty=true;wake();},dispose(){disposed=true;cancelAnimationFrame(raf);observer.disconnect();visibility.disconnect();document.removeEventListener('visibilitychange',visibilityChange);life.dispose();shadowMaterial.map.dispose();scene.traverse(o=>{o.geometry?.dispose();if(o.material)o.material.dispose();});Object.values(textures).forEach(t=>t.dispose());renderer.dispose();}};
 }

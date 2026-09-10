@@ -34,8 +34,10 @@ export const walls=[...segments.values()];
 
 export const landmarks={hackathon:{x:-7,z:6,height:4.3},pitch:{x:7,z:-8,height:4.6},intel:{x:0,z:0,height:5.7}};
 export const cameraStops=[
- {x:0,z:0,height:43,offsetX:-.13,offsetY:-.015},
- {x:-7,z:6,height:22,offsetX:-.16,offsetY:0},
- {x:7,z:-8,height:22,offsetX:-.16,offsetY:0},
- {x:0,z:0,height:47,offsetX:0,offsetY:0}
+ {x:0,z:0,height:47,offsetX:-.14,offsetY:-.015},
+ {x:-10,z:7,height:26,offsetX:-.19,offsetY:-.04},
+ {x:9,z:-9,height:26,offsetX:-.19,offsetY:-.04},
+ {x:0,z:0,height:47,offsetX:0,offsetY:-.015},
+ {x:-1,z:2,height:27,offsetX:0,offsetY:-.08},
+ {x:10,z:18,height:31,offsetX:.22,offsetY:-.015}
 ];
