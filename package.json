@@ -1,1 +1,19 @@
-{"name":"elevate-3","version":"1.0.0","private":true,"description":"Elevate 3.0 hackathon and business pitch competition — first draft","type":"module","scripts":{"dev":"node server.mjs","start":"node server.mjs","check":"node scripts/check.mjs"},"engines":{"node":">=20"}}
+{
+  "name": "elevate-3",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Elevate 3.0: an interactive clan village for the hackathon and business pitch competition",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs",
+    "check": "node scripts/check.mjs && node scripts/check-world.mjs",
+    "vendor": "node scripts/vendor.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  }
+}

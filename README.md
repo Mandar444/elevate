@@ -1,47 +1,52 @@
 # Elevate 3.0 — The Clash of Ideas
 
-A complete promotional website draft for Elevate's third edition: a Clash of Clans-themed hackathon and business pitching competition.
+A promotional website for the third edition of Elevate: a Clash of Clans-themed hackathon and business pitching competition.
 
 ## Run locally
 
-Install Node.js 20 or newer, then run `npm start` from this project folder. Open `http://127.0.0.1:5173`. No package installation is required. If port 5173 is occupied, set the `PORT` environment variable to another port before starting.
+Use Node.js 20 or newer. Run `npm start` in this folder, then open `http://127.0.0.1:5173`. The preview has no build step and does not require an install because its browser dependencies are vendored. Set the `PORT` environment variable to use another port.
 
-Run `npm run check` for static source checks.
+Run `npm run check` for source and geometry checks. To refresh the vendored Three.js dependency, run `npm ci` followed by `npm run vendor`.
+
+## The experience
+
+The village is real Three.js geometry: a fortified town hall, workshop, pitch arena, elixir collectors, vault, cannons, trees, waterfall, windmill, balloon, fire, and four articulated inhabitants. Scroll to travel between competition destinations. Drag or use the arrow keys on the focused canvas to rotate the view. Click a labeled building or use the navigation links to visit a competition. Daylight and moonlight change the scene lighting, glowing windows, elixir, and sky.
+
+Generated transparent Barbarian, Archer Queen, and Wizard artwork frames the village and competition destinations. These large foreground characters are layered images; the small villagers and scenery are live geometry.
+
+Mobile viewports use a wider camera composition. Short viewports use a conventional scrolling layout to keep content reachable. Reduced-motion users get an on-demand renderer with ambient animation disabled. Rendering pauses offscreen and in hidden tabs, caps device resolution and frame rate, batches static geometry, and caches static shadows. If WebGL is unavailable or lost, an illustrated fallback preserves navigation and event content.
 
 ## Project structure
 
-- `dist/index.html`: all page content and SEO metadata, accessible even before JavaScript loads.
-- `dist/style.css`: responsive Clash-inspired typography, palette, navigation, beveled game controls, and panels.
-- `dist/fonts.css` and `dist/assets/font-*.woff2`: self-hosted fonts.
-- `dist/app.js`: mobile navigation, competition briefs, registration dialogs, and pointer interactions.
-- `dist/world.js`: native WebGL scene with actual 3D geometric shards and drifting particles; performance capped to about 30 FPS and pixel ratio 1.75. It pauses offscreen or when the page is hidden. Static artwork remains when WebGL is unavailable.
-- `dist/assets/`: optimized desktop/mobile village scenery and illustrated competition cards.
-- `dist/robots.txt`, `dist/sitemap.xml`, `dist/favicon.svg`: search and branding essentials.
-- `server.mjs`: dependency-free local preview server.
-- `.openai/hosting.json`: private Sites registration; preserves the existing project identity.
-
-The village artwork is an image with cursor-responsive depth. The ambient shards are live 3D geometry. This is not an explorable 3D village model.
+- `dist/index.html`: event content, semantic structure, native dialogs, FAQ, and SEO metadata.
+- `dist/style.css`: layout, chapter transitions, responsive behavior, and typography.
+- `dist/clan.css`: foreground characters and the saturated game interface.
+- `dist/app.js`: chapter navigation, day/night state, dialogs, and character parallax.
+- `dist/world.js`: renderer, camera choreography, building hit regions, lights, and animation.
+- `dist/village-model.js`: geometry, materials, scenery, articulated villagers, and landmarks.
+- `dist/vendor/`: self-hosted Three.js 0.180.0, geometry helpers, and MIT license.
+- `dist/assets/`: optimized WebP character cutouts, illustrated briefs, fallback scenery, and local fonts.
+- `server.mjs`: dependency-free preview server.
+- `scripts/check.mjs`, `scripts/check-world.mjs`: source and geometry validation.
+- `scripts/vendor.mjs`: reproducible dependency preparation from the pinned npm package.
+- `.openai/hosting.json`: existing private Sites project identity.
 
 ## Details to finalize
 
-Dates, venue, host/organizer identity, event duration, eligibility, team size, entry fees, challenge themes, judging criteria, prizes, sponsors, contact details, social links, schedule, and registration URL are not yet supplied. Current copy explicitly says coming soon where needed. Registration does not collect or store personal information and does not pretend to submit a form.
+Dates, venue, organizer, eligibility, team sizes, duration, entry fees, challenge statements, judging criteria, prizes, sponsors, contact information, schedule, and the registration URL have not been supplied. The current site says coming soon where appropriate. Registration opens an informational dialog and collects no personal data.
 
-Update those details in `dist/index.html` and the competition briefs in `dist/app.js`. Once registration is confirmed, replace the coming-soon dialog with the authorized registration destination or a real registration integration.
+Edit the event information in `dist/index.html` and competition briefs in `dist/app.js`. Replace the registration dialog with the authorized destination once supplied. Update the canonical URL and sitemap for the eventual public domain. Add accurate Event structured data after dates and location are confirmed. The current owner-private publication is for review and is not publicly indexable.
 
-The current canonical and sitemap origin point to the private Sites preview. Before a public domain launch, update that origin in the HTML and sitemap. Private previews are owner-accessible and cannot serve as a publicly indexed promotional site. Add accurate Event structured data when the actual date and location are confirmed. No event dates, sponsorships, or prize amounts have been invented.
+## Artwork and typography
 
-## Artwork and fonts
+- Fallback village: Clash of Clans “Clashy Constructs Wallpaper,” commissioned by Supercell and created by Piñata. Source: https://pinata.fi/portfolio/clash-of-clans-clashy-constructs-wallpaper/ . Original image: https://pinata.fi/wp-content/uploads/2020/06/ClashofClans_Village_Background_Landscape.jpg .
+- Foreground Barbarian, Archer Queen, Wizard, and illustrated competition briefs: generated with OpenAI's image tool for the requested theme. Foreground assets retain genuine transparency and are optimized to about 300 KB combined. Generation prompts are recorded in `licenses/character-prompts.txt`.
+- Game characters and related intellectual property remain with their respective owners. This is an unofficial themed event draft. The footer links to https://supercell.com/en/fan-content-policy/ and does not imply endorsement.
+- Lilita One and Nunito Sans are self-hosted Google Fonts with license texts in `licenses/`. This build does not bundle Supercell's proprietary game font.
+- Three.js is MIT licensed; its license is included in `dist/vendor/THREE-LICENSE.txt`.
 
-- Village artwork: **Clash of Clans “Clashy Constructs Wallpaper”**, commissioned by Supercell and created by Piñata. Source: https://pinata.fi/portfolio/clash-of-clans-clashy-constructs-wallpaper/ . Downloaded source: https://pinata.fi/wp-content/uploads/2020/06/ClashofClans_Village_Background_Landscape.jpg . Used for this private themed draft. Copyright remains with its respective owners. See https://supercell.com/en/fan-content-policy/ for applicable fan-content conditions.
-- Builder/wizard and barbarian pitch card illustrations: generated with OpenAI's built-in image tool for this requested themed redesign. The game characters and related intellectual property belong to their respective owners.
-- Lilita One and Nunito Sans: Google Fonts, self-hosted. License texts are in `licenses/`.
+## Accessibility and validation
 
-The site includes an unofficiality notice and the Fan Content Policy link. It does not claim Supercell sponsorship or endorsement.
+The page has semantic headings, an event-details skip link, visible keyboard focus, native modal dialogs and FAQ disclosures, inactive chapter focus isolation, keyboard alternatives to 3D navigation, reduced-motion support, and a static fallback. Essential event text is HTML rather than canvas text.
 
-## Accessibility and behavior
-
-Semantic HTML, a skip link, visible keyboard focus, native keyboard-accessible disclosures and modal dialogs, mobile navigation labels, locally hosted fonts, and `prefers-reduced-motion` support. Images have responsive or constrained dimensions. Static content is available without JavaScript; enhanced interactions need JavaScript.
-
-## Validation
-
-Static checks cover asset references, anchor destinations, unique IDs, accessible labels, structured-data JSON, JavaScript syntax, CSS brace balance, and the minimum declared text size. Browser interaction or visual tests have not been run.
+Checks cover local assets, module imports, anchor destinations, unique IDs, accessible references, metadata JSON, JavaScript syntax, CSS structure, declared minimum text size, finite geometry/transforms, scene complexity, and camera destinations at desktop, tablet, and mobile dimensions. Browser interaction and screenshot tests have not been run.

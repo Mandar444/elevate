@@ -1,0 +1,39 @@
+barbarian-hero
+
+Use case: stylized-concept
+Asset type: isolated transparent foreground character cutout for a Clash of Clans themed website.
+Primary request: The recognizable classic Clash of Clans Barbarian, full body, facing three-quarter RIGHT toward the webpage center, in a heroic low-angle stance.
+Subject: A muscular adult Barbarian with iconic blocky yellow blond hair and huge yellow horseshoe moustache, expressive determined friendly face, bare chest, brown leather belt with square metal buckle, brown kilt, wristbands with metal studs, sandals, and a broad silver sword held upright at his outer side.
+Style/medium: Faithful recognizable Clash of Clans character design, polished game promotional 3D rendering, bright saturated colors, chunky rounded physical shapes, smooth tactile toy-like materials, clean strong silhouette. No human realism or gritty fantasy.
+Lighting: Strong soft studio daylight with a subtle warm rim light, bright and expressive.
+Composition: Vertical portrait composition, one full body character only, all extremities and sword entirely inside frame with generous padding. View from a slightly low camera.
+Background: Genuinely transparent alpha background, preserve transparency. No opaque background, no checkerboard, no floor, no ground plane or cast floor shadow. The character is isolated.
+Constraints: One finished asset only. No text, no logo, no UI, no other characters.
+
+---
+
+queen-hero
+
+Use case: stylized-concept
+Asset type: isolated transparent foreground character cutout for a Clash of Clans themed website.
+Primary request: The recognizable classic adult Clash of Clans Archer Queen, full body, facing three-quarter LEFT toward the webpage center.
+Subject: Archer Queen with long vivid purple hair, iconic gold crown, green sleeveless tunic/dress and cape, brown belt and boots. Accurate classic game styling, a confident friendly smile, iconic crossbow held relaxed.
+Style/medium: Faithful recognizable Clash of Clans character design, polished game promotional 3D rendering, bright saturated colors, chunky rounded physical shapes, smooth tactile toy-like materials, clean strong silhouette. No human realism or gritty fantasy.
+Lighting: Strong soft studio daylight with a subtle warm rim light, bright and expressive.
+Composition: Vertical portrait composition, one full body adult character only, every extremity, crown, cape and crossbow entirely inside frame with generous padding.
+Background: Genuinely transparent alpha background, preserve transparency. No opaque background, no checkerboard, no floor, no ground plane or cast floor shadow. The character is isolated.
+Constraints: One finished asset only. No text, no logo, no UI, no other characters.
+
+---
+
+wizard-hero
+
+Use case: stylized-concept
+Asset type: isolated transparent foreground character cutout for a Clash of Clans themed website.
+Primary request: The recognizable classic Clash of Clans Wizard, full body, facing three-quarter LEFT toward the webpage center.
+Subject: A classic adult blue-robed Wizard with deep-blue hood, brown belt, black goatee and black eyebrows, a confident friendly grin, and hands conjuring a small bright purple-blue magical orb. Faithful to the classic game costume.
+Style/medium: Faithful recognizable Clash of Clans character design, polished game promotional 3D rendering, bright saturated colors, chunky rounded physical shapes, smooth tactile toy-like materials, clean strong silhouette. No human realism or gritty fantasy.
+Lighting: Strong soft studio daylight with a subtle warm rim light, bright and expressive. Restrained purple-blue magical orb light.
+Composition: Vertical portrait composition, one full body character only, every extremity, hood, robe, and orb entirely inside frame with generous padding.
+Background: Genuinely transparent alpha background, preserve transparency. No opaque background, no checkerboard, no floor, no ground plane or cast floor shadow. The character is isolated.
+Constraints: One finished asset only. No text, no logo, no UI, no other characters.

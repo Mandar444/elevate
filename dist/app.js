@@ -1,79 +1,98 @@
-const menu = document.querySelector('.menu-toggle');
-const mobileNav = document.querySelector('#mobile-nav');
-function closeMenu(returnFocus = false) {
-  mobileNav.hidden = true;
-  menu.setAttribute('aria-expanded', 'false');
-  menu.setAttribute('aria-label', 'Open navigation');
-  if (returnFocus) menu.focus();
-}
-menu.addEventListener('click', () => {
-  const open = menu.getAttribute('aria-expanded') !== 'true';
-  menu.setAttribute('aria-expanded', String(open));
-  menu.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
-  mobileNav.hidden = !open;
-});
-mobileNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => closeMenu()));
-document.addEventListener('keydown', event => { if (event.key === 'Escape' && !mobileNav.hidden) closeMenu(true); });
+const body=document.body;
+const experience=document.querySelector('.experience');
+const stage=document.querySelector('.world-stage');
+const chapters=[...document.querySelectorAll('[data-scene]')];
+const copy=document.querySelector('.hero-copy'),action=document.querySelector('.hero-action');
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+const compact=matchMedia('(max-height: 670px), (max-width: 760px) and (max-height: 770px)');
+const registration=document.querySelector('#registration-dialog');
+const trackDialog=document.querySelector('#track-dialog');
+let world=null,current=-1,scheduled=false,progress=0,isNight=false;
 
-const registration = document.querySelector('#registration-dialog');
-document.querySelectorAll('.registration-trigger').forEach(button => button.addEventListener('click', () => registration.showModal()));
-document.querySelector('#dialog-explore').addEventListener('click', () => registration.close());
-document.querySelectorAll('dialog').forEach(dialog => {
-  dialog.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
-  dialog.addEventListener('click', event => {
-    if (event.target !== dialog) return;
-    const rect = dialog.getBoundingClientRect();
-    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
+// Keep foreground controls above the canvas, while the enormous title sits behind the village.
+stage.append(copy,action);
+body.classList.add('immersive');
+function update(){
+  scheduled=false;
+  const condensed=compact.matches;
+  body.classList.toggle('compact-view',condensed);
+  const range=Math.max(1,experience.offsetHeight-stage.offsetHeight);
+  progress=condensed?0:Math.max(0,Math.min(3,(scrollY-experience.offsetTop)/range*3));
+  const active=Math.round(progress);
+  world?.setProgress(progress);
+  body.classList.toggle('outside-world',scrollY>experience.offsetTop+range+stage.offsetHeight*.68);
+  if(active===current&&!condensed&&chapters.every(c=>c.dataset.condensed!=='true'))return;
+  current=active;
+  stage.dataset.activeScene=String(active);
+  chapters.forEach((chapter,i)=>{
+    const visible=condensed||i===active;
+    chapter.classList.toggle('active',visible);
+    chapter.inert=!visible;
+    chapter.setAttribute('aria-hidden',String(!visible));
+    chapter.dataset.condensed=String(condensed);
   });
+  const intro=active===0||condensed;
+  stage.classList.toggle('intro-active',intro);
+  stage.classList.toggle('story-active',!condensed&&(active===1||active===2));
+  copy.inert=action.inert=!intro;
+  copy.setAttribute('aria-hidden',String(!intro));action.setAttribute('aria-hidden',String(!intro));
+  document.querySelector('#chapter-count').textContent=String(active+1).padStart(2,'0');
+  document.querySelectorAll('.scene-rail [data-chapter]').forEach(a=>{
+    const selected=Number(a.dataset.chapter)===active;a.classList.toggle('active',selected);
+    if(selected)a.setAttribute('aria-current','step');else a.removeAttribute('aria-current');
+  });
+}
+function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(update);}}
+addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule,{passive:true});compact.addEventListener('change',()=>{current=-1;schedule();});
+let castFrame=0,castX=0,castY=0;
+stage.addEventListener('pointermove',event=>{
+  if(reduced.matches||event.pointerType!=='mouse'||compact.matches)return;
+  castX=(event.clientX/innerWidth-.5)*13;castY=(event.clientY/innerHeight-.5)*7;
+  if(!castFrame)castFrame=requestAnimationFrame(()=>{stage.style.setProperty('--cast-x',castX+'px');stage.style.setProperty('--cast-y',castY+'px');castFrame=0;});
+},{passive:true});
+stage.addEventListener('pointerleave',()=>{stage.style.setProperty('--cast-x','0px');stage.style.setProperty('--cast-y','0px');});
+function jump(index,hash){
+  document.querySelectorAll('dialog[open]').forEach(d=>d.close());
+  world?.reset();
+  if(compact.matches){document.querySelector(hash)?.scrollIntoView({behavior:reduced.matches?'instant':'smooth'});}
+  else {const range=experience.offsetHeight-stage.offsetHeight;window.scrollTo({top:experience.offsetTop+range/3*index,behavior:reduced.matches?'instant':'smooth'});}
+  if(hash)history.replaceState(null,'',hash);
+}
+document.querySelectorAll('.journey-link').forEach(link=>link.addEventListener('click',e=>{e.preventDefault();jump(Number(link.dataset.chapter),link.getAttribute('href'));}));
+document.querySelectorAll('.registration-trigger').forEach(button=>button.addEventListener('click',()=>registration.showModal()));
+document.querySelectorAll('dialog').forEach(dialog=>{
+  dialog.querySelector('.dialog-close').addEventListener('click',()=>dialog.close());
+  dialog.addEventListener('click',event=>{if(event.target!==dialog)return;const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();});
 });
-
-const tracks = {
-  hackathon: {
-    label: 'BATTLE 01 · BUILDER’S CAMP', title: 'THE HACKATHON',
-    description: 'Start with a real problem. Explore possibilities, build a working solution, and show what your idea can do.',
-    prompts: ['Find a problem you care about.', 'Make your idea tangible with a prototype.', 'Prepare a clear demonstration of your solution.']
-  },
-  pitch: {
-    label: 'BATTLE 02 · PITCH ARENA', title: 'THE BUSINESS PITCH',
-    description: 'Turn an insight into a business worth believing in. Show the opportunity, explain your approach, and bring your vision to life.',
-    prompts: ['Understand your audience and the problem.', 'Shape a business model around your solution.', 'Tell a focused, convincing story.']
-  }
+const tracks={
+  hackathon:{label:'BATTLE 01 · BUILDER’S CAMP',title:'THE HACKATHON',image:'/assets/builders.webp',alt:'A builder and wizard creating a glowing prototype.',description:'Start with a real problem. Explore possibilities, build a working solution, and show what your idea can do.',prompts:['Find a problem you care about.','Make your idea tangible with a prototype.','Prepare a clear demonstration of your solution.']},
+  pitch:{label:'BATTLE 02 · THE PITCH ARENA',title:'THE BUSINESS PITCH',image:'/assets/founders.webp',alt:'A barbarian presenting an idea over a parchment plan.',description:'Turn an insight into a business worth believing in. Show the opportunity, explain your approach, and bring your vision to life.',prompts:['Understand your audience and the problem.','Shape a business model around your solution.','Tell a focused, convincing story.']}
 };
-const trackDialog = document.querySelector('#track-dialog');
-document.querySelectorAll('.track-trigger').forEach(button => button.addEventListener('click', () => {
-  const track = tracks[button.dataset.track];
-  document.querySelector('#track-eyebrow').textContent = track.label;
-  document.querySelector('#track-title').textContent = track.title;
-  document.querySelector('#track-description').textContent = track.description;
-  document.querySelector('#track-checklist').replaceChildren(...track.prompts.map((text, index) => {
-    const line = document.createElement('p');
-    const number = document.createElement('span');
-    number.textContent = `0${index + 1}`;
-    line.append(number, document.createTextNode(text));
-    return line;
-  }));
+document.querySelectorAll('.track-trigger').forEach(button=>button.addEventListener('click',()=>{
+  const track=tracks[button.dataset.track];
+  document.querySelector('#track-eyebrow').textContent=track.label;
+  document.querySelector('#track-title').textContent=track.title;
+  document.querySelector('#track-description').textContent=track.description;
+  const img=document.querySelector('#track-image');img.src=track.image;img.alt=track.alt;
+  document.querySelector('#track-checklist').replaceChildren(...track.prompts.map((text,index)=>{const p=document.createElement('p'),n=document.createElement('span');n.textContent=String(index+1).padStart(2,'0');p.append(n,document.createTextNode(text));return p;}));
   trackDialog.showModal();
 }));
-document.querySelector('#track-register').addEventListener('click', () => { trackDialog.close(); registration.showModal(); });
-document.querySelector('#year').textContent = new Date().getFullYear();
-
-const world = document.querySelector('.hero-world');
-const hero = document.querySelector('.hero');
-const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-hero.addEventListener('pointermove', event => {
-  if (reducedMotion.matches || event.pointerType === 'touch') return;
-  const rect = world.getBoundingClientRect();
-  world.style.setProperty('--mx', Math.max(-1, Math.min(1, (event.clientX - rect.left) / rect.width * 2 - 1)));
-  world.style.setProperty('--my', Math.max(-1, Math.min(1, (event.clientY - rect.top) / rect.height * 2 - 1)));
-});
-hero.addEventListener('pointerleave', () => { world.style.setProperty('--mx', 0); world.style.setProperty('--my', 0); });
-document.querySelectorAll('.battle-card').forEach(card => {
-  card.addEventListener('pointermove', event => {
-    if (reducedMotion.matches || event.pointerType === 'touch') return;
-    const rect = card.getBoundingClientRect();
-    card.style.transform = `rotateX(${((event.clientY - rect.top) / rect.height - .5) * -2}deg) rotateY(${((event.clientX - rect.left) / rect.width - .5) * 2}deg) translateY(-3px)`;
+document.querySelector('#track-register').addEventListener('click',()=>{trackDialog.close();registration.showModal();});
+document.querySelector('#year').textContent=String(new Date().getFullYear());
+const lightButton=document.querySelector('#light-toggle');
+function setNight(value){isNight=value;body.classList.toggle('night',value);lightButton.setAttribute('aria-pressed',String(value));document.querySelector('#light-icon').textContent=value?'☾':'☀';document.querySelector('#light-label').textContent=value?'Moonlight':'Daylight';world?.setNight(value);}
+lightButton.addEventListener('click',()=>setNight(!isNight));
+document.querySelector('#reset-view').addEventListener('click',()=>world?.reset());
+update();
+// Rendering is a progressive enhancement. Navigation, briefs and registration remain usable if it fails.
+import('./world.js').then(async({createWorld})=>{
+  world=await createWorld(document.querySelector('#world-canvas'),{hackathon:document.querySelector('#pin-hackathon'),pitch:document.querySelector('#pin-pitch'),intel:document.querySelector('#pin-intel')},()=>{
+    body.classList.add('world-ready');document.querySelector('#scene-status').textContent='Village ready.';
+  },()=>{body.classList.remove('world-ready');body.classList.add('world-failed');document.querySelector('#scene-status').textContent='Using the illustrated view. All event details are available.';},destination=>{
+    if(destination==='intel')document.querySelector('#intel').scrollIntoView({behavior:reduced.matches?'instant':'smooth'});
+    else jump(destination==='hackathon'?1:2,'#'+destination);
   });
-  card.addEventListener('pointerleave', () => { card.style.transform = ''; });
-});
-// Optional 3D enhancement; the complete page remains usable without WebGL.
-import('./world.js').then(({ startWorld }) => startWorld(document.querySelector('#world-canvas'), world, reducedMotion)).catch(() => {});
+  if(world){world.setProgress(progress);world.setNight(isNight);}
+}).catch(()=>{body.classList.add('world-failed');document.querySelector('#scene-status').textContent='Using the illustrated view. All event details are available.';});
+const hashIndex={'#village':0,'#hackathon':1,'#pitch':2,'#quest':3};
+if(location.hash in hashIndex){requestAnimationFrame(()=>{const range=experience.offsetHeight-stage.offsetHeight;if(!compact.matches)scrollTo({top:experience.offsetTop+range/3*hashIndex[location.hash],behavior:'instant'});});}
