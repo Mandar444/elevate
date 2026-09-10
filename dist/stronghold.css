@@ -363,3 +363,30 @@ dialog:not(#photo-dialog){background-image:linear-gradient(#f7edd9f5,#f7edd9f5),
  .footer-top,.footer-bottom{align-items:flex-start;flex-direction:column;gap:16px}.footer-links{gap:6px 18px}.footer-contact{display:grid;gap:12px;margin:16px 0 23px;padding:18px 0}.footer-contact a{font-size:.9375rem;min-height:30px}.footer-bottom p{font-size:.8125rem}
 }
 @media(prefers-reduced-motion:reduce){.site-header .brand>span,.site-header .brand b{transition:none}}
+
+/* Equal, compact portrait cards: six across on wide screens and two on phones. */
+#team-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:1fr;gap:18px;max-width:1200px;width:100%;margin:0 auto}
+#team-grid .team-member{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;grid-column:auto;width:100%;max-width:none;min-height:0;aspect-ratio:auto;margin:0;padding:12px;background:#fff3da;border:1px solid #a79772;border-top:3px solid #a98b43;border-radius:5px;outline:0;box-shadow:0 5px 12px #40331f16;filter:none;transform:none;text-align:left;gap:0}
+#team-grid .member-photo{display:grid;place-items:center;width:100%;height:auto;aspect-ratio:1;max-width:none;margin:0 0 15px;background:#e6dbc0;border:1px solid #b4a37a;border-radius:3px;outline:0;box-shadow:none;overflow:hidden;flex-shrink:0}
+#team-grid .member-photo img{display:block;width:100%;height:100%;object-fit:cover}
+#team-grid .member-photo>span{font:400 2.6rem/1 var(--display);color:#796d49}
+#team-grid .member-content{display:flex;flex-direction:column;align-items:flex-start;align-self:stretch;flex:1;min-width:0}
+#team-grid .member-number{font:900 .75rem/1.5 var(--body);letter-spacing:.065em;color:#5a5138;margin:0 0 7px}
+#team-grid h3{font:400 1.2rem/1.2 var(--display);color:#1d2e24;min-height:2.4em;margin:0 0 6px;max-width:100%;overflow-wrap:normal;word-break:normal;text-shadow:none}
+#team-grid .member-role{font:700 .875rem/1.5 var(--body);color:#3c4a35;margin:0 0 12px;max-width:100%;padding:0;background:none;border:0;border-radius:0;min-height:1.5em;overflow-wrap:anywhere}
+#team-grid .member-socials{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+#team-grid .member-socials a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;min-height:44px;padding:0;gap:0;border:1px solid #849070;border-radius:4px;background:#213d2b;color:#fff3d4;box-shadow:none}
+#team-grid .member-socials a:hover{background:#385b3a}#team-grid .member-socials svg{flex-shrink:0}
+#team-grid .member-pending-note{font:700 .75rem/1.5 var(--body);color:#555a45;margin:auto 0 0;padding:10px 0 6px;min-height:44px}
+#team-grid .team-member--pending{border-top-color:#b5a481;background:#f8efd9}
+.team-roster-section .team-roster-heading{max-width:1200px}.team-roster-section .team-roster-note{max-width:1200px}
+@media(max-width:1180px){#team-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}}
+@media(max-width:900px){#team-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}}
+@media(max-width:760px),(max-width:1024px) and (pointer:coarse){
+ #team-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px;max-width:640px}
+ #team-grid .team-member{padding:10px;border-radius:4px}
+ #team-grid .member-photo{margin-bottom:12px}
+ #team-grid h3{font-size:clamp(1rem,4.3vw,1.2rem);line-height:1.25;min-height:2.5em}
+ #team-grid .member-role{font-size:.875rem;margin-bottom:10px}
+ #team-grid .member-number{font-size:.75rem;letter-spacing:.025em}
+}

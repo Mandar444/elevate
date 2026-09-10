@@ -171,8 +171,12 @@ Map-backed reading sections use an ivory wash over the illustration, and the tre
 
 ## Organizers, contact and registration
 
-`/contact/` lists the organizer’s confirmed email and phone, with direct email links for sponsors, community partners and participants. The same details appear in every main-page footer. Mandar Shinde is listed as President in the featured team profile; his photo, LinkedIn and Instagram remain pending in `dist/content/team.json`. Other confirmed members can be appended.
+`/contact/` lists the organizer’s confirmed email and phone, with direct email links for sponsors, community partners and participants. The same details appear in every main-page footer. Mandar Shinde is listed as President in the team roster; his supplied photo, LinkedIn and Instagram are configured in `dist/content/team.json`. Other confirmed members can be appended.
 
 The registration window is planned for 12 September–1 December 2026. `dist/content/registration.json` stores the dates and the two pending Unstop URLs. Setting a valid HTTPS URL under `links.neural` or `links.startup` exposes that competition’s registration button. Never substitute a guessed link. Keep the static announcement text aligned if the planned dates change.
 
 The header has no strip or logo badge backing. Logo-adjacent text changes with the existing village/paper scroll state. Homepage years use clear numbered plaques; archive edition markers are quiet typography.
+
+The President portrait uses the organizer’s supplied photograph, resized without retouching or raster cropping into 400 px and 800 px WebP versions under `dist/assets/team/`. Both the static roster and data-driven profile include the image and supplied social links.
+
+The team roster has 18 slots, controlled by `slots` in `dist/content/team.json`. Only confirmed people belong in `members`; empty slots are clearly marked as profiles to be revealed. Every person uses the same compact card. The grid shows six columns on wide desktops, four/three on smaller desktops, and two on phones (including widths below 520 px). LinkedIn and Instagram use labeled 44 px icon links.

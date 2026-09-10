@@ -3,10 +3,22 @@
     {
       "name": "Mandar Shinde",
       "role": "President",
-      "featured": true,
-      "photo": null,
-      "linkedin": null,
-      "instagram": null
+      "photo": "/assets/team/mandar-shinde.webp",
+      "linkedin": "https://www.linkedin.com/in/mandarproductmanager/",
+      "instagram": "https://www.instagram.com/yesiammandar/",
+      "photoWidth": 800,
+      "photoHeight": 800,
+      "photoSources": [
+        {
+          "src": "/assets/team/mandar-shinde-400.webp",
+          "width": 400
+        },
+        {
+          "src": "/assets/team/mandar-shinde.webp",
+          "width": 800
+        }
+      ]
     }
-  ]
+  ],
+  "slots": 18
 }
