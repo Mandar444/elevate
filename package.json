@@ -1,0 +1,1 @@
+{"name":"elevate-3","version":"1.0.0","private":true,"description":"Elevate 3.0 hackathon and business pitch competition — first draft","type":"module","scripts":{"dev":"node server.mjs","start":"node server.mjs","check":"node scripts/check.mjs"},"engines":{"node":">=20"}}
