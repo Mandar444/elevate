@@ -1,3 +1,12 @@
 {
-  "members": []
+  "members": [
+    {
+      "name": "Mandar Shinde",
+      "role": "President",
+      "featured": true,
+      "photo": null,
+      "linkedin": null,
+      "instagram": null
+    }
+  ]
 }

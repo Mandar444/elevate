@@ -272,3 +272,94 @@ dialog:not(#photo-dialog){background-image:linear-gradient(#f7edd9f5,#f7edd9f5),
  .site-header .ecell-brand{width:36px;height:36px}
  .home-page .council-heading>div:first-child{padding:18px 16px;border-left-width:3px}
 }
+
+/* The supplied logo remains unframed; its adjacent lettering follows the surface. */
+.site-header .brand{background:none;border:0;border-radius:0;box-shadow:none;padding:0}
+.home-page .site-header .brand>span,.competition-page .site-header .brand>span{color:#fff2ce;text-shadow:0 2px 3px #10281fcc}
+.home-page .site-header .brand b,.competition-page .site-header .brand b{color:#f0dfb5;text-shadow:0 1px 3px #10281fcc}
+.home-page.off-village .site-header .brand>span,.competition-page.off-village .site-header .brand>span,.team-page .site-header .brand>span{color:#1d2e24;text-shadow:0 1px 2px #fff5df}
+.home-page.off-village .site-header .brand b,.competition-page.off-village .site-header .brand b,.team-page .site-header .brand b{color:#443f2a;text-shadow:0 1px 2px #fff5df}
+.site-header .brand>span,.site-header .brand b{transition:color .18s,text-shadow .18s}
+.home-page .legacy-years{display:flex;gap:10px;border:0;padding:0;flex-shrink:0}
+.legacy-years .legacy-year{display:flex;flex-direction:column;align-items:center;gap:7px;min-width:105px;padding:15px 18px;background:#fff3d7;border:1px solid #9d875b;border-radius:3px;color:#1d2e24}
+.legacy-year small{font:900 .75rem/1.4 var(--body);letter-spacing:.035em;color:#494731}
+.legacy-year b{font:400 2rem/1 var(--display);color:#152a1e;letter-spacing:1px}
+.archive-page .edition-mark{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:auto;height:auto;background:none;border:0;border-right:1px solid #a3987c;border-radius:0;box-shadow:none;padding:4px 20px 4px 0;color:#384337}
+.edition-mark small{font:900 .75rem/1.4 var(--body);letter-spacing:.1em;color:#50452b}
+.edition-mark b{font:900 1.75rem/1 var(--body);letter-spacing:.03em;color:#384337}
+.theme-neural .competition-intro h1{font-size:clamp(4.5rem,7.2vw,7.1rem);line-height:.98}
+
+/* The president leads the roster; real portraits and links can be added in team.json. */
+.team-grid{max-width:1100px}
+.team-member.team-member--president{grid-column:1/-1;display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1fr);gap:40px;max-width:none;min-height:400px;width:100%;padding:32px;text-align:left;transform:none;background:#fff3d8;border:1px solid #a68d5b;border-top:5px solid #b99243;outline:1px solid #d5bf8e;outline-offset:-10px;box-shadow:0 12px 24px #58422822}
+.team-member--president .member-portrait-column{display:flex;flex-direction:column;min-width:0}
+.team-member--president .member-photo{width:100%;height:auto;aspect-ratio:4/5;max-height:420px;border:8px solid #efe2bc;outline:1px solid #a6946a;background:#dfd5b8;border-radius:2px;margin:0;display:grid;place-items:center;overflow:hidden;box-shadow:0 5px 10px #50412226}
+.team-member--president .member-photo>span{font:400 5rem/1 var(--display);color:#314936}
+.team-member--president .member-photo img{width:100%;height:100%;object-fit:cover}
+.member-photo-note{font:700 .875rem/1.5 var(--body);color:#555743;margin:12px 0 0;text-align:center}
+.member-content{align-self:center;min-width:0}
+.team-member--president .member-number{display:block;color:#67501f;font-size:.875rem;letter-spacing:.12em;margin:0 0 20px}
+.team-member--president h3{font-size:clamp(2.2rem,4.2vw,3.5rem);line-height:1.05;color:#1d2e24;margin:0 0 14px}
+.team-member--president .member-role{display:inline-block;padding:8px 15px;border:1px solid #8e7b50;background:#edd69c;color:#3c3d25;font:900 1rem/1.3 var(--body);margin:0 0 24px}
+.member-message{font:600 1rem/1.8 var(--body);color:#384337;max-width:450px;margin:0 0 25px}
+.member-socials{display:flex;flex-wrap:wrap;gap:12px}
+.member-socials a{display:inline-flex;align-items:center;gap:12px;min-height:44px;padding:10px 16px;background:#233c2b;color:#fff3d2;border:1px solid #5f724e;border-radius:4px;font:800 .9375rem/1.4 var(--body);text-decoration:none}
+.member-socials a:hover{background:#345338}.member-contact{display:inline-flex;align-items:center;min-height:44px;margin-top:16px;font:800 .9375rem/1.5 var(--body);color:#283d2c;text-underline-offset:4px}
+.team-roster-note{max-width:1100px;margin:25px auto 0}
+
+/* A compact contact desk for sponsors, communities, and participants. */
+.contact-main{background:var(--reading-wash),var(--atlas);background-size:cover;color:#1d2e24;padding:155px max(6%,calc((100% - 1200px)/2)) 90px}
+.contact-hero{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center;margin-bottom:70px}
+.contact-intro h1{font:400 clamp(3.5rem,6vw,5.7rem)/1.03 var(--display);margin:0 0 25px;color:#1d2e24}
+.contact-intro>p{font:600 1.0625rem/1.85 var(--body);color:#384337;max-width:500px;margin:0}
+.contact-desk{position:relative;padding:34px;background:#fff2d5;border:5px double #9a8050;border-radius:4px;box-shadow:0 10px 22px #493c2120}
+.contact-desk>img{display:block;width:115px;height:110px;object-fit:contain;margin:0 0 22px}
+.contact-desk h2{font:400 2.2rem/1.1 var(--display);color:#1d2e24;margin:0 0 10px}
+.contact-desk>p{color:#504b35;font-size:1rem;line-height:1.6;margin:0 0 23px}
+.contact-methods{font-style:normal;display:grid;gap:19px}
+.contact-methods>div{padding-top:16px;border-top:1px solid #b9ab88}
+.contact-methods span{display:block;font:900 .75rem/1.6 var(--body);letter-spacing:.1em;color:#50452b;margin-bottom:6px}
+.contact-methods a{color:#243b28;font:800 1rem/1.6 var(--body);overflow-wrap:anywhere;text-decoration:underline;text-underline-offset:4px;display:inline-block;min-height:30px}
+.contact-routes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.contact-route{display:flex;flex-direction:column;padding:27px 24px;background:#fff5df;border:1px solid #b4a17a;border-radius:4px;min-width:0}
+.contact-route>span{font:900 .8125rem/1.5 var(--body);letter-spacing:.1em;color:#63502d;margin-bottom:16px}
+.contact-route h2{font:400 1.8rem/1.2 var(--display);margin:0 0 15px;color:#1d2e24}
+.contact-route p{font:600 1rem/1.8 var(--body);color:#384337;margin:0 0 24px}
+.contact-route a{font:900 .9375rem/1.6 var(--body);color:#26412d;margin-top:auto;min-height:44px;display:flex;align-items:center;gap:12px;text-underline-offset:4px}
+
+/* Contact information is real text and usable links on every page. */
+.site-footer{display:block!important;padding:38px max(6%,24px) 30px!important}
+.footer-top,.footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:25px;max-width:1200px;margin:auto}
+.footer-links{display:flex;flex-wrap:wrap;gap:10px 25px;align-items:center}
+.footer-links a{color:#fff0cf;min-height:44px;display:inline-flex;align-items:center;font:800 .9375rem/1.4 var(--body);text-decoration:none}
+.footer-links a:hover{text-decoration:underline;text-underline-offset:4px}
+.footer-contact{max-width:1200px;margin:20px auto 24px;padding:20px 0;border-block:1px solid #e2d1a33b;display:flex;flex-wrap:wrap;align-items:center;gap:16px 30px;font-style:normal}
+.footer-contact>span{font:800 .9375rem/1.5 var(--body);color:#f5e6c5}
+.footer-contact a{color:#fff3d8;font:700 .9375rem/1.6 var(--body);text-underline-offset:4px;overflow-wrap:anywhere;min-height:30px}
+.footer-bottom{align-items:flex-start}.footer-bottom>span{font-size:.875rem;line-height:1.6;color:#eee0bd;flex-shrink:0}.footer-bottom p{font-size:.875rem;line-height:1.7;color:#e0d1ad;margin:0;max-width:550px}.footer-bottom a{color:inherit;text-underline-offset:3px}
+
+/* The planned window is explicit; Unstop links appear only when supplied. */
+.registration-window{display:flex;flex-direction:column;gap:7px;padding:16px 0;margin:22px 0;border-block:1px solid #a69a7a}
+.registration-window span{font:900 .8125rem/1.5 var(--body);letter-spacing:.07em;color:#50452b}.registration-window strong{font:800 1.0625rem/1.5 var(--body);color:#1d2e24}
+.registration-options{display:grid;gap:14px;margin:0 0 20px}
+.registration-option{padding:19px;background:#fff6e2;border:1px solid #b5a580;border-radius:4px}
+.registration-option h3{font:400 1.5rem/1.2 var(--display);color:#1d2e24;margin:0 0 7px}
+.registration-option>p{font:600 .9375rem/1.6 var(--body);color:#384337;margin:0 0 11px}
+.registration-waiting{font:700 .9375rem/1.6 var(--body);color:#50452b}
+.registration-option .button{font-size:1rem;min-height:48px;width:100%;margin-top:4px}
+#registration-dialog{max-height:calc(100dvh - 35px);overflow:auto}
+.registration-note{font:600 .9375rem/1.7 var(--body);color:#384337!important}.registration-note a{color:#1d2e24;font-weight:800;text-underline-offset:3px}
+.registration-window-inline{color:inherit}
+@media(max-width:1000px){.contact-hero{gap:30px}.contact-routes{gap:15px}.contact-route{padding:24px 20px}.contact-route h2{font-size:1.6rem}.team-member.team-member--president{gap:28px;grid-template-columns:.75fr 1fr}}
+@media(max-width:760px),(max-width:1024px) and (pointer:coarse){
+ .site-header .brand{background:none;border:0;box-shadow:none;padding:0;min-height:54px}
+ .home-page .legacy-years{display:flex;width:100%;gap:12px}.legacy-years .legacy-year{flex:1;min-width:0;padding:15px 12px}.legacy-year b{font-size:2rem}
+ .archive-page .edition-mark{padding-right:13px;gap:5px}.edition-mark small{font-size:.75rem;letter-spacing:.03em}.edition-mark b{font-size:1.5rem}
+ .theme-neural .competition-intro h1{font-size:clamp(3.4rem,15vw,5.3rem);line-height:.98}
+ .team-grid{max-width:480px;grid-template-columns:minmax(0,1fr)}.team-member.team-member--president{display:block;padding:24px 22px;min-height:0}.team-member--president .member-photo{max-width:290px;margin:auto;max-height:340px}.team-member--president .member-content{margin-top:30px}.team-member--president h3{font-size:2.25rem}.team-member--president .member-number{font-size:.8125rem}
+ .contact-main{padding:calc(var(--header-height,60px) + 48px + var(--safe-top)) var(--phone-gutter) 55px;background-size:950px auto}
+ .contact-hero{display:block;margin-bottom:30px}.contact-intro h1{font-size:clamp(2.9rem,12.5vw,4.7rem)}.contact-intro>p{font-size:1rem}.contact-desk{margin-top:35px;padding:24px 20px}.contact-desk>img{width:90px;height:90px;margin-bottom:18px}.contact-desk h2{font-size:1.9rem}.contact-routes{grid-template-columns:minmax(0,1fr);gap:18px}.contact-route h2{font-size:1.75rem}
+ .site-footer{padding:32px var(--phone-gutter) calc(var(--dock-height,65px) + var(--safe-bottom) + 35px)!important}
+ .footer-top,.footer-bottom{align-items:flex-start;flex-direction:column;gap:16px}.footer-links{gap:6px 18px}.footer-contact{display:grid;gap:12px;margin:16px 0 23px;padding:18px 0}.footer-contact a{font-size:.9375rem;min-height:30px}.footer-bottom p{font-size:.8125rem}
+}
+@media(prefers-reduced-motion:reduce){.site-header .brand>span,.site-header .brand b{transition:none}}

@@ -5,7 +5,7 @@ The E-Cell hackathon and business pitch competition website, built around a clas
 ## Pages and hosting
 
 - `/`: Elevate village, competition previews, field guide, sponsor and community partner roster, and closing invitation.
-- `/neural-nexus/`: Neuralnix Hackathon, with its own laboratory hero, mission, preparation guide, FAQ, and registration status.
+- `/neural-nexus/`: Neural Nexus Hackathon, with its own laboratory hero, mission, preparation guide, FAQ, and registration status.
 - `/startush-smackdown/`: Startup Smackdown Business Pitching Competition, with its own arena hero, mission, preparation guide, FAQ, and registration status.
 - `/team/`: Our Team, with E-Cell branding, clan roster cards, and clearly labeled placeholders until confirmed names, roles, and photos are supplied.
 - `/past-editions/`: Elevate 2024 and 2025, each with judges, special guests/mentors, and a photo album with an enlarged viewer.
@@ -98,7 +98,7 @@ This is a 2.5D isometric scene in Three.js: original pre-rendered building and t
 
 ## Prize pools and section palette
 
-Elevate 3.0 has a ₹1,00,000 prize pool. Neuralnix Hackathon totals ₹60,000 (₹30,000 / ₹20,000 / ₹10,000 for first / second / third); Startup Smackdown totals ₹40,000 (₹20,000 / ₹12,000 / ₹8,000). The organizer's latest 60/40 split is used, interpreting the final hackathon award as third place. Amounts are static, accessible HTML in the homepage and each competition page. Keep hero labels, reward sections, arena cards, and FAQs in sync when changing them.
+Elevate 3.0 has a ₹1,00,000 prize pool. Neural Nexus Hackathon totals ₹60,000 (₹30,000 / ₹20,000 / ₹10,000 for first / second / third); Startup Smackdown totals ₹40,000 (₹20,000 / ₹12,000 / ₹8,000). The organizer's latest 60/40 split is used, interpreting the final hackathon award as third place. Amounts are static, accessible HTML in the homepage and each competition page. Keep hero labels, reward sections, arena cards, and FAQs in sync when changing them.
 
 `dist/stronghold.css` supplies the illustrated parchment layouts, treasure-room rewards, clan-hall sponsors, field-guide frames, lab notebook, pitch playbook, organizer desk, and archive albums. The renderer stops at the treasury section. The village and hidden mobile toolbar are preserved.
 
@@ -152,7 +152,7 @@ Edit the event copy in `dist/index.html` and the competition pages in `dist/neur
 
 Essential information is semantic HTML. Navigation links provide alternatives to map controls. The page includes a skip link, visible focus, native dialogs/disclosures, inactive chapter focus isolation, reduced-motion support, a desktop animation pause control, an illustrated graphics fallback, and a conventional layout on short viewports. Buildings are batched and troops instanced. Animation targets 60 fps with stable deadline-based scheduling and capped pixel density; rendering stops when hidden and runs on demand when animation is paused.
 
-Checks validate all six static HTML routes, local assets, navigation and anchor references, metadata, deployment-domain replacement, partner, team, and previous-edition data, equal competition buttons, CSS structure, JavaScript syntax, sprite anchors, building types, unique wall positions, camera destinations at desktop/tablet/mobile dimensions, camera continuity, tower and camp population, patrol clearance, animation transforms, and shader/uniform wiring. Mobile checks additionally cover responsive image files, eight phone/tablet portrait and landscape sizes, rendering budgets, centered arena cameras, data-saving preferences, and gesture direction locking. These are source and scene-data checks; browser interaction, visual layout, and GPU shader execution tests have not been run.
+Checks validate all seven static HTML routes, local assets, navigation and anchor references, metadata, deployment-domain replacement, partner, team, and previous-edition data, equal competition buttons, CSS structure, JavaScript syntax, sprite anchors, building types, unique wall positions, camera destinations at desktop/tablet/mobile dimensions, camera continuity, tower and camp population, patrol clearance, animation transforms, and shader/uniform wiring. Mobile checks additionally cover responsive image files, eight phone/tablet portrait and landscape sizes, rendering budgets, centered arena cameras, data-saving preferences, and gesture direction locking. These are source and scene-data checks; browser interaction, visual layout, and GPU shader execution tests have not been run.
 
 ## Credits
 
@@ -163,8 +163,16 @@ Supplied logos belong to the event organizers. Clash of Clans assets remain the 
 
 ## Illustrated chapter redesign
 
-The non-village sections use parchment map artwork, a treasure-vault illustration, and a clan-hall environment, with distinct layouts for the hackathon lab notebook, business pitch playbook, organizers and historical album. Display names follow the latest organizer correction: Neuralnix Hackathon and Startup Smackdown. Existing `/neural-nexus/` and `/startush-smackdown/` routes stay stable for incoming links. Prize amounts are unchanged. Real team members, sponsors, judges and event photos remain clearly pending until supplied.
+The non-village sections use parchment map artwork, a treasure-vault illustration, and a clan-hall environment, with distinct layouts for the hackathon lab notebook, business pitch playbook, organizers and historical album. Display names follow the latest organizer correction: Neural Nexus Hackathon and Startup Smackdown. Existing `/neural-nexus/` and `/startush-smackdown/` routes stay stable for incoming links. Prize amounts are unchanged. Real team members, sponsors, judges and event photos remain clearly pending until supplied.
 
 ## Text readability
 
 Map-backed reading sections use an ivory wash over the illustration, and the treasury and team hero prose use opaque paper panels. Dark forest text, 14 px section labels, stronger body weights, and dark lettering on gold buttons keep content distinct from the artwork. The final rules in `dist/stronghold.css` also protect dialogs, archive captions, and competition briefings. No additional images or animation were added for this contrast pass.
+
+## Organizers, contact and registration
+
+`/contact/` lists the organizer’s confirmed email and phone, with direct email links for sponsors, community partners and participants. The same details appear in every main-page footer. Mandar Shinde is listed as President in the featured team profile; his photo, LinkedIn and Instagram remain pending in `dist/content/team.json`. Other confirmed members can be appended.
+
+The registration window is planned for 12 September–1 December 2026. `dist/content/registration.json` stores the dates and the two pending Unstop URLs. Setting a valid HTTPS URL under `links.neural` or `links.startup` exposes that competition’s registration button. Never substitute a guessed link. Keep the static announcement text aligned if the planned dates change.
+
+The header has no strip or logo badge backing. Logo-adjacent text changes with the existing village/paper scroll state. Homepage years use clear numbered plaques; archive edition markers are quiet typography.

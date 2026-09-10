@@ -1,6 +1,6 @@
 import {setupEventUI} from './event-ui.js';
 setupEventUI(()=>null);
-document.querySelector('.dialog-return').addEventListener('click',()=>document.querySelector('#registration-dialog').close());
+
 function webUrl(value){if(typeof value!=='string'||!value.trim())return null;try{const url=new URL(value,location.origin);return ['https:','http:'].includes(url.protocol)?url.href:null;}catch{return null;}}
 const element=(tag,cls,text)=>{const node=document.createElement(tag);if(cls)node.className=cls;if(text)node.textContent=text;return node;};
 const photoDialog=document.querySelector('#photo-dialog'),photoImage=document.querySelector('#archive-photo-full');
