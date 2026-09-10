@@ -179,7 +179,7 @@ The header has no strip or logo badge backing. Logo-adjacent text changes with t
 
 The President portrait uses the organizer’s supplied photograph, resized without retouching or raster cropping into 400 px and 800 px WebP versions under `dist/assets/team/`. Both the static roster and data-driven profile include the image and supplied social links.
 
-The team roster has 18 slots, controlled by `slots` in `dist/content/team.json`. Only confirmed people belong in `members`; empty slots are clearly marked as profiles to be revealed. Every person uses the same compact card. The grid shows six columns on wide desktops, four/three on smaller desktops, and two on phones (including widths below 520 px). LinkedIn and Instagram use labeled 44 px icon links.
+The team roster has 18 slots, controlled by `slots` in `dist/content/team.json`. Only confirmed people belong in `members`; empty slots are clearly marked as profiles to be revealed. Every person uses the same compact card. The grid shows four columns on wide desktops, three on smaller desktops, and two on phones (including widths below 520 px). LinkedIn and Instagram use labeled 44 px icon links.
 
 
 The compact roster uses the existing council-frame artwork as a nine-slice timber-and-metal portrait border, with crimson nameplates and brass social controls. Pending portraits carry the supplied E-Cell crest. These decorative assets are shared across all 18 cards; no new imagery, animation loop or dependencies are needed.

@@ -365,7 +365,7 @@ dialog:not(#photo-dialog){background-image:linear-gradient(#f7edd9f5,#f7edd9f5),
 @media(prefers-reduced-motion:reduce){.site-header .brand>span,.site-header .brand b{transition:none}}
 
 /* Compact clan portraits: reuse the village's timber and metal artwork. */
-#team-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:auto;align-items:start;gap:30px 20px;max-width:1200px;width:100%;margin:0 auto}
+#team-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:auto;align-items:start;gap:36px 32px;max-width:1120px;width:100%;margin:0 auto}
 #team-grid .team-member{position:relative;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;grid-column:auto;width:100%;max-width:none;min-height:0;aspect-ratio:auto;margin:0;padding:0;background:none;border:0;border-radius:0;outline:0;box-shadow:none;filter:none;transform:none;text-align:center;gap:0}
 #team-grid .member-photo{position:relative;display:grid;place-items:center;width:100%;height:auto;aspect-ratio:1;max-width:none;margin:0;background:#27352e;background-clip:padding-box;border:18px solid transparent;border-image:url('/assets/ui/council-frame.webp') 220 245 stretch;border-radius:0;outline:0;box-shadow:0 7px 12px #40331f24;overflow:visible;flex-shrink:0}
 #team-grid .member-photo img{display:block;width:100%;height:100%;aspect-ratio:1;object-fit:cover;min-width:0;box-shadow:inset 0 0 12px #0c191b80}
@@ -383,8 +383,8 @@ dialog:not(#photo-dialog){background-image:linear-gradient(#f7edd9f5,#f7edd9f5),
 #team-grid .team-member--pending .member-photo{background:url('/assets/ecell-mark-160.webp') center/66% no-repeat,linear-gradient(#f7eacfbb,#e9d2a5bb),var(--atlas) center/400px;background-clip:padding-box}
 #team-grid .team-member--pending .member-photo>span{display:none}
 .team-roster-section .team-roster-heading{max-width:1200px}.team-roster-section .team-roster-note{max-width:1200px}
-@media(max-width:1180px){#team-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:28px 22px}}
-@media(max-width:900px){#team-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 20px}}
+@media(max-width:1100px){#team-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 28px}}
+@media(max-width:900px){#team-grid{gap:28px 24px}}
 @media(max-width:760px),(max-width:1024px) and (pointer:coarse){
  #team-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 14px;max-width:580px}
  #team-grid .member-photo{border-width:16px}

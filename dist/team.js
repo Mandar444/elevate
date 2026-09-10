@@ -14,7 +14,7 @@ function memberCard(member,index){
  const photo=webUrl(member?.photo);
  if(photo){
   const image=element('img');image.src=photo;image.alt=member.name+', '+(member.role||'E-Cell team member');image.width=member.photoWidth||400;image.height=member.photoHeight||400;image.loading='lazy';image.decoding='async';
-  if(Array.isArray(member.photoSources)){const sources=member.photoSources.filter(s=>webUrl(s?.src)&&Number.isInteger(s.width)&&s.width>0);if(sources.length){image.srcset=sources.map(s=>webUrl(s.src)+' '+s.width+'w').join(', ');image.sizes='(max-width: 760px) calc((100vw - 60px) / 2), (max-width: 1024px) 220px, 180px';}}
+  if(Array.isArray(member.photoSources)){const sources=member.photoSources.filter(s=>webUrl(s?.src)&&Number.isInteger(s.width)&&s.width>0);if(sources.length){image.srcset=sources.map(s=>webUrl(s.src)+' '+s.width+'w').join(', ');image.sizes='(max-width: 760px) calc((100vw - 60px) / 2), 260px';}}
   image.addEventListener('error',()=>{image.replaceWith(initials);portrait.setAttribute('aria-hidden','true');},{once:true});portrait.replaceChildren(image);portrait.removeAttribute('aria-hidden');
  }
  card.append(portrait);
