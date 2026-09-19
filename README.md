@@ -98,7 +98,7 @@ This is a 2.5D isometric scene in Three.js: original pre-rendered building and t
 
 ## Prize pools and section palette
 
-Elevate 3.0 has a ₹1,00,000 prize pool. Neural Nexus Hackathon totals ₹60,000 (₹30,000 / ₹20,000 / ₹10,000 for first / second / third); Startup Smackdown totals ₹40,000 (₹20,000 / ₹12,000 / ₹8,000). The organizer's latest 60/40 split is used, interpreting the final hackathon award as third place. Amounts are static, accessible HTML in the homepage and each competition page. Keep hero labels, reward sections, arena cards, and FAQs in sync when changing them.
+Elevate 3.0 has a ₹1,50,000 prize pool. Neural Nexus Hackathon totals ₹80,000 (₹40,000 / ₹25,000 / ₹15,000 for first / second / third); Startup Smackdown totals ₹70,000 (₹35,000 / ₹20,000 / ₹15,000). Amounts are static, accessible HTML in the homepage and each competition page. Keep hero labels, reward sections, arena cards, registration dialogs, and FAQs in sync when changing them.
 
 `dist/stronghold.css` supplies the illustrated parchment layouts, treasure-room rewards, clan-hall sponsors, field-guide frames, lab notebook, pitch playbook, organizer desk, and archive albums. The renderer stops at the treasury section. The village and hidden mobile toolbar are preserved.
 
